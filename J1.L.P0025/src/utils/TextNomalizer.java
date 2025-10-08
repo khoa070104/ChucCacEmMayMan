@@ -37,18 +37,28 @@ public class TextNomalizer {
     }
     
     public String nomalize(String text){
+        if(text == null || text.trim().isEmpty()){
+            return "";
+        }
+        
         text = text.toLowerCase();
         text = text.replaceAll("\\s+", " ");
         
+        // Fix dấu câu: thêm space sau dấu câu
         text = text.replaceAll("\\s*([,.:])\\s*", "$1 ");
-        text = text.replaceAll("\\s*\"\\s*", "\""); 
+        text = text.replaceAll("\\s*\"\\s*", "\" ");
+        
+        // Xử lý viết hoa sau dấu chấm
         text = xuLiSauDauCham(text);
         text = text.trim();
+        
+        // Viết hoa chữ cái đầu
         if(!text.isEmpty()){
             text = text.substring(0,1).toUpperCase()+text.substring(1);
         }
         
-        if(text.endsWith(".") != true){
+        // Đảm bảo kết thúc bằng dấu chấm
+        if(!text.endsWith(".")){
             text += ".";
         }
         
@@ -60,21 +70,22 @@ public class TextNomalizer {
             FileWriter fw = new FileWriter(new File(fileName));
             fw.write(content);
             fw.close();
+            System.out.println("File written successfully: " + fileName);
         } catch (IOException ex) {
+            System.out.println("Error writing file: " + ex.getMessage());
         }
-        
     }
 
     private String xuLiSauDauCham(String text) {
         String[] sentences = text.split("\\.");
-
         String res = "";
         
         for (String sentence : sentences) {
-            sentence = sentence.trim(); //Anh
-            if(sentence.isEmpty() == false){
-               sentence = sentence.substring(0, 1).toUpperCase()+sentence.substring(1);
-               res +=sentence+". ";
+            sentence = sentence.trim();
+            if(!sentence.isEmpty()){
+                // Viết hoa chữ cái đầu của câu
+                sentence = sentence.substring(0, 1).toUpperCase() + sentence.substring(1);
+                res += sentence + ". ";
             }
         }
         return res.trim();
@@ -83,8 +94,19 @@ public class TextNomalizer {
     public static void main(String[] args) {
         TextNomalizer test = new TextNomalizer();
         
+        System.out.println("Reading input file...");
         String content = test.readFile("input.txt");
+        
+        if(content.isEmpty()){
+            System.out.println("Input file is empty or not found!");
+            return;
+        }
+        
+        System.out.println("Original text: " + content);
+        System.out.println("Normalizing text...");
         content = test.nomalize(content);
+        System.out.println("Normalized text: " + content);
+        
         test.writeFile("output.txt", content);
     }
      

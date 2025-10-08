@@ -49,7 +49,10 @@ public class Student {
     public void setCourse(String course) {
         this.course = course;
     }
-    
-    
-    
+
+    @Override
+    public String toString() {
+        return String.format("%-10s | %-20s | %-10s | %-15s", 
+            id, name, semester, course);
+    }
 }

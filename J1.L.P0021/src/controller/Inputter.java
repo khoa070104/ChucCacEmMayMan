@@ -5,10 +5,11 @@
 package controller;
 
 import java.util.Scanner;
+import common.Constants;
+import common.Messages;
 
 public class Inputter { 
     
-    public static final String YES_NO_VALIDATE = "^(Y|N)$";
     static Scanner sc = new Scanner(System.in);
 
     // Bắt buộc nhập - Nhập ko đúng thì bắt nhập lại
@@ -18,13 +19,32 @@ public class Inputter {
         return input;
     }
     
+    public static String inputRequired(String label){
+        String input;
+        do{
+            System.out.print(label);
+            input = sc.nextLine();
+            if(input.trim().isEmpty()){
+                System.out.println("Input cannot be empty!");
+            }
+        } while(input.trim().isEmpty());
+        return input.trim();
+    }
+
     public static String inputRequired(String label, String regex){
         String input;
         do{
             System.out.print(label);
             input = sc.nextLine();
-        } while( !input.matches(regex));
-        return input;
+            if(input.trim().isEmpty()){
+                System.out.println("Input cannot be empty!");
+                continue;
+            }
+            if(!input.matches(regex)){
+                System.out.println(Messages.ERR_INVALID_INPUT);
+            }
+        } while(input.trim().isEmpty() || !input.matches(regex));
+        return input.trim();
     }
 
     // Nhập đúng thì trả về giá trị vừa nhập , còn bỏ trống thì trả về chuỗi rỗng
