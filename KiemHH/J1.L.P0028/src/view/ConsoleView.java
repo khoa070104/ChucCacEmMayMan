@@ -35,8 +35,10 @@ public class ConsoleView {
         System.out.println(LINE);
         System.out.printf("%-7s | %-25s | %-10s | %-30s%n", "Code", "Customer Name", "Phone", "Email");
         System.out.println(LINE);
-        customers.forEach(customer -> System.out.printf("%-7s | %-25s | %-10s | %-30s%n",
-                customer.getCode(), customer.getName(), customer.getPhoneNumber(), customer.getEmail()));
+        for (Customer customer : customers) {
+            System.out.printf("%-7s | %-25s | %-10s | %-30s%n", customer.getCode(),
+                    customer.getName(), customer.getPhoneNumber(), customer.getEmail());
+        }
         System.out.println(LINE);
     }
 

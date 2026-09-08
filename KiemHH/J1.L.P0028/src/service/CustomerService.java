@@ -2,29 +2,28 @@ package service;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Locale;
 import model.Customer;
-import repository.BinaryRepository;
+import repository.CustomerRepository;
 import util.AppLogger;
 
 public class CustomerService {
-    private static final String DATA_FILE = "customers.dat";
-    private final BinaryRepository<Customer> repository = new BinaryRepository<>(DATA_FILE);
-    private final List<Customer> customers;
+    private final CustomerRepository repository;
+    private final ArrayList<Customer> customers;
 
     public CustomerService() {
+        repository = new CustomerRepository();
         customers = loadData();
     }
 
-    private List<Customer> loadData() {
+    private ArrayList<Customer> loadData() {
         try {
             return repository.load();
-        } catch (IOException | ClassNotFoundException exception) {
+        } catch (IOException exception) {
             AppLogger.log("Cannot load customer data", exception);
-            return new ArrayList<>();
+        } catch (ClassNotFoundException exception) {
+            AppLogger.log("Customer class cannot be found", exception);
         }
+        return new ArrayList<Customer>();
     }
 
     public boolean add(Customer customer) {
@@ -35,23 +34,39 @@ public class CustomerService {
 
     public Customer findByCode(String code) {
         if (code == null) return null;
-        return customers.stream()
-                .filter(customer -> customer.getCode().equalsIgnoreCase(code.trim()))
-                .findFirst().orElse(null);
+        for (Customer customer : customers) {
+            if (customer.getCode().equalsIgnoreCase(code.trim())) return customer;
+        }
+        return null;
     }
 
-    public List<Customer> searchByName(String keyword) {
-        String normalizedKeyword = keyword.toLowerCase(Locale.ROOT);
-        return customers.stream()
-                .filter(customer -> customer.getName().toLowerCase(Locale.ROOT).contains(normalizedKeyword))
-                .sorted(Comparator.comparing(Customer::getName, String.CASE_INSENSITIVE_ORDER))
-                .toList();
+    public ArrayList<Customer> searchByName(String keyword) {
+        ArrayList<Customer> results = new ArrayList<Customer>();
+        for (Customer customer : customers) {
+            if (customer.getName().toLowerCase().contains(keyword.toLowerCase())) {
+                results.add(customer);
+            }
+        }
+        sortByName(results);
+        return results;
     }
 
-    public List<Customer> getSortedCustomers() {
-        return customers.stream()
-                .sorted(Comparator.comparing(Customer::getName, String.CASE_INSENSITIVE_ORDER))
-                .toList();
+    public ArrayList<Customer> getSortedCustomers() {
+        ArrayList<Customer> results = new ArrayList<Customer>(customers);
+        sortByName(results);
+        return results;
+    }
+
+    private void sortByName(ArrayList<Customer> list) {
+        for (int first = 0; first < list.size() - 1; first++) {
+            for (int second = first + 1; second < list.size(); second++) {
+                if (list.get(first).getName().compareToIgnoreCase(list.get(second).getName()) > 0) {
+                    Customer temporary = list.get(first);
+                    list.set(first, list.get(second));
+                    list.set(second, temporary);
+                }
+            }
+        }
     }
 
     public void save() throws IOException {

@@ -2,7 +2,7 @@ package controller;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.List;
+import java.util.ArrayList;
 import model.Customer;
 import model.FeastMenu;
 import model.FeastOrder;
@@ -15,12 +15,20 @@ import util.Validator;
 import view.ConsoleView;
 
 public class FeastController {
-    private final InputReader input = new InputReader();
-    private final ConsoleView view = new ConsoleView();
-    private final CustomerService customerService = new CustomerService();
-    private final MenuService menuService = new MenuService("feastMenu.csv");
-    private final OrderService orderService = new OrderService();
+    private final InputReader input;
+    private final ConsoleView view;
+    private final CustomerService customerService;
+    private final MenuService menuService;
+    private final OrderService orderService;
     private boolean changed;
+
+    public FeastController() {
+        input = new InputReader();
+        view = new ConsoleView();
+        customerService = new CustomerService();
+        menuService = new MenuService("feastMenu.csv");
+        orderService = new OrderService();
+    }
 
     public void run() {
         boolean running = true;
@@ -28,16 +36,16 @@ public class FeastController {
             view.showMainMenu();
             int choice = input.readPositiveInt("Select an option: ");
             switch (choice) {
-                case 1 -> registerCustomers();
-                case 2 -> updateCustomers();
-                case 3 -> searchCustomers();
-                case 4 -> view.showMenus(menuService.getSortedMenus());
-                case 5 -> placeOrders();
-                case 6 -> updateOrders();
-                case 7 -> saveData();
-                case 8 -> displayLists();
-                case 9 -> running = !confirmQuit();
-                default -> System.out.println("Please select an option from 1 to 9.");
+                case 1: registerCustomers(); break;
+                case 2: updateCustomers(); break;
+                case 3: searchCustomers(); break;
+                case 4: view.showMenus(menuService.getSortedMenus()); break;
+                case 5: placeOrders(); break;
+                case 6: updateOrders(); break;
+                case 7: saveData(); break;
+                case 8: displayLists(); break;
+                case 9: running = !confirmQuit(); break;
+                default: System.out.println("Please select an option from 1 to 9.");
             }
         }
         System.out.println("Goodbye!");
@@ -45,15 +53,10 @@ public class FeastController {
 
     private void registerCustomers() {
         do {
-            String code = input.readRequired("Customer code: ", value -> Validator.isCustomerCode(value)
-                    && customerService.findByCode(value) == null,
-                    "Code must be unique and match C/G/K followed by four digits.").toUpperCase();
-            String name = input.readRequired("Customer name: ", Validator::isName,
-                    "Name must contain 2 to 25 characters.");
-            String phone = input.readRequired("Phone number: ", Validator::isPhoneNumber,
-                    "Enter a valid 10-digit Vietnamese mobile number.");
-            String email = input.readRequired("Email: ", Validator::isEmail,
-                    "Enter a valid email address.");
+            String code = readNewCustomerCode();
+            String name = readName("Customer name: ", false);
+            String phone = readPhone("Phone number: ", false);
+            String email = readEmail("Email: ", false);
             customerService.add(new Customer(code, name, phone, email));
             changed = true;
             System.out.println("Customer registered successfully.");
@@ -62,18 +65,14 @@ public class FeastController {
 
     private void updateCustomers() {
         do {
-            String code = input.readRequired("Customer code: ", value -> !value.isBlank(),
-                    "Customer code cannot be blank.");
+            String code = readNotBlank("Customer code: ", "Customer code cannot be blank.");
             Customer customer = customerService.findByCode(code);
             if (customer == null) {
                 System.out.println("This customer does not exist.");
             } else {
-                String name = input.readOptional("New name (blank to keep): ", Validator::isName,
-                        "Name must contain 2 to 25 characters.");
-                String phone = input.readOptional("New phone (blank to keep): ", Validator::isPhoneNumber,
-                        "Enter a valid 10-digit Vietnamese mobile number.");
-                String email = input.readOptional("New email (blank to keep): ", Validator::isEmail,
-                        "Enter a valid email address.");
+                String name = readName("New name (blank to keep): ", true);
+                String phone = readPhone("New phone (blank to keep): ", true);
+                String email = readEmail("New email (blank to keep): ", true);
                 if (!name.isEmpty()) customer.setName(name);
                 if (!phone.isEmpty()) customer.setPhoneNumber(phone);
                 if (!email.isEmpty()) customer.setEmail(email);
@@ -84,9 +83,8 @@ public class FeastController {
     }
 
     private void searchCustomers() {
-        String keyword = input.readRequired("Name or partial name: ", value -> !value.isBlank(),
-                "Search text cannot be blank.");
-        List<Customer> matches = customerService.searchByName(keyword);
+        String keyword = readNotBlank("Name or partial name: ", "Search text cannot be blank.");
+        ArrayList<Customer> matches = customerService.searchByName(keyword);
         if (matches.isEmpty()) {
             System.out.println("No one matches the search criteria!");
         } else {
@@ -101,12 +99,8 @@ public class FeastController {
             return;
         }
         do {
-            String customerCode = input.readRequired("Customer code: ",
-                    value -> customerService.findByCode(value) != null,
-                    "Customer code has not been registered.").toUpperCase();
-            String menuCode = input.readRequired("Set menu code: ",
-                    value -> menuService.findByCode(value) != null,
-                    "Set menu code does not exist.").toUpperCase();
+            String customerCode = readExistingCustomerCode();
+            String menuCode = readExistingMenuCode("Set menu code: ", false);
             int tables = input.readPositiveInt("Number of tables: ");
             LocalDate eventDate = input.readFutureDate("Event date (dd/MM/yyyy): ", false);
             FeastMenu menu = menuService.findByCode(menuCode);
@@ -134,39 +128,95 @@ public class FeastController {
             } else if (order.getEventDate().isBefore(LocalDate.now())) {
                 System.out.println("An order whose event date has passed cannot be updated.");
             } else {
-                String menuCode = input.readOptional("New set menu code (blank to keep): ",
-                        value -> menuService.findByCode(value) != null, "Set menu code does not exist.");
-                Integer tables = input.readOptionalPositiveInt("New number of tables (blank to keep): ");
-                LocalDate eventDate = input.readFutureDate("New event date dd/MM/yyyy (blank to keep): ", true);
-                String finalMenuCode = menuCode.isEmpty() ? order.getMenuCode() : menuCode.toUpperCase();
-                LocalDate finalEventDate = eventDate == null ? order.getEventDate() : eventDate;
-                if (orderService.isDuplicate(orderId, order.getCustomerCode(), finalMenuCode, finalEventDate)) {
-                    System.out.println("Duplicate data!");
-                } else {
-                    if (!menuCode.isEmpty()) {
-                        FeastMenu menu = menuService.findByCode(finalMenuCode);
-                        order.setMenuCode(finalMenuCode);
-                        order.setMenuPrice(menu.getPrice());
-                    }
-                    if (tables != null) order.setNumberOfTables(tables);
-                    if (eventDate != null) order.setEventDate(eventDate);
-                    changed = true;
-                    System.out.println("Order information updated successfully.");
-                }
+                updateExistingOrder(order);
             }
         } while (input.readYesNo("Update another order? (Y/N): "));
+    }
+
+    private void updateExistingOrder(FeastOrder order) {
+        String menuCode = readExistingMenuCode("New set menu code (blank to keep): ", true);
+        Integer tables = input.readOptionalPositiveInt("New number of tables (blank to keep): ");
+        LocalDate eventDate = input.readFutureDate("New event date dd/MM/yyyy (blank to keep): ", true);
+        String newMenuCode = menuCode.isEmpty() ? order.getMenuCode() : menuCode;
+        LocalDate newEventDate = eventDate == null ? order.getEventDate() : eventDate;
+        if (orderService.isDuplicate(order.getOrderId(), order.getCustomerCode(),
+                newMenuCode, newEventDate)) {
+            System.out.println("Duplicate data!");
+            return;
+        }
+        if (!menuCode.isEmpty()) {
+            order.setMenuCode(menuCode);
+            order.setMenuPrice(menuService.findByCode(menuCode).getPrice());
+        }
+        if (tables != null) order.setNumberOfTables(tables);
+        if (eventDate != null) order.setEventDate(eventDate);
+        changed = true;
+        System.out.println("Order information updated successfully.");
     }
 
     private void displayLists() {
         System.out.println("1. Display customers");
         System.out.println("2. Display orders");
         int choice = input.readPositiveInt("Select a list: ");
-        if (choice == 1) {
-            view.showCustomers(customerService.getSortedCustomers());
-        } else if (choice == 2) {
-            view.showOrders(orderService.getSortedOrders());
-        } else {
-            System.out.println("Please select 1 or 2.");
+        if (choice == 1) view.showCustomers(customerService.getSortedCustomers());
+        else if (choice == 2) view.showOrders(orderService.getSortedOrders());
+        else System.out.println("Please select 1 or 2.");
+    }
+
+    private String readNewCustomerCode() {
+        while (true) {
+            String code = input.readString("Customer code: ").toUpperCase();
+            if (Validator.isCustomerCode(code) && customerService.findByCode(code) == null) return code;
+            System.out.println("Code must be unique and match C/G/K followed by four digits.");
+        }
+    }
+
+    private String readExistingCustomerCode() {
+        while (true) {
+            String code = input.readString("Customer code: ").toUpperCase();
+            if (customerService.findByCode(code) != null) return code;
+            System.out.println("Customer code has not been registered.");
+        }
+    }
+
+    private String readExistingMenuCode(String prompt, boolean optional) {
+        while (true) {
+            String code = input.readString(prompt).toUpperCase();
+            if (optional && code.isEmpty()) return code;
+            if (menuService.findByCode(code) != null) return code;
+            System.out.println("Set menu code does not exist.");
+        }
+    }
+
+    private String readName(String prompt, boolean optional) {
+        while (true) {
+            String name = input.readString(prompt);
+            if ((optional && name.isEmpty()) || Validator.isName(name)) return name;
+            System.out.println("Name must contain 2 to 25 characters.");
+        }
+    }
+
+    private String readPhone(String prompt, boolean optional) {
+        while (true) {
+            String phone = input.readString(prompt);
+            if ((optional && phone.isEmpty()) || Validator.isPhoneNumber(phone)) return phone;
+            System.out.println("Enter a valid 10-digit Vietnamese mobile number.");
+        }
+    }
+
+    private String readEmail(String prompt, boolean optional) {
+        while (true) {
+            String email = input.readString(prompt);
+            if ((optional && email.isEmpty()) || Validator.isEmail(email)) return email;
+            System.out.println("Enter a valid email address.");
+        }
+    }
+
+    private String readNotBlank(String prompt, String errorMessage) {
+        while (true) {
+            String value = input.readString(prompt);
+            if (!value.isEmpty()) return value;
+            System.out.println(errorMessage);
         }
     }
 
@@ -187,9 +237,7 @@ public class FeastController {
 
     private boolean confirmQuit() {
         if (!changed) return true;
-        if (input.readYesNo("There are unsaved changes. Save before quitting? (Y/N): ")) {
-            return saveData();
-        }
+        if (input.readYesNo("There are unsaved changes. Save before quitting? (Y/N): ")) return saveData();
         return input.readYesNo("Discard unsaved changes and quit? (Y/N): ");
     }
 }

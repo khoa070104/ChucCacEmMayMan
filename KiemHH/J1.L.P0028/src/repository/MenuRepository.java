@@ -1,28 +1,28 @@
 package repository;
 
-import java.io.BufferedReader;
+import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 import model.FeastMenu;
 
 public class MenuRepository {
-    private final Path menuFile;
+    private final File menuFile;
 
     public MenuRepository(String fileName) {
-        menuFile = Path.of(fileName);
+        menuFile = new File(fileName);
     }
 
     public List<FeastMenu> load() throws IOException {
         List<FeastMenu> menus = new ArrayList<>();
-        try (BufferedReader reader = Files.newBufferedReader(menuFile, StandardCharsets.UTF_8)) {
-            String line;
+        Scanner fileScanner = null;
+        try {
+            fileScanner = new Scanner(menuFile, "UTF-8");
             boolean firstLine = true;
-            while ((line = reader.readLine()) != null) {
+            while (fileScanner.hasNextLine()) {
+                String line = fileScanner.nextLine();
                 if (firstLine) {
                     line = line.replace("\uFEFF", "");
                     firstLine = false;
@@ -34,6 +34,10 @@ public class MenuRepository {
                 String priceText = fields.get(2).replaceAll("[^0-9.]", "");
                 menus.add(new FeastMenu(fields.get(0).trim().toUpperCase(), fields.get(1).trim(),
                         new BigDecimal(priceText), fields.get(3).trim()));
+            }
+        } finally {
+            if (fileScanner != null) {
+                fileScanner.close();
             }
         }
         return menus;

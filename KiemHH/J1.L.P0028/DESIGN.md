@@ -11,10 +11,11 @@ flowchart LR
     FeastController --> CustomerService
     FeastController --> MenuService
     FeastController --> OrderService
-    CustomerService --> BinaryRepository
-    OrderService --> BinaryRepository
+    CustomerService --> CustomerRepository
+    OrderService --> OrderRepository
     MenuService --> MenuRepository
-    BinaryRepository --> DatFiles[(customers.dat / feast_order_service.dat)]
+    CustomerRepository --> DatFiles[(customers.dat / feast_order_service.dat)]
+    OrderRepository --> DatFiles
     MenuRepository --> CsvFile[(feastMenu.csv)]
 ```
 
