@@ -1,9 +1,10 @@
 package view;
 
-import common.Constants;
 import common.Messages;
-import java.util.Scanner;
+
 import model.Validator;
+
+import java.util.Scanner;
 
 /**
  * Xử lý nhập liệu từ bàn phím và validate dữ liệu nhập.
@@ -14,8 +15,7 @@ public final class Inputter {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private Inputter() {
-    }
+    private Inputter() {}
 
     /**
      * Nhập chuỗi theo nhãn hiển thị.
@@ -143,7 +143,8 @@ public final class Inputter {
                 System.out.println(Messages.ERR_NOT_ENOUGH_STOCK + maxQuantity);
                 inputValue = null;
             }
-        } while (inputValue == null || !Validator.isPositiveInteger(inputValue)
+        } while (inputValue == null
+                || !Validator.isPositiveInteger(inputValue)
                 || Integer.parseInt(inputValue) > maxQuantity);
         return Integer.parseInt(inputValue);
     }

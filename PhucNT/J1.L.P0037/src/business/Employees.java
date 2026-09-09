@@ -1,5 +1,10 @@
 package business;
 
+import model.Employee;
+
+import tools.Acceptable;
+import tools.Inputter;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,16 +12,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import model.Employee;
-import tools.Acceptable;
-import tools.Inputter;
 
 public class Employees extends ArrayList<Employee> {
 
-    private static final String TABLE_HEADER = "--------------------------------------------------------------------------------------\n"
-            + "ID    | Name            | Role      | Salary  | Days | Bonus  | Status\n"
-            + "--------------------------------------------------------------------------------------";
-    private static final String TABLE_FOOTER = "--------------------------------------------------------------------------------------";
+    private static final String TABLE_HEADER =
+            "--------------------------------------------------------------------------------------\n"
+                    + "ID    | Name            | Role      | Salary  | Days | Bonus  | Status\n"
+                    + "--------------------------------------------------------------------------------------";
+    private static final String TABLE_FOOTER =
+            "--------------------------------------------------------------------------------------";
 
     private final String pathFile;
     private boolean saved;
@@ -83,8 +87,11 @@ public class Employees extends ArrayList<Employee> {
                 Acceptable.normalizeStatus(status));
     }
 
-    public static boolean isValidEmployee(Employee employee, Employees existing,
-            boolean checkIdDuplicate, String excludeIdForDuplicate) {
+    public static boolean isValidEmployee(
+            Employee employee,
+            Employees existing,
+            boolean checkIdDuplicate,
+            String excludeIdForDuplicate) {
         if (employee == null) {
             return false;
         }
@@ -100,8 +107,9 @@ public class Employees extends ArrayList<Employee> {
         }
         if (checkIdDuplicate) {
             Employee found = existing.searchById(employee.getId());
-            if (found != null && (excludeIdForDuplicate == null
-                    || !found.getId().equalsIgnoreCase(excludeIdForDuplicate))) {
+            if (found != null
+                    && (excludeIdForDuplicate == null
+                            || !found.getId().equalsIgnoreCase(excludeIdForDuplicate))) {
                 return false;
             }
         }
@@ -146,7 +154,8 @@ public class Employees extends ArrayList<Employee> {
         clear();
         addAll(loaded);
         saved = true;
-        System.out.printf("Loaded %d employee(s) from file. Skipped %d invalid line(s).%n",
+        System.out.printf(
+                "Loaded %d employee(s) from file. Skipped %d invalid line(s).%n",
                 loaded.size(), skipped);
         return true;
     }
@@ -178,17 +187,22 @@ public class Employees extends ArrayList<Employee> {
         double baseSalary = Double.parseDouble(inputter.inputPositiveReal("Base salary: "));
         int workingDays = Integer.parseInt(inputter.inputWorkingDays("Working days [0-26]: "));
         double bonus = Double.parseDouble(inputter.inputNonNegativeReal("Bonus: "));
-        String status = Acceptable.normalizeStatus(
-                inputter.inputAndLoop("Status [active/inactive]: ", Acceptable.STATUS_VALID));
+        String status =
+                Acceptable.normalizeStatus(
+                        inputter.inputAndLoop(
+                                "Status [active/inactive]: ", Acceptable.STATUS_VALID));
 
-        Employee employee = new Employee(id.toUpperCase(), name, role, baseSalary, workingDays, bonus, status);
+        Employee employee =
+                new Employee(id.toUpperCase(), name, role, baseSalary, workingDays, bonus, status);
         add(employee);
         saved = false;
         System.out.println("Employee added successfully!");
     }
 
     public void updateEmployee(Inputter inputter) {
-        String id = inputter.inputAndLoop("Enter Employee ID to update: ", Acceptable.EMPLOYEE_ID_VALID);
+        String id =
+                inputter.inputAndLoop(
+                        "Enter Employee ID to update: ", Acceptable.EMPLOYEE_ID_VALID);
         Employee employee = searchById(id);
         if (employee == null) {
             System.out.println("Employee not found.");
@@ -199,8 +213,10 @@ public class Employees extends ArrayList<Employee> {
         showEmployeeDetail(employee);
 
         String role = inputter.inputOptionalRole();
-        String baseSalaryStr = inputter.inputOptionalPositiveReal("New base salary (blank to keep): ");
-        String workingDaysStr = inputter.inputOptionalWorkingDays("New working days (blank to keep): ");
+        String baseSalaryStr =
+                inputter.inputOptionalPositiveReal("New base salary (blank to keep): ");
+        String workingDaysStr =
+                inputter.inputOptionalWorkingDays("New working days (blank to keep): ");
         String bonusStr = inputter.inputOptionalNonNegativeReal("New bonus (blank to keep): ");
         String status = inputter.inputOptionalStatus();
 
@@ -225,7 +241,9 @@ public class Employees extends ArrayList<Employee> {
     }
 
     public void removeEmployee(Inputter inputter) {
-        String id = inputter.inputAndLoop("Enter Employee ID to remove: ", Acceptable.EMPLOYEE_ID_VALID);
+        String id =
+                inputter.inputAndLoop(
+                        "Enter Employee ID to remove: ", Acceptable.EMPLOYEE_ID_VALID);
         Employee employee = searchById(id);
         if (employee == null) {
             System.out.println("Employee not found.");
@@ -233,7 +251,8 @@ public class Employees extends ArrayList<Employee> {
         }
 
         showEmployeeDetail(employee);
-        String confirm = inputter.inputYesNo("Are you sure you want to remove this employee? (Y/N): ");
+        String confirm =
+                inputter.inputYesNo("Are you sure you want to remove this employee? (Y/N): ");
         if (confirm.equals("Y")) {
             remove(employee);
             saved = false;
@@ -247,56 +266,62 @@ public class Employees extends ArrayList<Employee> {
         List<Employee> result = new ArrayList<>();
 
         switch (option) {
-            case "1": {
-                String id = inputter.inputAndLoop("Enter Employee ID: ", Acceptable.EMPLOYEE_ID_VALID);
-                Employee employee = searchById(id);
-                if (employee != null) {
-                    result.add(employee);
-                }
-                break;
-            }
-            case "2": {
-                String keyword = inputter.getString("Enter name or partial name: ");
-                if (keyword.isEmpty()) {
-                    System.out.println("Name cannot be empty.");
-                    return;
-                }
-                String lower = keyword.toLowerCase();
-                for (Employee e : this) {
-                    if (e.getName().toLowerCase().contains(lower)) {
-                        result.add(e);
+            case "1":
+                {
+                    String id =
+                            inputter.inputAndLoop(
+                                    "Enter Employee ID: ", Acceptable.EMPLOYEE_ID_VALID);
+                    Employee employee = searchById(id);
+                    if (employee != null) {
+                        result.add(employee);
                     }
+                    break;
                 }
-                break;
-            }
-            case "3": {
-                String roleInput = inputter.getString("Enter role: ");
-                if (!Acceptable.isValidRole(roleInput)) {
-                    System.out.println("Invalid role.");
-                    return;
-                }
-                String role = Acceptable.normalizeRole(roleInput);
-                for (Employee e : this) {
-                    if (e.getRole().equalsIgnoreCase(role)) {
-                        result.add(e);
+            case "2":
+                {
+                    String keyword = inputter.getString("Enter name or partial name: ");
+                    if (keyword.isEmpty()) {
+                        System.out.println("Name cannot be empty.");
+                        return;
                     }
-                }
-                break;
-            }
-            case "4": {
-                String statusInput = inputter.getString("Enter status [active/inactive]: ");
-                if (!Acceptable.isValid(statusInput, Acceptable.STATUS_VALID)) {
-                    System.out.println("Invalid status.");
-                    return;
-                }
-                String status = Acceptable.normalizeStatus(statusInput);
-                for (Employee e : this) {
-                    if (e.getStatus().equalsIgnoreCase(status)) {
-                        result.add(e);
+                    String lower = keyword.toLowerCase();
+                    for (Employee e : this) {
+                        if (e.getName().toLowerCase().contains(lower)) {
+                            result.add(e);
+                        }
                     }
+                    break;
                 }
-                break;
-            }
+            case "3":
+                {
+                    String roleInput = inputter.getString("Enter role: ");
+                    if (!Acceptable.isValidRole(roleInput)) {
+                        System.out.println("Invalid role.");
+                        return;
+                    }
+                    String role = Acceptable.normalizeRole(roleInput);
+                    for (Employee e : this) {
+                        if (e.getRole().equalsIgnoreCase(role)) {
+                            result.add(e);
+                        }
+                    }
+                    break;
+                }
+            case "4":
+                {
+                    String statusInput = inputter.getString("Enter status [active/inactive]: ");
+                    if (!Acceptable.isValid(statusInput, Acceptable.STATUS_VALID)) {
+                        System.out.println("Invalid status.");
+                        return;
+                    }
+                    String status = Acceptable.normalizeStatus(statusInput);
+                    for (Employee e : this) {
+                        if (e.getStatus().equalsIgnoreCase(status)) {
+                            result.add(e);
+                        }
+                    }
+                    break;
+                }
             default:
                 System.out.println("Invalid search option.");
                 return;

@@ -3,7 +3,8 @@ package model;
 public class EastAsiaCountries extends Country {
     private String countryTerrain;
 
-    public EastAsiaCountries(String countryCode, String countryName, float totalArea, String countryTerrain) {
+    public EastAsiaCountries(
+            String countryCode, String countryName, float totalArea, String countryTerrain) {
         super(countryCode, countryName, totalArea);
         this.countryTerrain = countryTerrain;
     }
@@ -18,7 +19,8 @@ public class EastAsiaCountries extends Country {
 
     @Override
     public void display() {
-        System.out.printf("%-3s | %-15s | %-10.1f | %-10s\n", 
-            countryCode, countryName, totalArea, countryTerrain);
+        System.out.printf(
+                "%-3s | %-15s | %-10.1f | %-10s\n",
+                countryCode, countryName, totalArea, countryTerrain);
     }
 }

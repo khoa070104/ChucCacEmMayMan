@@ -34,11 +34,26 @@ public class FresherCandidate extends Candidate {
      * @param graduationRank xếp loại tốt nghiệp
      * @param education trường đại học
      */
-    public FresherCandidate(String candidateId, String firstName, String lastName,
-            int birthDate, String address, String phone, String email,
-            int graduationDate, String graduationRank, String education) {
-        super(candidateId, firstName, lastName, birthDate, address, phone,
-                email, Constants.TYPE_FRESHER);
+    public FresherCandidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
+            int graduationDate,
+            String graduationRank,
+            String education) {
+        super(
+                candidateId,
+                firstName,
+                lastName,
+                birthDate,
+                address,
+                phone,
+                email,
+                Constants.TYPE_FRESHER);
         this.graduationDate = graduationDate;
         this.graduationRank = graduationRank;
         this.education = education;
@@ -76,7 +91,8 @@ public class FresherCandidate extends Candidate {
     @Override
     public String toString() {
         return super.toString()
-                + String.format(" | Grad: %d | Rank: %s | Education: %s",
+                + String.format(
+                        " | Grad: %d | Rank: %s | Education: %s",
                         graduationDate, graduationRank, education);
     }
 }

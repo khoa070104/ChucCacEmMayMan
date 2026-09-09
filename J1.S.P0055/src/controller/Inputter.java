@@ -1,8 +1,9 @@
 package controller;
 
-import java.util.Scanner;
 import common.Constants;
 import common.Messages;
+
+import java.util.Scanner;
 
 public class Inputter {
     static Scanner sc = new Scanner(System.in);
@@ -12,7 +13,7 @@ public class Inputter {
         String input = sc.nextLine();
         return input;
     }
-    
+
     public static String inputRequired(String label) {
         String input;
         do {

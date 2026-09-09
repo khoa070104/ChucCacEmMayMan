@@ -1,12 +1,13 @@
 package DataObject;
 
+import Entity.FeastOrder;
+
+import Utilities.AppLogger;
+
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import Entity.FeastOrder;
-import DataObject.OrderRepository;
-import Utilities.AppLogger;
 
 public class OrderService {
     private final OrderRepository repository;
@@ -28,15 +29,20 @@ public class OrderService {
         return new ArrayList<FeastOrder>();
     }
 
-    public FeastOrder create(String customerCode, String menuCode, int numberOfTables,
-            LocalDate eventDate, BigDecimal menuPrice) {
+    public FeastOrder create(
+            String customerCode,
+            String menuCode,
+            int numberOfTables,
+            LocalDate eventDate,
+            BigDecimal menuPrice) {
         if (isDuplicate(0, customerCode, menuCode, eventDate)) return null;
         int nextId = 1;
         for (FeastOrder existingOrder : orders) {
             if (existingOrder.getOrderId() >= nextId) nextId = existingOrder.getOrderId() + 1;
         }
-        FeastOrder order = new FeastOrder(nextId, customerCode, menuCode,
-                numberOfTables, eventDate, menuPrice);
+        FeastOrder order =
+                new FeastOrder(
+                        nextId, customerCode, menuCode, numberOfTables, eventDate, menuPrice);
         orders.add(order);
         return order;
     }
@@ -48,8 +54,8 @@ public class OrderService {
         return null;
     }
 
-    public boolean isDuplicate(int excludedOrderId, String customerCode,
-            String menuCode, LocalDate eventDate) {
+    public boolean isDuplicate(
+            int excludedOrderId, String customerCode, String menuCode, LocalDate eventDate) {
         for (FeastOrder order : orders) {
             if (order.getOrderId() != excludedOrderId
                     && order.getCustomerCode().equalsIgnoreCase(customerCode)

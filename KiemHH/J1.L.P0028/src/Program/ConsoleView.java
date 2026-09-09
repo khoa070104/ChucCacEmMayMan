@@ -1,16 +1,19 @@
 package Program;
 
+import Entity.Customer;
+import Entity.FeastMenu;
+import Entity.FeastOrder;
+
+import Utilities.InputReader;
+
 import java.math.BigDecimal;
 import java.text.NumberFormat;
 import java.util.List;
 import java.util.Locale;
-import Entity.Customer;
-import Entity.FeastMenu;
-import Entity.FeastOrder;
-import Utilities.InputReader;
 
 public class ConsoleView {
-    private static final String LINE = "--------------------------------------------------------------------------------";
+    private static final String LINE =
+            "--------------------------------------------------------------------------------";
     private final NumberFormat moneyFormat = NumberFormat.getIntegerInstance(Locale.US);
 
     public void showMainMenu() {
@@ -33,11 +36,16 @@ public class ConsoleView {
         }
         System.out.println("Customers information:");
         System.out.println(LINE);
-        System.out.printf("%-7s | %-25s | %-10s | %-30s%n", "Code", "Customer Name", "Phone", "Email");
+        System.out.printf(
+                "%-7s | %-25s | %-10s | %-30s%n", "Code", "Customer Name", "Phone", "Email");
         System.out.println(LINE);
         for (Customer customer : customers) {
-            System.out.printf("%-7s | %-25s | %-10s | %-30s%n", customer.getCode(),
-                    customer.getName(), customer.getPhoneNumber(), customer.getEmail());
+            System.out.printf(
+                    "%-7s | %-25s | %-10s | %-30s%n",
+                    customer.getCode(),
+                    customer.getName(),
+                    customer.getPhoneNumber(),
+                    customer.getEmail());
         }
         System.out.println(LINE);
     }
@@ -68,7 +76,8 @@ public class ConsoleView {
         System.out.println(LINE);
         System.out.printf("Code of Set Menu : %s%n", order.getMenuCode());
         System.out.printf("Set menu name    : %s%n", menu.getName());
-        System.out.printf("Event date       : %s%n", order.getEventDate().format(InputReader.DATE_FORMAT));
+        System.out.printf(
+                "Event date       : %s%n", order.getEventDate().format(InputReader.DATE_FORMAT));
         System.out.printf("Number of tables : %d%n", order.getNumberOfTables());
         System.out.printf("Price            : %s Vnd%n", formatMoney(order.getMenuPrice()));
         System.out.printf("Ingredients      : %s%n", menu.getIngredients());
@@ -83,14 +92,20 @@ public class ConsoleView {
             return;
         }
         System.out.println(LINE);
-        System.out.printf("%-5s | %-10s | %-11s | %-8s | %12s | %6s | %15s%n",
+        System.out.printf(
+                "%-5s | %-10s | %-11s | %-8s | %12s | %6s | %15s%n",
                 "ID", "Event date", "Customer", "Set Menu", "Price", "Tables", "Cost");
         System.out.println(LINE);
         for (FeastOrder order : orders) {
-            System.out.printf("%-5d | %-10s | %-11s | %-8s | %12s | %6d | %15s%n",
-                    order.getOrderId(), order.getEventDate().format(InputReader.DATE_FORMAT),
-                    order.getCustomerCode(), order.getMenuCode(), formatMoney(order.getMenuPrice()),
-                    order.getNumberOfTables(), formatMoney(order.getTotalCost()));
+            System.out.printf(
+                    "%-5d | %-10s | %-11s | %-8s | %12s | %6d | %15s%n",
+                    order.getOrderId(),
+                    order.getEventDate().format(InputReader.DATE_FORMAT),
+                    order.getCustomerCode(),
+                    order.getMenuCode(),
+                    formatMoney(order.getMenuPrice()),
+                    order.getNumberOfTables(),
+                    formatMoney(order.getTotalCost()));
         }
         System.out.println(LINE);
     }

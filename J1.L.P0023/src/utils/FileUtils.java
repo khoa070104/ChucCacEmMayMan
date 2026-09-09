@@ -1,5 +1,7 @@
 package utils;
 
+import model.Fruit;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,15 +9,13 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import model.Fruit;
 
 /**
  * File read/write helpers for fruit persistence.
  */
 public class FileUtils {
 
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
     public static void ensureParentDir(String filePath) throws IOException {
         File file = new File(filePath);
@@ -37,10 +37,14 @@ public class FileUtils {
     }
 
     public static String serialize(Fruit fruit) {
-        return fruit.getFruitId() + "|"
-                + fruit.getFruitName() + "|"
-                + fruit.getPrice() + "|"
-                + fruit.getQuantity() + "|"
+        return fruit.getFruitId()
+                + "|"
+                + fruit.getFruitName()
+                + "|"
+                + fruit.getPrice()
+                + "|"
+                + fruit.getQuantity()
+                + "|"
                 + fruit.getOrigin();
     }
 
@@ -52,7 +56,9 @@ public class FileUtils {
         if (parts.length < 5) {
             return null;
         }
-        return new Fruit(parts[0], parts[1],
+        return new Fruit(
+                parts[0],
+                parts[1],
                 Double.parseDouble(parts[2]),
                 Integer.parseInt(parts[3]),
                 parts[4]);

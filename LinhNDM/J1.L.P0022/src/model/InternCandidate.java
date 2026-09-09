@@ -34,11 +34,26 @@ public class InternCandidate extends Candidate {
      * @param semester học kỳ
      * @param universityName tên trường đại học
      */
-    public InternCandidate(String candidateId, String firstName, String lastName,
-            int birthDate, String address, String phone, String email,
-            String majors, String semester, String universityName) {
-        super(candidateId, firstName, lastName, birthDate, address, phone,
-                email, Constants.TYPE_INTERN);
+    public InternCandidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
+            String majors,
+            String semester,
+            String universityName) {
+        super(
+                candidateId,
+                firstName,
+                lastName,
+                birthDate,
+                address,
+                phone,
+                email,
+                Constants.TYPE_INTERN);
         this.majors = majors;
         this.semester = semester;
         this.universityName = universityName;
@@ -76,7 +91,8 @@ public class InternCandidate extends Candidate {
     @Override
     public String toString() {
         return super.toString()
-                + String.format(" | Majors: %s | Semester: %s | University: %s",
+                + String.format(
+                        " | Majors: %s | Semester: %s | University: %s",
                         majors, semester, universityName);
     }
 }

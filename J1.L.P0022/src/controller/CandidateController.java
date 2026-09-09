@@ -1,12 +1,17 @@
 package controller;
 
+import model.Candidate;
+
+import repository.CandidateRepository;
+
+import service.CandidateService;
+
+import utils.Inputter;
+
+import view.CandidateView;
+
 import java.io.IOException;
 import java.util.List;
-import model.Candidate;
-import repository.CandidateRepository;
-import service.CandidateService;
-import utils.Inputter;
-import view.CandidateView;
 
 /**
  * Coordinates view and service layers.

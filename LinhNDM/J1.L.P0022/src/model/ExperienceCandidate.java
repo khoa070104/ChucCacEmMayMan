@@ -32,11 +32,25 @@ public class ExperienceCandidate extends Candidate {
      * @param expInYear số năm kinh nghiệm
      * @param proSkill kỹ năng chuyên môn
      */
-    public ExperienceCandidate(String candidateId, String firstName,
-            String lastName, int birthDate, String address, String phone,
-            String email, int expInYear, String proSkill) {
-        super(candidateId, firstName, lastName, birthDate, address, phone,
-                email, Constants.TYPE_EXPERIENCE);
+    public ExperienceCandidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
+            int expInYear,
+            String proSkill) {
+        super(
+                candidateId,
+                firstName,
+                lastName,
+                birthDate,
+                address,
+                phone,
+                email,
+                Constants.TYPE_EXPERIENCE);
         this.expInYear = expInYear;
         this.proSkill = proSkill;
     }
@@ -65,7 +79,6 @@ public class ExperienceCandidate extends Candidate {
     @Override
     public String toString() {
         return super.toString()
-                + String.format(" | Exp: %d year(s) | Skill: %s",
-                        expInYear, proSkill);
+                + String.format(" | Exp: %d year(s) | Skill: %s", expInYear, proSkill);
     }
 }

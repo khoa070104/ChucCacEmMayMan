@@ -21,7 +21,9 @@ public class IntegerArray {
     }
 
     /** @return a safe copy containing only stored values */
-    public int[] getValues() { return Arrays.copyOf(values, size); }
+    public int[] getValues() {
+        return Arrays.copyOf(values, size);
+    }
 
     /** @param min inclusive minimum @param max inclusive maximum @return matching values */
     public int[] valuesInRange(int min, int max) {
@@ -42,7 +44,9 @@ public class IntegerArray {
             boolean swapped = false;
             for (int i = 0; i < end; i++) {
                 if (values[i] > values[i + 1]) {
-                    int temporary = values[i]; values[i] = values[i + 1]; values[i + 1] = temporary;
+                    int temporary = values[i];
+                    values[i] = values[i + 1];
+                    values[i + 1] = temporary;
                     swapped = true;
                 }
             }

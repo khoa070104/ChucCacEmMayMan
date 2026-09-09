@@ -10,7 +10,7 @@ public class Inputter {
         String input = sc.nextLine();
         return input;
     }
-    
+
     public static String inputRequired(String label) {
         String input;
         do {
@@ -19,7 +19,7 @@ public class Inputter {
         } while (input.isEmpty());
         return input;
     }
-    
+
     public static String inputRequired(String label, String regex) {
         String input;
         do {
@@ -38,7 +38,7 @@ public class Inputter {
             else return input;
         }
     }
-    
+
     public static String inputOptional(String label, String regex) {
         String input;
         while (true) {

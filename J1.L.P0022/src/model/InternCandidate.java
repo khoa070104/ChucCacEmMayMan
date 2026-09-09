@@ -13,9 +13,17 @@ public class InternCandidate extends Candidate {
         this.candidateType = 2;
     }
 
-    public InternCandidate(String candidateId, String firstName, String lastName,
-            int birthDate, String address, String phone, String email,
-            String majors, String semester, String universityName) {
+    public InternCandidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
+            String majors,
+            String semester,
+            String universityName) {
         super(candidateId, firstName, lastName, birthDate, address, phone, email, 2);
         this.majors = majors;
         this.semester = semester;
@@ -48,7 +56,9 @@ public class InternCandidate extends Candidate {
 
     @Override
     public String toString() {
-        return super.toString() + String.format(" | Majors: %s | Semester: %s | University: %s",
-                majors, semester, universityName);
+        return super.toString()
+                + String.format(
+                        " | Majors: %s | Semester: %s | University: %s",
+                        majors, semester, universityName);
     }
 }

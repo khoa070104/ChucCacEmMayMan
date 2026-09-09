@@ -1,10 +1,13 @@
 package controller;
 
-import enums.Car;
-import enums.Day;
-import enums.Color;
-import exception.ExceptionCar;
 import common.Constants;
+
+import enums.Car;
+import enums.Color;
+import enums.Day;
+
+import exception.ExceptionCar;
+
 import java.util.*;
 
 public class ShowroomManager {
@@ -16,7 +19,7 @@ public class ShowroomManager {
 
     private void initializeCarData() {
         carDataMap = new HashMap<>();
-        
+
         // AUDI data
         List<Color> audiColors = Arrays.asList(Color.WHITE, Color.YELLOW, Color.ORANGE);
         List<Integer> audiPrices = Arrays.asList(5500, 3000, 4500);

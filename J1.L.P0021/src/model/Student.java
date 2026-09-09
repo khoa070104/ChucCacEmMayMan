@@ -9,7 +9,7 @@ package model;
  * @author NCPC
  */
 public class Student {
-    private String id, name, semester,course;
+    private String id, name, semester, course;
 
     public Student(String id, String name, String semester, String course) {
         this.id = id;
@@ -52,7 +52,6 @@ public class Student {
 
     @Override
     public String toString() {
-        return String.format("%-10s | %-20s | %-10s | %-15s", 
-            id, name, semester, course);
+        return String.format("%-10s | %-20s | %-10s | %-15s", id, name, semester, course);
     }
 }

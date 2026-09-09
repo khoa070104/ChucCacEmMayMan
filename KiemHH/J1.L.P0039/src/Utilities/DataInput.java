@@ -1,13 +1,15 @@
 package Utilities;
 
 import Entity.Course;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeParseException;
 import java.util.Scanner;
 
 public final class DataInput {
     private static final Scanner SCANNER = new Scanner(System.in);
-    private DataInput() { }
+
+    private DataInput() {}
 
     public static String getString(String prompt) {
         System.out.print(prompt);
@@ -16,22 +18,31 @@ public final class DataInput {
 
     public static int getInteger(String prompt) {
         while (true) {
-            try { return Integer.parseInt(getString(prompt)); }
-            catch (NumberFormatException ex) { System.out.println("Please enter a valid integer."); }
+            try {
+                return Integer.parseInt(getString(prompt));
+            } catch (NumberFormatException ex) {
+                System.out.println("Please enter a valid integer.");
+            }
         }
     }
 
     public static double getDouble(String prompt) {
         while (true) {
-            try { return Double.parseDouble(getString(prompt)); }
-            catch (NumberFormatException ex) { System.out.println("Please enter a valid number."); }
+            try {
+                return Double.parseDouble(getString(prompt));
+            } catch (NumberFormatException ex) {
+                System.out.println("Please enter a valid number.");
+            }
         }
     }
 
     public static LocalDate getDate(String prompt) {
         while (true) {
-            try { return LocalDate.parse(getString(prompt), Course.DATE_FORMAT); }
-            catch (DateTimeParseException ex) { System.out.println("Date must follow dd/MM/yyyy."); }
+            try {
+                return LocalDate.parse(getString(prompt), Course.DATE_FORMAT);
+            } catch (DateTimeParseException ex) {
+                System.out.println("Date must follow dd/MM/yyyy.");
+            }
         }
     }
 

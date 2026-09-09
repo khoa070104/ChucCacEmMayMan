@@ -1,5 +1,10 @@
 package business;
 
+import model.Player;
+
+import tools.Acceptable;
+import tools.Inputter;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,21 +13,22 @@ import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import model.Player;
-import tools.Acceptable;
-import tools.Inputter;
 
 public class Players extends ArrayList<Player> {
 
-    private static final String TABLE_HEADER = "------------------------------------------------------------------------------\n"
-            + "Player ID| Club ID   | Player Name           | Position    | Shirt No.\n"
-            + "------------------------------------------------------------------------------";
-    private static final String TABLE_FOOTER = "------------------------------------------------------------------------------";
+    private static final String TABLE_HEADER =
+            "------------------------------------------------------------------------------\n"
+                    + "Player ID| Club ID   | Player Name           | Position    | Shirt No.\n"
+                    + "------------------------------------------------------------------------------";
+    private static final String TABLE_FOOTER =
+            "------------------------------------------------------------------------------";
 
-    private static final String SORTED_TABLE_HEADER = "--------------------------------------------------------------------------------------------\n"
-            + "Player ID| Club ID   | Club Name                 | Player Name           | Position    | Shirt No.\n"
-            + "--------------------------------------------------------------------------------------------";
-    private static final String SORTED_TABLE_FOOTER = "--------------------------------------------------------------------------------------------";
+    private static final String SORTED_TABLE_HEADER =
+            "--------------------------------------------------------------------------------------------\n"
+                    + "Player ID| Club ID   | Club Name                 | Player Name           | Position    | Shirt No.\n"
+                    + "--------------------------------------------------------------------------------------------";
+    private static final String SORTED_TABLE_FOOTER =
+            "--------------------------------------------------------------------------------------------";
 
     private final String pathFile;
     private boolean saved;
@@ -91,8 +97,12 @@ public class Players extends ArrayList<Player> {
         return new Player(id, clubId, name, Acceptable.normalizePosition(position), shirtNumber);
     }
 
-    public static boolean isValidPlayer(Player player, Clubs clubs, Players existing,
-            boolean checkPlayerIdDuplicate, String excludePlayerIdForShirt) {
+    public static boolean isValidPlayer(
+            Player player,
+            Clubs clubs,
+            Players existing,
+            boolean checkPlayerIdDuplicate,
+            String excludePlayerIdForShirt) {
         if (player == null) {
             return false;
         }
@@ -107,7 +117,8 @@ public class Players extends ArrayList<Player> {
         if (checkPlayerIdDuplicate && existing.isDuplicateId(player.getId())) {
             return false;
         }
-        return !existing.isShirtNumberUsed(player.getClubId(), player.getShirtNumber(), excludePlayerIdForShirt);
+        return !existing.isShirtNumberUsed(
+                player.getClubId(), player.getShirtNumber(), excludePlayerIdForShirt);
     }
 
     private void showList(List<Player> list, boolean withClubName, Clubs clubs) {
@@ -132,18 +143,19 @@ public class Players extends ArrayList<Player> {
 
     public void showAllSorted(Clubs clubs) {
         List<Player> sorted = new ArrayList<>(this);
-        sorted.sort(new Comparator<Player>() {
-            @Override
-            public int compare(Player p1, Player p2) {
-                String name1 = clubs.getClubName(p1.getClubId());
-                String name2 = clubs.getClubName(p2.getClubId());
-                int cmp = name1.compareToIgnoreCase(name2);
-                if (cmp != 0) {
-                    return cmp;
-                }
-                return Integer.compare(p1.getShirtNumber(), p2.getShirtNumber());
-            }
-        });
+        sorted.sort(
+                new Comparator<Player>() {
+                    @Override
+                    public int compare(Player p1, Player p2) {
+                        String name1 = clubs.getClubName(p1.getClubId());
+                        String name2 = clubs.getClubName(p2.getClubId());
+                        int cmp = name1.compareToIgnoreCase(name2);
+                        if (cmp != 0) {
+                            return cmp;
+                        }
+                        return Integer.compare(p1.getShirtNumber(), p2.getShirtNumber());
+                    }
+                });
         showList(sorted, true, clubs);
     }
 
@@ -181,7 +193,8 @@ public class Players extends ArrayList<Player> {
         }
         String name = inputter.inputAndLoop("Player name: ", Acceptable.NON_EMPTY_VALID);
         String position = inputter.inputPosition();
-        String shirtStr = inputter.inputAndLoop("Shirt number [1-99]: ", Acceptable.SHIRT_NUMBER_VALID);
+        String shirtStr =
+                inputter.inputAndLoop("Shirt number [1-99]: ", Acceptable.SHIRT_NUMBER_VALID);
         int shirtNumber = Integer.parseInt(shirtStr);
         if (isShirtNumberUsed(clubId, shirtNumber, null)) {
             System.out.println("This shirt number already exists in this club!");
@@ -212,9 +225,13 @@ public class Players extends ArrayList<Player> {
             System.out.println("This player does not exist!");
             return;
         }
-        String name = inputter.inputOptional("New player name (blank to skip): ", Acceptable.NON_EMPTY_VALID);
+        String name =
+                inputter.inputOptional(
+                        "New player name (blank to skip): ", Acceptable.NON_EMPTY_VALID);
         String position = inputter.inputOptionalPosition();
-        String shirtStr = inputter.inputOptional("New shirt number (blank to skip): ", Acceptable.SHIRT_NUMBER_VALID);
+        String shirtStr =
+                inputter.inputOptional(
+                        "New shirt number (blank to skip): ", Acceptable.SHIRT_NUMBER_VALID);
         if (!name.isEmpty()) {
             player.setName(name);
         }

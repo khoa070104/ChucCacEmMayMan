@@ -2,10 +2,12 @@ package view;
 
 import common.Constants;
 import common.Messages;
-import java.util.ArrayList;
-import java.util.List;
+
 import model.Fruit;
 import model.OrderItem;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Hiển thị giao diện và thu thập dữ liệu nhập từ người dùng.
@@ -38,8 +40,7 @@ public class FruitView {
             try {
                 inputValue = Inputter.inputRequired(Constants.LABEL_YOUR_CHOICE);
                 choice = Integer.parseInt(inputValue);
-                if (choice >= Constants.MIN_MENU_CHOICE
-                        && choice <= Constants.MAX_MENU_CHOICE) {
+                if (choice >= Constants.MIN_MENU_CHOICE && choice <= Constants.MAX_MENU_CHOICE) {
                     return choice;
                 }
                 System.out.println(Messages.ERR_MENU_RANGE);
@@ -116,14 +117,16 @@ public class FruitView {
             return;
         }
         System.out.println(Messages.MSG_FRUIT_LIST);
-        System.out.printf(Constants.HEADER_FRUIT_LIST,
+        System.out.printf(
+                Constants.HEADER_FRUIT_LIST,
                 Messages.MSG_LIST_HEADER_ID,
                 Messages.MSG_LIST_HEADER_NAME,
                 Messages.MSG_LIST_HEADER_ORIGIN,
                 Messages.MSG_LIST_HEADER_PRICE,
                 Messages.MSG_LIST_HEADER_QUANTITY);
         for (Fruit fruit : fruitList) {
-            System.out.printf(Constants.ROW_FRUIT_LIST,
+            System.out.printf(
+                    Constants.ROW_FRUIT_LIST,
                     fruit.getFruitId(),
                     fruit.getFruitName(),
                     fruit.getOrigin(),
@@ -141,7 +144,8 @@ public class FruitView {
         int index;
         Fruit fruit;
         System.out.println(Messages.MSG_FRUIT_LIST);
-        System.out.printf(Constants.HEADER_SHOPPING_LIST,
+        System.out.printf(
+                Constants.HEADER_SHOPPING_LIST,
                 Messages.MSG_SHOPPING_HEADER_ITEM,
                 Messages.MSG_SHOPPING_HEADER_NAME,
                 Messages.MSG_SHOPPING_HEADER_ORIGIN,
@@ -151,7 +155,8 @@ public class FruitView {
             if (fruit.getQuantity() <= 0) {
                 continue;
             }
-            System.out.printf(Constants.ROW_SHOPPING_LIST,
+            System.out.printf(
+                    Constants.ROW_SHOPPING_LIST,
                     index + 1,
                     fruit.getFruitName(),
                     fruit.getOrigin(),
@@ -189,8 +194,7 @@ public class FruitView {
      * @return số lượng hợp lệ
      */
     public int inputShoppingQuantity(int maxQuantity) {
-        return Inputter.inputPositiveQuantity(
-                Constants.LABEL_INPUT_QUANTITY, maxQuantity);
+        return Inputter.inputPositiveQuantity(Constants.LABEL_INPUT_QUANTITY, maxQuantity);
     }
 
     /**
@@ -209,13 +213,15 @@ public class FruitView {
      * @param total tổng tiền
      */
     public void displayOrderItems(List<OrderItem> itemList, double total) {
-        System.out.printf(Constants.HEADER_ORDER_ITEM,
+        System.out.printf(
+                Constants.HEADER_ORDER_ITEM,
                 Messages.MSG_ORDER_HEADER_PRODUCT,
                 Messages.MSG_ORDER_HEADER_QUANTITY,
                 Messages.MSG_ORDER_HEADER_PRICE,
                 Messages.MSG_ORDER_HEADER_AMOUNT);
         for (OrderItem item : itemList) {
-            System.out.printf(Constants.ROW_ORDER_ITEM,
+            System.out.printf(
+                    Constants.ROW_ORDER_ITEM,
                     item.getProductName(),
                     item.getQuantity(),
                     formatPrice(item.getPrice()),
@@ -231,19 +237,21 @@ public class FruitView {
      * @param itemList danh sách sản phẩm
      * @param total tổng tiền
      */
-    public void displayCustomerOrder(String customerName,
-            ArrayList<OrderItem> itemList, double total) {
+    public void displayCustomerOrder(
+            String customerName, ArrayList<OrderItem> itemList, double total) {
         int index;
         OrderItem item;
         System.out.println(Messages.MSG_CUSTOMER_PREFIX + customerName);
-        System.out.printf(Constants.HEADER_ORDER_ITEM,
+        System.out.printf(
+                Constants.HEADER_ORDER_ITEM,
                 Messages.MSG_ORDER_HEADER_PRODUCT,
                 Messages.MSG_ORDER_HEADER_QUANTITY,
                 Messages.MSG_ORDER_HEADER_PRICE,
                 Messages.MSG_ORDER_HEADER_AMOUNT);
         for (index = 0; index < itemList.size(); index++) {
             item = itemList.get(index);
-            System.out.printf(Constants.ROW_ORDER_ITEM_INDEXED,
+            System.out.printf(
+                    Constants.ROW_ORDER_ITEM_INDEXED,
                     index + 1,
                     item.getProductName(),
                     item.getQuantity(),

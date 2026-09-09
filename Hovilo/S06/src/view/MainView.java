@@ -1,11 +1,16 @@
 package view;
+
 import controller.Inputter;
-import java.util.Arrays;
+
 import model.IntegerArray;
+
+import java.util.Arrays;
+
 /** Displays the array manipulation menu. @author Ho Vi Lo @since 09/09/2026 */
 public class MainView {
     private final Inputter inputter = new Inputter();
     private final IntegerArray array = new IntegerArray();
+
     /** Displays the menu and handles choices until another number is entered. */
     public void run() {
         while (true) {
@@ -14,8 +19,11 @@ public class MainView {
             int choice = inputter.readInt("Your choice: ");
             if (choice < 1 || choice > 5) return;
             if (choice == 1) {
-                try { array.add(inputter.readInt("Value: ")); }
-                catch (IllegalStateException exception) { System.out.println(exception.getMessage()); }
+                try {
+                    array.add(inputter.readInt("Value: "));
+                } catch (IllegalStateException exception) {
+                    System.out.println(exception.getMessage());
+                }
             } else if (choice == 2) {
                 int value = inputter.readInt("Search value: ");
                 int index = array.search(value);

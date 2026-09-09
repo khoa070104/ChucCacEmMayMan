@@ -1,5 +1,10 @@
 package business;
 
+import model.Club;
+
+import tools.Acceptable;
+import tools.Inputter;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -7,16 +12,15 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.util.ArrayList;
 import java.util.List;
-import model.Club;
-import tools.Acceptable;
-import tools.Inputter;
 
 public class Clubs extends ArrayList<Club> {
 
-    private static final String TABLE_HEADER = "--------------------------------------------------------------------------\n"
-            + "Club ID   | Club Name                 | Sponsor Brand | Budget\n"
-            + "--------------------------------------------------------------------------";
-    private static final String TABLE_FOOTER = "--------------------------------------------------------------------------";
+    private static final String TABLE_HEADER =
+            "--------------------------------------------------------------------------\n"
+                    + "Club ID   | Club Name                 | Sponsor Brand | Budget\n"
+                    + "--------------------------------------------------------------------------";
+    private static final String TABLE_FOOTER =
+            "--------------------------------------------------------------------------";
 
     private final String pathFile;
     private boolean saved;
@@ -143,8 +147,12 @@ public class Clubs extends ArrayList<Club> {
             System.out.println("This club does not exist!");
             return;
         }
-        String name = inputter.inputOptional("New club name (blank to skip): ", Acceptable.NON_EMPTY_VALID);
-        String sponsor = inputter.inputOptional("New sponsor brand (blank to skip): ", Acceptable.NON_EMPTY_VALID);
+        String name =
+                inputter.inputOptional(
+                        "New club name (blank to skip): ", Acceptable.NON_EMPTY_VALID);
+        String sponsor =
+                inputter.inputOptional(
+                        "New sponsor brand (blank to skip): ", Acceptable.NON_EMPTY_VALID);
         String budgetStr = inputter.inputOptionalPositiveReal("New budget (blank to skip): ");
         if (!name.isEmpty()) {
             club.setName(name);

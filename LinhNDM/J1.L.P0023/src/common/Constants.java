@@ -7,8 +7,7 @@ package common;
  */
 public final class Constants {
 
-    private Constants() {
-    }
+    private Constants() {}
 
     public static final int MIN_MENU_CHOICE = 1;
     public static final int MAX_MENU_CHOICE = 4;
@@ -30,18 +29,11 @@ public final class Constants {
     public static final String LABEL_INPUT_QUANTITY = "Please input quantity: ";
     public static final String LABEL_CUSTOMER_NAME = "Input your name: ";
 
-    public static final String HEADER_FRUIT_LIST
-            = "%-6s %-20s %-15s %-10s %-10s%n";
-    public static final String ROW_FRUIT_LIST
-            = "%-6s %-20s %-15s %-10s %-10d%n";
-    public static final String HEADER_SHOPPING_LIST
-            = "| %-10s | %-18s | %-10s | %-10s |%n";
-    public static final String ROW_SHOPPING_LIST
-            = "| %-10d | %-18s | %-10s | %-10s |%n";
-    public static final String HEADER_ORDER_ITEM
-            = "%-20s | %-10s | %-10s | %-10s%n";
-    public static final String ROW_ORDER_ITEM
-            = "%-20s %-10d %-10s %-10s%n";
-    public static final String ROW_ORDER_ITEM_INDEXED
-            = "%d. %-17s %-10d %-10s %-10s%n";
+    public static final String HEADER_FRUIT_LIST = "%-6s %-20s %-15s %-10s %-10s%n";
+    public static final String ROW_FRUIT_LIST = "%-6s %-20s %-15s %-10s %-10d%n";
+    public static final String HEADER_SHOPPING_LIST = "| %-10s | %-18s | %-10s | %-10s |%n";
+    public static final String ROW_SHOPPING_LIST = "| %-10d | %-18s | %-10s | %-10s |%n";
+    public static final String HEADER_ORDER_ITEM = "%-20s | %-10s | %-10s | %-10s%n";
+    public static final String ROW_ORDER_ITEM = "%-20s %-10d %-10s %-10s%n";
+    public static final String ROW_ORDER_ITEM_INDEXED = "%d. %-17s %-10d %-10s %-10s%n";
 }

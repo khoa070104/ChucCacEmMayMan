@@ -20,7 +20,7 @@ public final class AppLogger {
         }
     }
 
-    private AppLogger() { }
+    private AppLogger() {}
 
     public static void log(String message, Throwable exception) {
         LOGGER.log(Level.SEVERE, message, exception);

@@ -1,10 +1,16 @@
 package model;
 
 public class Student {
-    private String studenId, name, phoneNumber,email, mountainCode;
+    private String studenId, name, phoneNumber, email, mountainCode;
     private double tutioneFee;
 
-    public Student(String studenId, String name, String phoneNumber, String email, String mountainCode, double tutioneFee) {
+    public Student(
+            String studenId,
+            String name,
+            String phoneNumber,
+            String email,
+            String mountainCode,
+            double tutioneFee) {
         this.studenId = studenId;
         this.name = name;
         this.phoneNumber = phoneNumber;
@@ -63,10 +69,19 @@ public class Student {
 
     @Override
     public String toString() {
-        return "Student{" + "studenId=" + studenId + ", name=" + name + ", phoneNumber=" + phoneNumber + ", email=" + email + ", mountainCode=" + mountainCode + ", tutioneFee=" + tutioneFee + '}';
+        return "Student{"
+                + "studenId="
+                + studenId
+                + ", name="
+                + name
+                + ", phoneNumber="
+                + phoneNumber
+                + ", email="
+                + email
+                + ", mountainCode="
+                + mountainCode
+                + ", tutioneFee="
+                + tutioneFee
+                + '}';
     }
-    
-    
-    
-    
 }

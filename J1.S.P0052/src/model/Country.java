@@ -5,8 +5,7 @@ public class Country {
     protected String countryName;
     protected float totalArea;
 
-    public Country() {
-    }
+    public Country() {}
 
     public Country(String countryCode, String countryName, float totalArea) {
         this.countryCode = countryCode;
@@ -39,7 +38,6 @@ public class Country {
     }
 
     public void display() {
-        System.out.printf("%-3s | %-15s | %-10.1f\n", 
-            countryCode, countryName, totalArea);
+        System.out.printf("%-3s | %-15s | %-10.1f\n", countryCode, countryName, totalArea);
     }
 }

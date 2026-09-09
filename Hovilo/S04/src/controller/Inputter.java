@@ -23,8 +23,10 @@ public class Inputter {
             try {
                 double mark = Double.parseDouble(scanner.nextLine().trim());
                 if (mark >= 0 && mark <= 10) return mark;
-                System.out.println(mark > 10 ? subject + " must be less than or equal to ten."
-                        : subject + " must be greater than or equal to zero.");
+                System.out.println(
+                        mark > 10
+                                ? subject + " must be less than or equal to ten."
+                                : subject + " must be greater than or equal to zero.");
             } catch (NumberFormatException exception) {
                 System.out.println(subject + " must be a number.");
             }

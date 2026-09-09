@@ -1,12 +1,14 @@
 package controller;
 
+import common.Constants;
+import common.Messages;
+
+import model.Student;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-import model.Student;
-import common.Constants;
-import common.Messages;
 
 public class StudentController {
     private final ArrayList<Student> listStd = new ArrayList<>();
@@ -61,7 +63,8 @@ public class StudentController {
         } while (listStd.size() < Constants.MIN_STUDENTS);
 
         while (true) {
-            String choice = Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING, Constants.YES_NO_VALIDATE);
+            String choice =
+                    Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING, Constants.YES_NO_VALIDATE);
             if (choice.equalsIgnoreCase("N")) {
                 break;
             }
@@ -109,7 +112,8 @@ public class StudentController {
         System.out.printf("%-20s | %-10s | %-15s%n", "Student name", "Semester", "Course Name");
         System.out.println(Constants.TABLE_SEPARATOR);
         for (Student student : result) {
-            System.out.printf("%-20s | %-10s | %-15s%n",
+            System.out.printf(
+                    "%-20s | %-10s | %-15s%n",
                     student.getName(), student.getSemester(), student.getCourse());
         }
     }
@@ -127,10 +131,13 @@ public class StudentController {
             return;
         }
 
-        System.out.printf("Found: %s | %s | %s | %s%n",
+        System.out.printf(
+                "Found: %s | %s | %s | %s%n",
                 student.getId(), student.getName(), student.getSemester(), student.getCourse());
 
-        String choice = Inputter.inputRequired(Messages.MSG_UPDATE_DELETE, Constants.UPDATE_DELETE_VALIDATE);
+        String choice =
+                Inputter.inputRequired(
+                        Messages.MSG_UPDATE_DELETE, Constants.UPDATE_DELETE_VALIDATE);
         if (choice.equalsIgnoreCase("D")) {
             listStd.remove(student);
             System.out.println(Messages.MSG_DELETED_SUCCESS);
@@ -160,15 +167,17 @@ public class StudentController {
         }
 
         ArrayList<String> keys = new ArrayList<>(totals.keySet());
-        Collections.sort(keys, (k1, k2) -> {
-            String[] p1 = k1.split("\\|", 2);
-            String[] p2 = k2.split("\\|", 2);
-            int byName = p1[0].compareToIgnoreCase(p2[0]);
-            if (byName != 0) {
-                return byName;
-            }
-            return p1[1].compareToIgnoreCase(p2[1]);
-        });
+        Collections.sort(
+                keys,
+                (k1, k2) -> {
+                    String[] p1 = k1.split("\\|", 2);
+                    String[] p2 = k2.split("\\|", 2);
+                    int byName = p1[0].compareToIgnoreCase(p2[0]);
+                    if (byName != 0) {
+                        return byName;
+                    }
+                    return p1[1].compareToIgnoreCase(p2[1]);
+                });
 
         System.out.println(Messages.MSG_REPORT_HEADER);
         for (String key : keys) {

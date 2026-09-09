@@ -2,11 +2,14 @@ package controller;
 
 import common.Constants;
 import common.Messages;
-import java.util.ArrayList;
+
 import model.ReportEntry;
 import model.Student;
 import model.Students;
+
 import view.MainView;
+
+import java.util.ArrayList;
 
 /**
  * Điều phối luồng chương trình giữa View và Model.

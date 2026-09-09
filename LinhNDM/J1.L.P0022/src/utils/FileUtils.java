@@ -1,6 +1,12 @@
 package utils;
 
 import common.Constants;
+
+import model.Candidate;
+import model.ExperienceCandidate;
+import model.FresherCandidate;
+import model.InternCandidate;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,10 +14,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.List;
-import model.Candidate;
-import model.ExperienceCandidate;
-import model.FresherCandidate;
-import model.InternCandidate;
 
 /**
  * Tiện ích đọc và ghi file ứng viên.
@@ -20,8 +22,7 @@ import model.InternCandidate;
  */
 public final class FileUtils {
 
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
     /**
      * Tạo thư mục cha và file nếu chưa tồn tại.
@@ -49,11 +50,9 @@ public final class FileUtils {
      * @param candidate ứng viên cần ghi
      * @throws IOException khi ghi file thất bại
      */
-    public static void saveCandidate(String filePath, Candidate candidate)
-            throws IOException {
+    public static void saveCandidate(String filePath, Candidate candidate) throws IOException {
         ensureParentDir(filePath);
-        try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(filePath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(serialize(candidate));
             writer.newLine();
         }
@@ -124,17 +123,40 @@ public final class FileUtils {
         email = partArray[7];
         switch (type) {
             case Constants.TYPE_EXPERIENCE:
-                return new ExperienceCandidate(candidateId, firstName, lastName,
-                        birthDate, address, phone, email,
-                        Integer.parseInt(partArray[8]), partArray[9]);
+                return new ExperienceCandidate(
+                        candidateId,
+                        firstName,
+                        lastName,
+                        birthDate,
+                        address,
+                        phone,
+                        email,
+                        Integer.parseInt(partArray[8]),
+                        partArray[9]);
             case Constants.TYPE_FRESHER:
-                return new FresherCandidate(candidateId, firstName, lastName,
-                        birthDate, address, phone, email,
-                        Integer.parseInt(partArray[8]), partArray[9], partArray[10]);
+                return new FresherCandidate(
+                        candidateId,
+                        firstName,
+                        lastName,
+                        birthDate,
+                        address,
+                        phone,
+                        email,
+                        Integer.parseInt(partArray[8]),
+                        partArray[9],
+                        partArray[10]);
             case Constants.TYPE_INTERN:
-                return new InternCandidate(candidateId, firstName, lastName,
-                        birthDate, address, phone, email,
-                        partArray[8], partArray[9], partArray[10]);
+                return new InternCandidate(
+                        candidateId,
+                        firstName,
+                        lastName,
+                        birthDate,
+                        address,
+                        phone,
+                        email,
+                        partArray[8],
+                        partArray[9],
+                        partArray[10]);
             default:
                 return null;
         }
@@ -147,8 +169,7 @@ public final class FileUtils {
      * @param target danh sách đích
      * @throws IOException khi đọc file thất bại
      */
-    public static void loadCandidates(String filePath, List<Candidate> target)
-            throws IOException {
+    public static void loadCandidates(String filePath, List<Candidate> target) throws IOException {
         File file;
         String line;
         Candidate candidate;
@@ -172,8 +193,8 @@ public final class FileUtils {
      * @param builder StringBuilder đích
      * @param candidate ứng viên kinh nghiệm
      */
-    private static void appendExperienceFields(StringBuilder builder,
-            ExperienceCandidate candidate) {
+    private static void appendExperienceFields(
+            StringBuilder builder, ExperienceCandidate candidate) {
         builder.append(candidate.getExpInYear());
         builder.append(Constants.FILE_FIELD_SEPARATOR);
         builder.append(candidate.getProSkill());
@@ -185,8 +206,7 @@ public final class FileUtils {
      * @param builder StringBuilder đích
      * @param candidate ứng viên fresher
      */
-    private static void appendFresherFields(StringBuilder builder,
-            FresherCandidate candidate) {
+    private static void appendFresherFields(StringBuilder builder, FresherCandidate candidate) {
         builder.append(candidate.getGraduationDate());
         builder.append(Constants.FILE_FIELD_SEPARATOR);
         builder.append(candidate.getGraduationRank());
@@ -200,8 +220,7 @@ public final class FileUtils {
      * @param builder StringBuilder đích
      * @param candidate ứng viên intern
      */
-    private static void appendInternFields(StringBuilder builder,
-            InternCandidate candidate) {
+    private static void appendInternFields(StringBuilder builder, InternCandidate candidate) {
         builder.append(candidate.getMajors());
         builder.append(Constants.FILE_FIELD_SEPARATOR);
         builder.append(candidate.getSemester());

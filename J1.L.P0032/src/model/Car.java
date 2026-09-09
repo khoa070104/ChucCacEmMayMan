@@ -9,10 +9,10 @@ package model;
  * @author NCPC
  */
 public class Car {
-    //Car ID, brand ID, color, frame ID, engine ID
+    // Car ID, brand ID, color, frame ID, engine ID
     String carId, color, frameId, engineId;
     Brand brand;
-    
+
     public Car(String carId, Brand brand, String color, String frameId, String engineId) {
         this.carId = carId;
         this.brand = brand;
@@ -36,8 +36,6 @@ public class Car {
     public void setBrand(Brand brand) {
         this.brand = brand;
     }
-
-    
 
     public String getColor() {
         return color;
@@ -65,8 +63,14 @@ public class Car {
 
     @Override
     public String toString() {
-        return carId + " | " + color + " | " + frameId + " | " + engineId + " | " + brand.getBrandName() ;
+        return carId
+                + " | "
+                + color
+                + " | "
+                + frameId
+                + " | "
+                + engineId
+                + " | "
+                + brand.getBrandName();
     }
-    
-    
 }

@@ -6,8 +6,7 @@ public class Club extends Entity {
     private String sponsorBrand;
     private double budget;
 
-    public Club() {
-    }
+    public Club() {}
 
     public Club(String id, String name, String sponsorBrand, double budget) {
         super(id);
@@ -47,7 +46,6 @@ public class Club extends Entity {
 
     @Override
     public String toString() {
-        return String.format("%-10s| %-26s| %-14s| %,.0f",
-                id, name, sponsorBrand, budget);
+        return String.format("%-10s| %-26s| %-14s| %,.0f", id, name, sponsorBrand, budget);
     }
 }

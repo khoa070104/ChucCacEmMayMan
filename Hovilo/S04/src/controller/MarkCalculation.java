@@ -1,9 +1,10 @@
 package controller;
 
+import model.Student;
+
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import model.Student;
 
 /** Performs student creation, classification, and statistics. @author Ho Vi Lo @since 09/09/2026 */
 public class MarkCalculation {
@@ -13,8 +14,8 @@ public class MarkCalculation {
      * @param chemistry chemistry mark @param physics physics mark
      * @return newly created student
      */
-    public Student createStudent(String name, String classes, double maths,
-            double chemistry, double physics) {
+    public Student createStudent(
+            String name, String classes, double maths, double chemistry, double physics) {
         return new Student(name, classes, maths, chemistry, physics);
     }
 
@@ -41,7 +42,7 @@ public class MarkCalculation {
      */
     public Map<String, Double> getPercentTypeStudent(List<Student> students) {
         Map<String, Double> result = new LinkedHashMap<>();
-        for (String type : new String[]{"A", "B", "C", "D"}) {
+        for (String type : new String[] {"A", "B", "C", "D"}) {
             int count = 0;
             for (Student student : students) if (type.equals(student.getType())) count++;
             result.put(type, students.isEmpty() ? 0 : count * 100.0 / students.size());

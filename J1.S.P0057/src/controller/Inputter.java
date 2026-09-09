@@ -1,8 +1,9 @@
 package controller;
 
-import java.util.Scanner;
 import common.Constants;
 import common.Messages;
+
+import java.util.Scanner;
 
 public class Inputter {
     static Scanner sc = new Scanner(System.in);
@@ -12,7 +13,7 @@ public class Inputter {
         String input = sc.nextLine();
         return input;
     }
-    
+
     public static String inputRequired(String label) {
         String input;
         do {
@@ -24,7 +25,7 @@ public class Inputter {
         } while (input.trim().isEmpty());
         return input.trim();
     }
-    
+
     public static String inputRequired(String label, String regex, String errorMessage) {
         String input;
         do {
@@ -42,11 +43,13 @@ public class Inputter {
     }
 
     public static String inputUsername() {
-        return inputRequired("Enter Username: ", Constants.USERNAME_REGEX, Messages.ERR_USERNAME_TOO_SHORT);
+        return inputRequired(
+                "Enter Username: ", Constants.USERNAME_REGEX, Messages.ERR_USERNAME_TOO_SHORT);
     }
 
     public static String inputPassword() {
-        return inputRequired("Enter Password: ", Constants.PASSWORD_REGEX, Messages.ERR_PASSWORD_TOO_SHORT);
+        return inputRequired(
+                "Enter Password: ", Constants.PASSWORD_REGEX, Messages.ERR_PASSWORD_TOO_SHORT);
     }
 
     public static int inputInt(String label) {

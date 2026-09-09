@@ -1,6 +1,9 @@
 package utils;
 
 import common.Constants;
+
+import model.Fruit;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -8,7 +11,6 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
-import model.Fruit;
 
 /**
  * Tiện ích đọc/ghi file dữ liệu trái cây.
@@ -17,8 +19,7 @@ import model.Fruit;
  */
 public final class FileUtils {
 
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
     /**
      * Tạo thư mục cha và file nếu chưa tồn tại.
@@ -48,8 +49,7 @@ public final class FileUtils {
      */
     public static void saveFruit(String filePath, Fruit fruit) throws IOException {
         ensureParentDir(filePath);
-        try (BufferedWriter writer = new BufferedWriter(
-                new FileWriter(filePath, true))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(filePath, true))) {
             writer.write(serialize(fruit));
             writer.newLine();
         }
@@ -91,7 +91,9 @@ public final class FileUtils {
         if (parts.length < 5) {
             return null;
         }
-        return new Fruit(parts[0], parts[1],
+        return new Fruit(
+                parts[0],
+                parts[1],
                 Double.parseDouble(parts[2]),
                 Integer.parseInt(parts[3]),
                 parts[4]);
@@ -104,8 +106,7 @@ public final class FileUtils {
      * @param fruitList danh sách đích
      * @throws IOException khi đọc file thất bại
      */
-    public static void loadFruits(String filePath,
-            ArrayList<Fruit> fruitList) throws IOException {
+    public static void loadFruits(String filePath, ArrayList<Fruit> fruitList) throws IOException {
         File file;
         String line;
         Fruit fruit;

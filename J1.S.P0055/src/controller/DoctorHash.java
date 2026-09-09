@@ -1,8 +1,10 @@
 package controller;
 
-import java.util.HashMap;
-import model.Doctor;
 import common.Messages;
+
+import model.Doctor;
+
+import java.util.HashMap;
 
 public class DoctorHash {
     private HashMap<String, Doctor> doctorMap;
@@ -24,7 +26,8 @@ public class DoctorHash {
 
         // Check if doctor code is duplicate
         if (doctorMap.containsKey(doctor.getCode())) {
-            throw new Exception(String.format(Messages.ERR_DOCTOR_CODE_DUPLICATE, doctor.getCode()));
+            throw new Exception(
+                    String.format(Messages.ERR_DOCTOR_CODE_DUPLICATE, doctor.getCode()));
         }
 
         // Check availability
@@ -95,9 +98,9 @@ public class DoctorHash {
 
         // Search through all doctors
         for (Doctor doctor : doctorMap.values()) {
-            if (doctor.getCode().toLowerCase().contains(searchInput) ||
-                doctor.getName().toLowerCase().contains(searchInput) ||
-                doctor.getSpecialization().toLowerCase().contains(searchInput)) {
+            if (doctor.getCode().toLowerCase().contains(searchInput)
+                    || doctor.getName().toLowerCase().contains(searchInput)
+                    || doctor.getSpecialization().toLowerCase().contains(searchInput)) {
                 result.put(doctor.getCode(), doctor);
             }
         }

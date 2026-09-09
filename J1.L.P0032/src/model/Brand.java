@@ -9,7 +9,7 @@ package model;
  * @author NCPC
  */
 public class Brand {
-    String brandId,brandName, brandSound;
+    String brandId, brandName, brandSound;
     double price;
 
     public Brand(String brandId, String brandName, String brandSound, double price) {
@@ -53,8 +53,15 @@ public class Brand {
 
     @Override
     public String toString() {
-        return "Brand{" + "brandId=" + brandId + ", brandName=" + brandName + ", brandSound=" + brandSound + ", price=" + price + '}';
+        return "Brand{"
+                + "brandId="
+                + brandId
+                + ", brandName="
+                + brandName
+                + ", brandSound="
+                + brandSound
+                + ", price="
+                + price
+                + '}';
     }
-    
-    
 }

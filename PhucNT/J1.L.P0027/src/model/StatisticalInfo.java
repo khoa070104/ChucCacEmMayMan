@@ -7,8 +7,7 @@ public class StatisticalInfo {
     private int numOfStudent;
     private double totalCost;
 
-    public StatisticalInfo() {
-    }
+    public StatisticalInfo() {}
 
     public StatisticalInfo(String mountainCode, String peakName) {
         this.mountainCode = mountainCode;

@@ -8,8 +8,7 @@ public class Doctor {
     private String specialization;
     private int availability;
 
-    public Doctor() {
-    }
+    public Doctor() {}
 
     public Doctor(String code, String name, String specialization, int availability) {
         this.code = code;
@@ -56,8 +55,7 @@ public class Doctor {
 
     @Override
     public String toString() {
-        return String.format("%s\t%s\t%s\t%d", 
-            code, name, specialization, availability);
+        return String.format("%s\t%s\t%s\t%d", code, name, specialization, availability);
     }
 
     @Override

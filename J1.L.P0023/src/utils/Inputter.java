@@ -9,8 +9,7 @@ public class Inputter {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private Inputter() {
-    }
+    private Inputter() {}
 
     public static String input(String label) {
         System.out.print(label);
@@ -75,7 +74,8 @@ public class Inputter {
                 System.out.println("Not enough stock! Available: " + maxQuantity);
                 value = null;
             }
-        } while (value == null || !Validator.isPositiveInteger(value)
+        } while (value == null
+                || !Validator.isPositiveInteger(value)
                 || Integer.parseInt(value) > maxQuantity);
         return Integer.parseInt(value);
     }

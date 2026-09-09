@@ -1,7 +1,8 @@
 package controller;
 
-import java.util.Comparator;
 import model.Student;
+
+import java.util.Comparator;
 
 public class StudentNameComparator implements Comparator<Student> {
 

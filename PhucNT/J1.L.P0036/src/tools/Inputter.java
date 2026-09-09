@@ -105,5 +105,4 @@ public class Inputter {
         } while (!Acceptable.isValidPosition(data));
         return Acceptable.normalizePosition(data);
     }
-
 }

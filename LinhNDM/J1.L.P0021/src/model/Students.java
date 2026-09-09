@@ -72,8 +72,7 @@ public class Students extends ArrayList<Student> {
      * @param course khóa học mới
      * @return true nếu cập nhật thành công
      */
-    public boolean updateStudent(String studentId, String name,
-            String semester, String course) {
+    public boolean updateStudent(String studentId, String name, String semester, String course) {
         Student student;
         student = getStudentById(studentId);
         if (student == null) {
@@ -132,16 +131,14 @@ public class Students extends ArrayList<Student> {
             found = false;
             for (ReportEntry reportEntry : reportList) {
                 if (reportEntry.getName().equalsIgnoreCase(student.getName())
-                        && reportEntry.getCourse().equalsIgnoreCase(
-                                student.getCourse())) {
+                        && reportEntry.getCourse().equalsIgnoreCase(student.getCourse())) {
                     reportEntry.setCount(reportEntry.getCount() + 1);
                     found = true;
                     break;
                 }
             }
             if (!found) {
-                entry = new ReportEntry(student.getName(),
-                        student.getCourse(), 1);
+                entry = new ReportEntry(student.getName(), student.getCourse(), 1);
                 reportList.add(entry);
             }
         }

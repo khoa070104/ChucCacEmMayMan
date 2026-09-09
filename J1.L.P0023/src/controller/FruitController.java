@@ -1,15 +1,20 @@
 package controller;
 
+import model.Fruit;
+import model.OrderItem;
+
+import repository.FruitRepository;
+import repository.OrderRepository;
+
+import service.FruitService;
+
+import utils.Inputter;
+
+import view.FruitView;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Fruit;
-import model.OrderItem;
-import repository.FruitRepository;
-import repository.OrderRepository;
-import service.FruitService;
-import utils.Inputter;
-import view.FruitView;
 
 /**
  * Coordinates view and service layers.
@@ -85,7 +90,9 @@ public class FruitController {
             }
 
             view.displaySelectedFruit(selected);
-            int quantity = Inputter.inputPositiveQuantity("Please input quantity: ", selected.getQuantity());
+            int quantity =
+                    Inputter.inputPositiveQuantity(
+                            "Please input quantity: ", selected.getQuantity());
             service.addToCart(selected, quantity);
 
             String orderNow = Inputter.inputYesNo("Do you want to order now (Y/N)? ");
@@ -118,5 +125,4 @@ public class FruitController {
         }
         return available;
     }
-
 }

@@ -6,8 +6,7 @@ public class Account implements Serializable {
     private String username;
     private String password;
 
-    public Account() {
-    }
+    public Account() {}
 
     public Account(String username, String password) {
         this.username = username;
@@ -45,9 +44,6 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "Account{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                '}';
+        return "Account{" + "username='" + username + '\'' + ", password='" + password + '\'' + '}';
     }
 }

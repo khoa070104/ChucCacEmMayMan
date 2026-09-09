@@ -31,10 +31,14 @@ public class GradeStudent {
     }
 
     /** Reads and calculates the midterm weighted score. */
-    public void midTerm() { totalWeightedScore += readExam("Midterm"); }
+    public void midTerm() {
+        totalWeightedScore += readExam("Midterm");
+    }
 
     /** Reads and calculates the final-term weighted score. */
-    public void finalTerm() { totalWeightedScore += readExam("Final"); }
+    public void finalTerm() {
+        totalWeightedScore += readExam("Final");
+    }
 
     /**
      * Reads assignments and attendance, then calculates the homework score.
@@ -69,10 +73,14 @@ public class GradeStudent {
     /** Displays the overall percentage, minimum grade, and a short message. */
     public void report() {
         double percentage = Math.round(totalWeightedScore * 10) / 10.0;
-        double grade = percentage >= 85 ? 3.0 : percentage >= 75 ? 2.0 : percentage >= 60 ? 0.7 : 0.0;
+        double grade =
+                percentage >= 85 ? 3.0 : percentage >= 75 ? 2.0 : percentage >= 60 ? 0.7 : 0.0;
         System.out.println("Overall percentage = " + percentage);
         System.out.println("Your grade will be at least: " + grade);
-        System.out.println(grade >= 3 ? "Excellent work!" : grade >= 2 ? "Good effort." : "Keep studying and improving.");
+        System.out.println(
+                grade >= 3
+                        ? "Excellent work!"
+                        : grade >= 2 ? "Good effort." : "Keep studying and improving.");
     }
 
     /**
@@ -103,8 +111,10 @@ public class GradeStudent {
                 usedWeight += weight;
                 return weight;
             }
-            System.out.println(last ? "The three weights must total exactly 100."
-                    : "The total weight must not exceed 100.");
+            System.out.println(
+                    last
+                            ? "The three weights must total exactly 100."
+                            : "The total weight must not exceed 100.");
         }
     }
 
@@ -118,7 +128,9 @@ public class GradeStudent {
             try {
                 int value = Integer.parseInt(scanner.nextLine().trim());
                 if (value >= min && value <= max) return value;
-            } catch (NumberFormatException exception) { /* Print one common message below. */ }
+            } catch (NumberFormatException exception) {
+                /* Print one common message below. */
+            }
             System.out.println("Please enter an integer from " + min + " to " + max + ".");
         }
     }

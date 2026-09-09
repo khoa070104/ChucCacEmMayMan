@@ -2,10 +2,13 @@ package repository;
 
 import common.Constants;
 import common.Messages;
-import java.io.IOException;
+
 import model.Candidate;
 import model.Candidates;
+
 import utils.FileUtils;
+
+import java.io.IOException;
 
 /**
  * Truy cập dữ liệu ứng viên từ file.
@@ -23,8 +26,7 @@ public class CandidateRepository {
         try {
             FileUtils.loadCandidates(Constants.DATA_FILE, candidateList);
         } catch (IOException exception) {
-            System.out.println(Messages.ERR_LOAD_CANDIDATE_FILE
-                    + exception.getMessage());
+            System.out.println(Messages.ERR_LOAD_CANDIDATE_FILE + exception.getMessage());
         }
     }
 

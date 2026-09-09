@@ -1,18 +1,20 @@
 package Program;
 
-import java.io.IOException;
-import java.time.LocalDate;
-import java.util.ArrayList;
-import Entity.Customer;
-import Entity.FeastMenu;
-import Entity.FeastOrder;
 import DataObject.CustomerService;
 import DataObject.MenuService;
 import DataObject.OrderService;
+
+import Entity.Customer;
+import Entity.FeastMenu;
+import Entity.FeastOrder;
+
 import Utilities.AppLogger;
 import Utilities.InputReader;
 import Utilities.Validator;
-import Program.ConsoleView;
+
+import java.io.IOException;
+import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class FeastController {
     private final InputReader input;
@@ -36,16 +38,35 @@ public class FeastController {
             view.showMainMenu();
             int choice = input.readPositiveInt("Select an option: ");
             switch (choice) {
-                case 1: registerCustomers(); break;
-                case 2: updateCustomers(); break;
-                case 3: searchCustomers(); break;
-                case 4: view.showMenus(menuService.getSortedMenus()); break;
-                case 5: placeOrders(); break;
-                case 6: updateOrders(); break;
-                case 7: saveData(); break;
-                case 8: displayLists(); break;
-                case 9: running = !confirmQuit(); break;
-                default: System.out.println("Please select an option from 1 to 9.");
+                case 1:
+                    registerCustomers();
+                    break;
+                case 2:
+                    updateCustomers();
+                    break;
+                case 3:
+                    searchCustomers();
+                    break;
+                case 4:
+                    view.showMenus(menuService.getSortedMenus());
+                    break;
+                case 5:
+                    placeOrders();
+                    break;
+                case 6:
+                    updateOrders();
+                    break;
+                case 7:
+                    saveData();
+                    break;
+                case 8:
+                    displayLists();
+                    break;
+                case 9:
+                    running = !confirmQuit();
+                    break;
+                default:
+                    System.out.println("Please select an option from 1 to 9.");
             }
         }
         System.out.println("Goodbye!");
@@ -104,8 +125,8 @@ public class FeastController {
             int tables = input.readPositiveInt("Number of tables: ");
             LocalDate eventDate = input.readFutureDate("Event date (dd/MM/yyyy): ", false);
             FeastMenu menu = menuService.findByCode(menuCode);
-            FeastOrder order = orderService.create(customerCode, menuCode, tables,
-                    eventDate, menu.getPrice());
+            FeastOrder order =
+                    orderService.create(customerCode, menuCode, tables, eventDate, menu.getPrice());
             if (order == null) {
                 System.out.println("Duplicate data!");
             } else {
@@ -136,11 +157,12 @@ public class FeastController {
     private void updateExistingOrder(FeastOrder order) {
         String menuCode = readExistingMenuCode("New set menu code (blank to keep): ", true);
         Integer tables = input.readOptionalPositiveInt("New number of tables (blank to keep): ");
-        LocalDate eventDate = input.readFutureDate("New event date dd/MM/yyyy (blank to keep): ", true);
+        LocalDate eventDate =
+                input.readFutureDate("New event date dd/MM/yyyy (blank to keep): ", true);
         String newMenuCode = menuCode.isEmpty() ? order.getMenuCode() : menuCode;
         LocalDate newEventDate = eventDate == null ? order.getEventDate() : eventDate;
-        if (orderService.isDuplicate(order.getOrderId(), order.getCustomerCode(),
-                newMenuCode, newEventDate)) {
+        if (orderService.isDuplicate(
+                order.getOrderId(), order.getCustomerCode(), newMenuCode, newEventDate)) {
             System.out.println("Duplicate data!");
             return;
         }
@@ -166,7 +188,8 @@ public class FeastController {
     private String readNewCustomerCode() {
         while (true) {
             String code = input.readString("Customer code: ").toUpperCase();
-            if (Validator.isCustomerCode(code) && customerService.findByCode(code) == null) return code;
+            if (Validator.isCustomerCode(code) && customerService.findByCode(code) == null)
+                return code;
             System.out.println("Code must be unique and match C/G/K followed by four digits.");
         }
     }
@@ -226,7 +249,8 @@ public class FeastController {
             orderService.save();
             changed = false;
             System.out.println("Customer data has been successfully saved to customers.dat.");
-            System.out.println("Order data has been successfully saved to feast_order_service.dat.");
+            System.out.println(
+                    "Order data has been successfully saved to feast_order_service.dat.");
             return true;
         } catch (IOException exception) {
             AppLogger.log("Cannot save application data", exception);
@@ -237,7 +261,8 @@ public class FeastController {
 
     private boolean confirmQuit() {
         if (!changed) return true;
-        if (input.readYesNo("There are unsaved changes. Save before quitting? (Y/N): ")) return saveData();
+        if (input.readYesNo("There are unsaved changes. Save before quitting? (Y/N): "))
+            return saveData();
         return input.readYesNo("Discard unsaved changes and quit? (Y/N): ");
     }
 }

@@ -9,8 +9,7 @@ public class Inputter {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private Inputter() {
-    }
+    private Inputter() {}
 
     public static String input(String label) {
         System.out.print(label);
@@ -64,7 +63,8 @@ public class Inputter {
         do {
             value = inputRequired("Enter Email: ");
             if (!Validator.isValidEmail(value)) {
-                System.out.println("Invalid email! Format: account@domain (e.g. annguyen@fpt.edu.vn)");
+                System.out.println(
+                        "Invalid email! Format: account@domain (e.g. annguyen@fpt.edu.vn)");
             }
         } while (!Validator.isValidEmail(value));
         return value;
@@ -108,7 +108,8 @@ public class Inputter {
         do {
             value = inputRequired("Input type of candidate: ");
             if (!Validator.isValidCandidateType(value)) {
-                System.out.println("Invalid type! Must be 0 (Experience), 1 (Fresher), or 2 (Intern).");
+                System.out.println(
+                        "Invalid type! Must be 0 (Experience), 1 (Fresher), or 2 (Intern).");
             }
         } while (!Validator.isValidCandidateType(value));
         return Integer.parseInt(value);

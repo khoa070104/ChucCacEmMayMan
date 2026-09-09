@@ -1,6 +1,7 @@
 package model;
 
 import common.Constants;
+
 import java.util.Calendar;
 
 /**
@@ -10,8 +11,7 @@ import java.util.Calendar;
  */
 public final class Validator {
 
-    private Validator() {
-    }
+    private Validator() {}
 
     /**
      * Kiểm tra năm sinh hợp lệ.
@@ -62,8 +62,7 @@ public final class Validator {
             return false;
         }
         years = Integer.parseInt(input);
-        return years >= Constants.MIN_EXP_IN_YEAR
-                && years <= Constants.MAX_EXP_IN_YEAR;
+        return years >= Constants.MIN_EXP_IN_YEAR && years <= Constants.MAX_EXP_IN_YEAR;
     }
 
     /**

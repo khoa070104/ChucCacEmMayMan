@@ -15,10 +15,15 @@ public class Student implements Serializable {
     private String mountainCode;
     private double tuitionFee;
 
-    public Student() {
-    }
+    public Student() {}
 
-    public Student(String id, String name, String phone, String email, String mountainCode, double tuitionFee) {
+    public Student(
+            String id,
+            String name,
+            String phone,
+            String email,
+            String mountainCode,
+            double tuitionFee) {
         this.id = id;
         this.name = name;
         this.phone = phone;
@@ -84,7 +89,7 @@ public class Student implements Serializable {
 
     @Override
     public String toString() {
-        return String.format("%-12s| %-14s| %-13s| %-10s| %,.0f",
-                id, name, phone, mountainCode, tuitionFee);
+        return String.format(
+                "%-12s| %-14s| %-13s| %-10s| %,.0f", id, name, phone, mountainCode, tuitionFee);
     }
 }

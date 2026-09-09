@@ -1,10 +1,12 @@
 package repository;
 
+import model.Fruit;
+
+import utils.FileUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Fruit;
-import utils.FileUtils;
 
 /**
  * Data access layer – stores fruits in ArrayList and file.

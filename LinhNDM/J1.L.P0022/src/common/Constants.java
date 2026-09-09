@@ -7,8 +7,7 @@ package common;
  */
 public final class Constants {
 
-    private Constants() {
-    }
+    private Constants() {}
 
     public static final int TYPE_EXPERIENCE = 0;
     public static final int TYPE_FRESHER = 1;
@@ -42,23 +41,19 @@ public final class Constants {
     public static final String LABEL_EXP_IN_YEAR = "Enter Year of Experience: ";
     public static final String LABEL_PRO_SKILL = "Enter Professional Skill: ";
     public static final String LABEL_GRADUATION_DATE = "Enter Graduation Date (yyyy): ";
-    public static final String LABEL_GRADUATION_RANK
-            = "Enter Rank of Graduation (Excellence/Good/Fair/Poor): ";
+    public static final String LABEL_GRADUATION_RANK =
+            "Enter Rank of Graduation (Excellence/Good/Fair/Poor): ";
     public static final String LABEL_EDUCATION = "Enter Education (University): ";
     public static final String LABEL_MAJORS = "Enter Majors: ";
     public static final String LABEL_SEMESTER = "Enter Semester: ";
     public static final String LABEL_UNIVERSITY = "Enter University Name: ";
-    public static final String LABEL_SEARCH_NAME
-            = "\nInput Candidate name (First name or Last name): ";
+    public static final String LABEL_SEARCH_NAME =
+            "\nInput Candidate name (First name or Last name): ";
     public static final String LABEL_CANDIDATE_TYPE = "Input type of candidate: ";
 
-    public static final String HEADER_EXPERIENCE
-            = "===========EXPERIENCE CANDIDATE============";
-    public static final String HEADER_FRESHER
-            = "==========FRESHER CANDIDATE==============";
-    public static final String HEADER_INTERN
-            = "===========INTERN CANDIDATE==============";
+    public static final String HEADER_EXPERIENCE = "===========EXPERIENCE CANDIDATE============";
+    public static final String HEADER_FRESHER = "==========FRESHER CANDIDATE==============";
+    public static final String HEADER_INTERN = "===========INTERN CANDIDATE==============";
 
-    public static final String[] GRADUATION_RANKS
-            = {"Excellence", "Good", "Fair", "Poor"};
+    public static final String[] GRADUATION_RANKS = {"Excellence", "Good", "Fair", "Poor"};
 }

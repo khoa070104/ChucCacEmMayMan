@@ -4,6 +4,12 @@
  */
 package controller;
 
+import common.Constants;
+import common.Messages;
+
+import model.Brand;
+import model.Car;
+
 import java.io.File;
 import java.io.FileWriter;
 import java.io.PrintWriter;
@@ -11,10 +17,6 @@ import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Scanner;
-import model.Brand;
-import model.Car;
-import common.Messages;
-import common.Constants;
 
 /**
  *
@@ -26,12 +28,13 @@ public class ShowRoomManagement {
 
     private boolean brandsChanged = false;
     private boolean carsChanged = false;
-    public void readBrandFile(String fileName){
+
+    public void readBrandFile(String fileName) {
         try {
             Scanner rf = new Scanner(new File(fileName));
-            while(rf.hasNextLine()){
+            while (rf.hasNextLine()) {
                 String[] lines = rf.nextLine().split(",");
-                if(lines.length == 3){
+                if (lines.length == 3) {
                     String[] soundAndPrice = lines[2].split(":");
                     // B7-2018, BMW 730Li (2018)
                     //  Harman Kardon, 3.749B
@@ -44,27 +47,27 @@ public class ShowRoomManagement {
         } catch (Exception e) {
         }
     }
-    
-    public Brand getBrandById(String brandId){
+
+    public Brand getBrandById(String brandId) {
         for (Brand brand : listBrand) {
-            if(brand.getBrandId().equals(brandId)){
+            if (brand.getBrandId().equals(brandId)) {
                 return brand;
             }
         }
         return null;
     }
-    
-    public void readCarFile(String fileName){
+
+    public void readCarFile(String fileName) {
         try {
             Scanner rf = new Scanner(new File(fileName));
-            while(rf.hasNextLine()){
+            while (rf.hasNextLine()) {
                 String[] lines = rf.nextLine().split(",");
-                
-                if(lines.length == 5){
+
+                if (lines.length == 5) {
                     Brand existedBrand = getBrandById(lines[1].trim());
-                    //System.out.println(existedBrand);
-                    if(existedBrand != null){
-                        Car newCar = new Car(lines[0],existedBrand,lines[2],lines[3],lines[4]);
+                    // System.out.println(existedBrand);
+                    if (existedBrand != null) {
+                        Car newCar = new Car(lines[0], existedBrand, lines[2], lines[3], lines[4]);
                         listCar.add(newCar);
                     }
                 }
@@ -80,17 +83,20 @@ public class ShowRoomManagement {
         return Double.parseDouble(res);
     }
 
-    private String formatPrice(double storedPrice){
+    private String formatPrice(double storedPrice) {
         // storedPrice like 3749 -> 3.749B
         double b = storedPrice / 1000.0;
         return String.format("%.3fB", b);
     }
 
-    public void listAllBrands(){
-        System.out.println("ID        | Brand Name                          | Sound           | Price");
-        System.out.println("--------------------------------------------------------------------------------");
+    public void listAllBrands() {
+        System.out.println(
+                "ID        | Brand Name                          | Sound           | Price");
+        System.out.println(
+                "--------------------------------------------------------------------------------");
         for (Brand b : listBrand) {
-            System.out.printf("%-9s | %-35s | %-15s | %s\n",
+            System.out.printf(
+                    "%-9s | %-35s | %-15s | %s\n",
                     b.getBrandId().trim(),
                     b.getBrandName().trim(),
                     b.getBrandSound().trim(),
@@ -98,43 +104,43 @@ public class ShowRoomManagement {
         }
     }
 
-    private boolean isUniqueBrandId(String brandId){
+    private boolean isUniqueBrandId(String brandId) {
         return getBrandById(brandId) == null;
     }
 
-    public void addNewBrand(){
+    public void addNewBrand() {
         String brandId;
-        do{
+        do {
             brandId = Inputter.inputRequired("Enter Brand ID: ");
-            if(!isUniqueBrandId(brandId)){
+            if (!isUniqueBrandId(brandId)) {
                 System.out.println(Messages.ERR_DUP_BRAND_ID);
             }
-        }while(!isUniqueBrandId(brandId));
+        } while (!isUniqueBrandId(brandId));
 
         String name;
-        do{
+        do {
             name = Inputter.inputRequired("Enter Brand Name: ");
-            if(name.trim().isEmpty()) System.out.println(Messages.ERR_EMPTY_BRAND_NAME);
-        }while(name.trim().isEmpty());
+            if (name.trim().isEmpty()) System.out.println(Messages.ERR_EMPTY_BRAND_NAME);
+        } while (name.trim().isEmpty());
 
         String sound;
-        do{
+        do {
             sound = Inputter.inputRequired("Enter Sound Brand: ");
-            if(sound.trim().isEmpty()) System.out.println(Messages.ERR_EMPTY_SOUND);
-        }while(sound.trim().isEmpty());
+            if (sound.trim().isEmpty()) System.out.println(Messages.ERR_EMPTY_SOUND);
+        } while (sound.trim().isEmpty());
 
         Double price = null;
-        while(price == null){
+        while (price == null) {
             String priceStr = Inputter.inputRequired("Enter Price (billions, e.g., 3.749): ");
-            try{
+            try {
                 double p = Double.parseDouble(priceStr);
-                if(p <= 0) {
+                if (p <= 0) {
                     System.out.println(Messages.ERR_PRICE_POSITIVE);
                     continue;
                 }
                 // store as thousands of billions (e.g., 3.749 -> 3749)
                 price = (double) Math.round(p * 1000.0);
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(Messages.ERR_PRICE_POSITIVE);
             }
         }
@@ -144,58 +150,68 @@ public class ShowRoomManagement {
         brandsChanged = true;
         System.out.println(Messages.MSG_ADDED_SUCCESS);
     }
-    
-    public List<Brand> getBrandByPrice(){
+
+    public List<Brand> getBrandByPrice() {
         double inputBillions;
-        while(true){
-            try{
+        while (true) {
+            try {
                 String s = Inputter.inputRequired("Enter price (<=) in billions: ");
                 inputBillions = Double.parseDouble(s);
-                if(inputBillions < 0){
+                if (inputBillions < 0) {
                     System.out.println(Messages.ERR_PRICE_POSITIVE);
                     continue;
                 }
                 break;
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(Messages.ERR_PRICE_POSITIVE);
             }
         }
         double threshold = Math.round(inputBillions * 1000.0);
         List<Brand> result = new ArrayList<>();
         for (Brand brand : listBrand) {
-            if(brand.getPrice() <= threshold){
-               result.add(brand);
+            if (brand.getPrice() <= threshold) {
+                result.add(brand);
             }
         }
         return result;
     }
 
-    public void printBrandsByPrice(){
+    public void printBrandsByPrice() {
         List<Brand> result = getBrandByPrice();
-        if(result.isEmpty()) return;
-        System.out.println("ID        | Brand Name                          | Sound           | Price");
-        System.out.println("--------------------------------------------------------------------------------");
+        if (result.isEmpty()) return;
+        System.out.println(
+                "ID        | Brand Name                          | Sound           | Price");
+        System.out.println(
+                "--------------------------------------------------------------------------------");
         for (Brand b : result) {
-            System.out.printf("%-9s | %-35s | %-15s | %s\n",
-                    b.getBrandId().trim(), b.getBrandName().trim(), b.getBrandSound().trim(), formatPrice(b.getPrice()));
+            System.out.printf(
+                    "%-9s | %-35s | %-15s | %s\n",
+                    b.getBrandId().trim(),
+                    b.getBrandName().trim(),
+                    b.getBrandSound().trim(),
+                    formatPrice(b.getPrice()));
         }
     }
 
-    public void searchBrandById(){
+    public void searchBrandById() {
         String id = Inputter.inputRequired("Enter Brand ID: ");
         Brand b = getBrandById(id);
-        if(b == null){
+        if (b == null) {
             System.out.println(Messages.ERR_BRAND_NOT_FOUND);
-        }else{
-            System.out.printf("%-9s | %-35s | %-15s | %s\n",
-                b.getBrandId().trim(), b.getBrandName().trim(), b.getBrandSound().trim(), formatPrice(b.getPrice()));
+        } else {
+            System.out.printf(
+                    "%-9s | %-35s | %-15s | %s\n",
+                    b.getBrandId().trim(),
+                    b.getBrandName().trim(),
+                    b.getBrandSound().trim(),
+                    formatPrice(b.getPrice()));
         }
     }
 
-    public void updateBrandById(){
+    public void updateBrandById() {
         String id = Inputter.inputRequired("Enter Brand ID: ");
         Brand b = getBrandById(id);
-        if(b == null){
+        if (b == null) {
             System.out.println(Messages.ERR_BRAND_NOT_FOUND);
             return;
         }
@@ -203,77 +219,75 @@ public class ShowRoomManagement {
         String sound = Inputter.inputOptional("Enter Sound Brand (empty to skip): ");
         String priceStr = Inputter.inputOptional("Enter Price in billions (empty to skip): ");
 
-        if(name != null && !name.isEmpty()) b.setBrandName(name.trim());
-        if(sound != null && !sound.isEmpty()) b.setBrandSound(sound.trim());
+        if (name != null && !name.isEmpty()) b.setBrandName(name.trim());
+        if (sound != null && !sound.isEmpty()) b.setBrandSound(sound.trim());
 
-        if(priceStr != null && !priceStr.isEmpty()){
-            try{
+        if (priceStr != null && !priceStr.isEmpty()) {
+            try {
                 double p = Double.parseDouble(priceStr);
-                if(p > 0){
+                if (p > 0) {
                     double stored = Math.round(p * 1000.0);
                     b.setPrice(stored);
-                }else{
+                } else {
                     System.out.println(Messages.ERR_PRICE_POSITIVE);
                 }
-            }catch(Exception ex){
+            } catch (Exception ex) {
                 System.out.println(Messages.ERR_PRICE_POSITIVE);
             }
         }
         brandsChanged = true;
         System.out.println(Messages.MSG_UPDATED_SUCCESS);
     }
-    
-    public void printCarSortByBrandName(){
+
+    public void printCarSortByBrandName() {
         List<Car> sorted = new ArrayList<>(listCar);
         sorted.sort(
-            Comparator.comparing((Car c) -> c.getBrand().getBrandName().trim())
-                      .thenComparing((Car c) -> -c.getBrand().getPrice())
-        );
+                Comparator.comparing((Car c) -> c.getBrand().getBrandName().trim())
+                        .thenComparing((Car c) -> -c.getBrand().getPrice()));
         for (Car car : sorted) {
             System.out.println(car.toString());
         }
     }
-    
-    public Car getCarById(String carId){
+
+    public Car getCarById(String carId) {
         for (Car car : listCar) {
-            if(car.getCarId().equals(carId)){
+            if (car.getCarId().equals(carId)) {
                 return car;
             }
         }
         return null;
     }
-    
-    public void addNewCar(){
+
+    public void addNewCar() {
         String id, brandId, engineId, frameId, color;
-        do{
+        do {
             id = Inputter.inputRequired("Enter ID: ");
-        }while(getCarById(id) != null);
+        } while (getCarById(id) != null);
         Brand existed;
-        do{
+        do {
             brandId = Inputter.inputRequired("Enter Brand Id: ");
-            existed = getBrandById(brandId); 
-        }while (existed == null);
-        do{
+            existed = getBrandById(brandId);
+        } while (existed == null);
+        do {
             engineId = Inputter.inputRequired("Enter Engine Id:", Inputter.VALIDATE_ENGINE_ID);
-            if(!isUniqueEngineId(engineId)) System.out.println(Messages.ERR_DUP_ENGINE_ID);
-        }while(!isUniqueEngineId(engineId));
-        do{
+            if (!isUniqueEngineId(engineId)) System.out.println(Messages.ERR_DUP_ENGINE_ID);
+        } while (!isUniqueEngineId(engineId));
+        do {
             frameId = Inputter.inputRequired("Enter Frame Id:", Inputter.VALIDATE_FRAME_ID);
-            if(!isUniqueFrameId(frameId)) System.out.println(Messages.ERR_DUP_FRAME_ID);
-        }while(!isUniqueFrameId(frameId));
+            if (!isUniqueFrameId(frameId)) System.out.println(Messages.ERR_DUP_FRAME_ID);
+        } while (!isUniqueFrameId(frameId));
         color = Inputter.inputRequired("Enter Color:");
-        
+
         Car newCar = new Car(id, existed, color, frameId, engineId);
         listCar.add(newCar);
         carsChanged = true;
     }
-    
-    public boolean removeCar(){
+
+    public boolean removeCar() {
         String id = Inputter.inputOptional("Enter Car Id (Enter if cancel):");
-        if(id==""|| id.isEmpty())
-            return false;
+        if (id == "" || id.isEmpty()) return false;
         Car removeCar = getCarById(id);
-        if(removeCar == null){
+        if (removeCar == null) {
             System.out.println(Messages.ERR_CAR_NOT_FOUND);
             return false;
         }
@@ -282,113 +296,118 @@ public class ShowRoomManagement {
         System.out.println(Messages.MSG_REMOVED_SUCCESS);
         return true;
     }
-    
-    public void updateCar(){
+
+    public void updateCar() {
         String id, brandId, engineId, frameId, color;
         Car existedCar;
-        do{
+        do {
             id = Inputter.inputRequired("Enter ID: ");
             existedCar = getCarById(id);
-        }while(existedCar == null);
+        } while (existedCar == null);
         Brand existed;
-        do{
+        do {
             brandId = Inputter.inputOptional("Enter Brand Id (Enter if cancel): ");
-            if(brandId == "" || brandId.isEmpty()){
+            if (brandId == "" || brandId.isEmpty()) {
                 break;
             }
-            existed = getBrandById(brandId); 
-            if(existed != null) existedCar.setBrand(existed);
-        }while (existed == null);
-        engineId = Inputter.inputOptional("Enter Engine Id (Enter if cancel):", Inputter.VALIDATE_ENGINE_ID);
-        frameId = Inputter.inputOptional("Enter Frame Id (Enter if cancel):", Inputter.VALIDATE_FRAME_ID);
+            existed = getBrandById(brandId);
+            if (existed != null) existedCar.setBrand(existed);
+        } while (existed == null);
+        engineId =
+                Inputter.inputOptional(
+                        "Enter Engine Id (Enter if cancel):", Inputter.VALIDATE_ENGINE_ID);
+        frameId =
+                Inputter.inputOptional(
+                        "Enter Frame Id (Enter if cancel):", Inputter.VALIDATE_FRAME_ID);
         color = Inputter.inputOptional("Enter Color (Enter if cancel):");
-        
-        if(engineId !=""&& !engineId.isEmpty()){
-            if(isUniqueEngineIdForUpdate(existedCar, engineId)){
+
+        if (engineId != "" && !engineId.isEmpty()) {
+            if (isUniqueEngineIdForUpdate(existedCar, engineId)) {
                 existedCar.setEngineId(engineId);
-            }else{
+            } else {
                 System.out.println(Messages.ERR_DUP_ENGINE_ID);
             }
         }
-        if(frameId !=""&& !frameId.isEmpty()){
-            if(isUniqueFrameIdForUpdate(existedCar, frameId)){
+        if (frameId != "" && !frameId.isEmpty()) {
+            if (isUniqueFrameIdForUpdate(existedCar, frameId)) {
                 existedCar.setFrameId(frameId);
-            }else{
+            } else {
                 System.out.println(Messages.ERR_DUP_FRAME_ID);
             }
         }
-        if(color !=""&& !color.isEmpty()){
+        if (color != "" && !color.isEmpty()) {
             existedCar.setColor(color);
         }
         carsChanged = true;
     }
 
-    private boolean isUniqueFrameId(String frameId){
-        for (Car c : listCar) if(c.getFrameId().equals(frameId)) return false;
+    private boolean isUniqueFrameId(String frameId) {
+        for (Car c : listCar) if (c.getFrameId().equals(frameId)) return false;
         return true;
     }
 
-    private boolean isUniqueEngineId(String engineId){
-        for (Car c : listCar) if(c.getEngineId().equals(engineId)) return false;
+    private boolean isUniqueEngineId(String engineId) {
+        for (Car c : listCar) if (c.getEngineId().equals(engineId)) return false;
         return true;
     }
 
-    private boolean isUniqueFrameIdForUpdate(Car current, String newFrame){
-        for (Car c : listCar){
-            if(c == current) continue;
-            if(c.getFrameId().equals(newFrame)) return false;
+    private boolean isUniqueFrameIdForUpdate(Car current, String newFrame) {
+        for (Car c : listCar) {
+            if (c == current) continue;
+            if (c.getFrameId().equals(newFrame)) return false;
         }
         return true;
     }
 
-    private boolean isUniqueEngineIdForUpdate(Car current, String newEngine){
-        for (Car c : listCar){
-            if(c == current) continue;
-            if(c.getEngineId().equals(newEngine)) return false;
+    private boolean isUniqueEngineIdForUpdate(Car current, String newEngine) {
+        for (Car c : listCar) {
+            if (c == current) continue;
+            if (c.getEngineId().equals(newEngine)) return false;
         }
         return true;
     }
 
-    public void listCarsByColor(){
+    public void listCarsByColor() {
         String color = Inputter.inputRequired("Enter color: ");
-        for (Car c : listCar){
-            if(c.getColor().equalsIgnoreCase(color.trim())){
+        for (Car c : listCar) {
+            if (c.getColor().equalsIgnoreCase(color.trim())) {
                 System.out.println(c.toString());
             }
         }
     }
 
-    public void searchCarsByBrandNameLike(){
+    public void searchCarsByBrandNameLike() {
         String keyword = Inputter.inputRequired("Enter partial brand name: ");
         String kw = keyword.trim().toLowerCase();
-        for (Car c : listCar){
-            if(c.getBrand().getBrandName().toLowerCase().contains(kw)){
+        for (Car c : listCar) {
+            if (c.getBrand().getBrandName().toLowerCase().contains(kw)) {
                 System.out.println(c.toString());
             }
         }
     }
 
-    public void listAllCarsSorted(){
+    public void listAllCarsSorted() {
         printCarSortByBrandName();
     }
 
-    public void saveAll(){
+    public void saveAll() {
         boolean any = false;
-        if(brandsChanged){
+        if (brandsChanged) {
             saveBrandsToFile(Constants.BRAND_FILE);
             any = true;
         }
-        if(carsChanged){
+        if (carsChanged) {
             saveCarsToFile(Constants.CAR_FILE);
             any = true;
         }
-        if(!any) System.out.println(Messages.MSG_NOTHING_TO_SAVE);
+        if (!any) System.out.println(Messages.MSG_NOTHING_TO_SAVE);
     }
 
-    public void saveBrandsToFile(String fileName){
-        try(PrintWriter pw = new PrintWriter(new FileWriter(new File(fileName)))){
+    public void saveBrandsToFile(String fileName) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File(fileName)))) {
             for (Brand b : listBrand) {
-                pw.printf("%s, %s, %s:%s\n",
+                pw.printf(
+                        "%s, %s, %s:%s\n",
                         b.getBrandId().trim(),
                         b.getBrandName().trim(),
                         b.getBrandSound().trim(),
@@ -396,15 +415,16 @@ public class ShowRoomManagement {
             }
             brandsChanged = false;
             System.out.println(Messages.MSG_SAVED_OK);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
 
-    public void saveCarsToFile(String fileName){
-        try(PrintWriter pw = new PrintWriter(new FileWriter(new File(fileName)))){
+    public void saveCarsToFile(String fileName) {
+        try (PrintWriter pw = new PrintWriter(new FileWriter(new File(fileName)))) {
             for (Car c : listCar) {
-                pw.printf("%s, %s, %s, %s, %s\n",
+                pw.printf(
+                        "%s, %s, %s, %s, %s\n",
                         c.getCarId().trim(),
                         c.getBrand().getBrandId().trim(),
                         c.getColor().trim(),
@@ -413,16 +433,8 @@ public class ShowRoomManagement {
             }
             carsChanged = false;
             System.out.println(Messages.MSG_SAVED_OK);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             ex.printStackTrace();
         }
     }
-    
-    
-    
-    
-
-    
-    
-    
 }

@@ -32,17 +32,42 @@ public class Student {
         this.physics = physics;
     }
 
-    /** @return student name */ public String getName() { return name; }
-    /** @return class name */ public String getClassName() { return className; }
-    /** @return arithmetic mean */ public double getAverage() { return average; }
-    /** @param average calculated arithmetic mean */ public void setAverage(double average) { this.average = average; }
-    /** @return classification A, B, C, or D */ public String getType() { return type; }
-    /** @param type calculated classification */ public void setType(String type) { this.type = type; }
+    /** @return student name */
+    public String getName() {
+        return name;
+    }
+
+    /** @return class name */
+    public String getClassName() {
+        return className;
+    }
+
+    /** @return arithmetic mean */
+    public double getAverage() {
+        return average;
+    }
+
+    /** @param average calculated arithmetic mean */
+    public void setAverage(double average) {
+        this.average = average;
+    }
+
+    /** @return classification A, B, C, or D */
+    public String getType() {
+        return type;
+    }
+
+    /** @param type calculated classification */
+    public void setType(String type) {
+        this.type = type;
+    }
 
     /**
      * Calculates the arithmetic mean of the three marks.
      *
      * @return average mark
      */
-    public double calculateAverage() { return (maths + chemistry + physics) / 3; }
+    public double calculateAverage() {
+        return (maths + chemistry + physics) / 3;
+    }
 }

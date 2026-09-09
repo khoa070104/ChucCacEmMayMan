@@ -2,6 +2,7 @@ package dispatcher;
 
 import business.Employees;
 import business.Payroll;
+
 import tools.Inputter;
 
 public class Main {
@@ -52,11 +53,12 @@ public class Main {
                 case "5":
                     employees.searchEmployees(inputter);
                     break;
-                case "6": {
-                    Payroll payroll = new Payroll(employees);
-                    payroll.show();
-                    break;
-                }
+                case "6":
+                    {
+                        Payroll payroll = new Payroll(employees);
+                        payroll.show();
+                        break;
+                    }
                 case "7":
                     employees.showAll();
                     break;
@@ -77,15 +79,16 @@ public class Main {
 
     private boolean handleExit() {
         if (!employees.isSaved()) {
-            String confirm = inputter.inputYesNo(
-                    "Do you want to save the changes before exiting? (Y/N): ");
+            String confirm =
+                    inputter.inputYesNo("Do you want to save the changes before exiting? (Y/N): ");
             if (confirm.equals("Y")) {
                 employees.saveToFile();
                 System.out.println("Goodbye!");
                 return true;
             }
-            String forceExit = inputter.inputYesNo(
-                    "You have unsaved changes. Are you sure you want to exit without saving? (Y/N): ");
+            String forceExit =
+                    inputter.inputYesNo(
+                            "You have unsaved changes. Are you sure you want to exit without saving? (Y/N): ");
             if (forceExit.equals("Y")) {
                 System.out.println("Goodbye!");
             }

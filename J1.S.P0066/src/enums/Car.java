@@ -1,7 +1,9 @@
 package enums;
 
 public enum Car {
-    AUDI, MERCEDES, BMW;
+    AUDI,
+    MERCEDES,
+    BMW;
 
     public static Car getCar(String car) {
         try {

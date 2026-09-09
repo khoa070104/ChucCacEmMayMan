@@ -11,7 +11,8 @@ public class Course {
     private final int durationWeeks;
     private final LocalDate startDate;
 
-    public Course(String id, String studentId, String name, int durationWeeks, LocalDate startDate) {
+    public Course(
+            String id, String studentId, String name, int durationWeeks, LocalDate startDate) {
         this.id = id;
         this.studentId = studentId;
         this.name = name;
@@ -19,15 +20,30 @@ public class Course {
         this.startDate = startDate;
     }
 
-    public String getId() { return id; }
-    public String getStudentId() { return studentId; }
-    public String getName() { return name; }
-    public int getDurationWeeks() { return durationWeeks; }
-    public LocalDate getStartDate() { return startDate; }
+    public String getId() {
+        return id;
+    }
+
+    public String getStudentId() {
+        return studentId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public int getDurationWeeks() {
+        return durationWeeks;
+    }
+
+    public LocalDate getStartDate() {
+        return startDate;
+    }
 
     @Override
     public String toString() {
-        return String.format("%s, %s, %s, %d, %s", id, studentId, name,
-                durationWeeks, startDate.format(DATE_FORMAT));
+        return String.format(
+                "%s, %s, %s, %d, %s",
+                id, studentId, name, durationWeeks, startDate.format(DATE_FORMAT));
     }
 }

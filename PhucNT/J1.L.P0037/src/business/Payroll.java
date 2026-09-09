@@ -1,9 +1,10 @@
 package business;
 
-import java.util.ArrayList;
-import java.util.List;
 import model.Employee;
 import model.PayrollInfo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class Payroll {
 
@@ -41,13 +42,17 @@ public class Payroll {
             return;
         }
         System.out.println("Monthly Payroll (Active Employees Only):");
-        System.out.println("-----------------------------------------------------------------------------------------------");
-        System.out.println("ID    | Name            | Role      | Salary  | Days | Bonus  | Total Salary");
-        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
+        System.out.println(
+                "ID    | Name            | Role      | Salary  | Days | Bonus  | Total Salary");
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
         for (PayrollInfo info : payrollList) {
             System.out.println(info);
         }
-        System.out.println("-----------------------------------------------------------------------------------------------");
+        System.out.println(
+                "-----------------------------------------------------------------------------------------------");
         System.out.printf("Grand Total: %,.0f%n", getGrandTotal());
     }
 }

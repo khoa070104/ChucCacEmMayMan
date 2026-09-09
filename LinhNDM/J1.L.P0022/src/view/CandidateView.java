@@ -2,10 +2,12 @@ package view;
 
 import common.Constants;
 import common.Messages;
-import java.util.ArrayList;
+
 import model.Candidate;
 import model.Candidates;
 import model.Validator;
+
+import java.util.ArrayList;
 
 /**
  * Hiển thị giao diện và thu thập dữ liệu nhập từ người dùng.
@@ -40,8 +42,7 @@ public class CandidateView {
             try {
                 inputValue = Inputter.inputRequired(Constants.LABEL_YOUR_CHOICE);
                 choice = Integer.parseInt(inputValue);
-                if (choice >= Constants.MIN_MENU_CHOICE
-                        && choice <= Constants.MAX_MENU_CHOICE) {
+                if (choice >= Constants.MIN_MENU_CHOICE && choice <= Constants.MAX_MENU_CHOICE) {
                     return choice;
                 }
                 System.out.println(Messages.ERR_MENU_RANGE);
@@ -62,12 +63,10 @@ public class CandidateView {
             return;
         }
         System.out.println(Messages.MSG_CANDIDATE_LIST);
-        printGroup(Constants.HEADER_EXPERIENCE,
-                candidateList.findByType(Constants.TYPE_EXPERIENCE));
-        printGroup(Constants.HEADER_FRESHER,
-                candidateList.findByType(Constants.TYPE_FRESHER));
-        printGroup(Constants.HEADER_INTERN,
-                candidateList.findByType(Constants.TYPE_INTERN));
+        printGroup(
+                Constants.HEADER_EXPERIENCE, candidateList.findByType(Constants.TYPE_EXPERIENCE));
+        printGroup(Constants.HEADER_FRESHER, candidateList.findByType(Constants.TYPE_FRESHER));
+        printGroup(Constants.HEADER_INTERN, candidateList.findByType(Constants.TYPE_INTERN));
     }
 
     /**
@@ -77,12 +76,10 @@ public class CandidateView {
      */
     public void displayCandidateListForSearch(Candidates candidateList) {
         System.out.println(Messages.MSG_CANDIDATE_LIST);
-        printGroup(Constants.HEADER_EXPERIENCE,
-                candidateList.findByType(Constants.TYPE_EXPERIENCE));
-        printGroup(Constants.HEADER_FRESHER,
-                candidateList.findByType(Constants.TYPE_FRESHER));
-        printGroup(Constants.HEADER_INTERN,
-                candidateList.findByType(Constants.TYPE_INTERN));
+        printGroup(
+                Constants.HEADER_EXPERIENCE, candidateList.findByType(Constants.TYPE_EXPERIENCE));
+        printGroup(Constants.HEADER_FRESHER, candidateList.findByType(Constants.TYPE_FRESHER));
+        printGroup(Constants.HEADER_INTERN, candidateList.findByType(Constants.TYPE_INTERN));
     }
 
     /**
@@ -323,8 +320,7 @@ public class CandidateView {
      * @return Y hoặc N
      */
     public String inputContinueChoice() {
-        return Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING,
-                Constants.YES_NO_VALIDATE);
+        return Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING, Constants.YES_NO_VALIDATE);
     }
 
     /**

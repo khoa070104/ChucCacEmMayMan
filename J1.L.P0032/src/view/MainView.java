@@ -1,9 +1,9 @@
 package view;
 
+import common.Constants;
+
 import controller.Inputter;
 import controller.ShowRoomManagement;
-import common.Constants;
-import common.Messages;
 
 public class MainView {
     public static void main(String[] args) {
@@ -11,7 +11,7 @@ public class MainView {
         app.readBrandFile(Constants.BRAND_FILE);
         app.readCarFile(Constants.CAR_FILE);
 
-        while(true){
+        while (true) {
             System.out.println("\n==== Michael BMW Showroom ====");
             System.out.println("1. List all brands");
             System.out.println("2. Add a new brand");
@@ -27,19 +27,43 @@ public class MainView {
             System.out.println("12. Save data to files");
             System.out.println("13. Quit program");
             String choice = Inputter.inputRequired("Choose [1-13]: ");
-            switch(choice){
-                case "1": app.listAllBrands(); break;
-                case "2": app.addNewBrand(); break;
-                case "3": app.searchBrandById(); break;
-                case "4": app.updateBrandById(); break;
-                case "5": app.printBrandsByPrice(); break;
-                case "6": app.listAllCarsSorted(); break;
-                case "7": app.searchCarsByBrandNameLike(); break;
-                case "8": app.addNewCar(); break;
-                case "9": app.removeCar(); break;
-                case "10": app.updateCar(); break;
-                case "11": app.listCarsByColor(); break;
-                case "12": app.saveAll(); break;
+            switch (choice) {
+                case "1":
+                    app.listAllBrands();
+                    break;
+                case "2":
+                    app.addNewBrand();
+                    break;
+                case "3":
+                    app.searchBrandById();
+                    break;
+                case "4":
+                    app.updateBrandById();
+                    break;
+                case "5":
+                    app.printBrandsByPrice();
+                    break;
+                case "6":
+                    app.listAllCarsSorted();
+                    break;
+                case "7":
+                    app.searchCarsByBrandNameLike();
+                    break;
+                case "8":
+                    app.addNewCar();
+                    break;
+                case "9":
+                    app.removeCar();
+                    break;
+                case "10":
+                    app.updateCar();
+                    break;
+                case "11":
+                    app.listCarsByColor();
+                    break;
+                case "12":
+                    app.saveAll();
+                    break;
                 case "13":
                     app.saveAll();
                     return;
@@ -49,5 +73,3 @@ public class MainView {
         }
     }
 }
-
-

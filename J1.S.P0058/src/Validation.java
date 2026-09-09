@@ -13,8 +13,7 @@ public class Validation {
      */
     public static boolean isValidMenuChoice(String choice) {
         // Return true only for options 1, 2, 3, or 4
-        return choice.equals("1") || choice.equals("2")
-                || choice.equals("3") || choice.equals("4");
+        return choice.equals("1") || choice.equals("2") || choice.equals("3") || choice.equals("4");
     }
 
     /**

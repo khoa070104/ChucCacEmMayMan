@@ -1,10 +1,11 @@
 package DataObject;
 
+import Entity.Customer;
+
+import Utilities.AppLogger;
+
 import java.io.IOException;
 import java.util.ArrayList;
-import Entity.Customer;
-import DataObject.CustomerRepository;
-import Utilities.AppLogger;
 
 public class CustomerService {
     private final CustomerRepository repository;

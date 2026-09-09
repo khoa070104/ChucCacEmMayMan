@@ -1,5 +1,11 @@
 package business;
 
+import model.Mountain;
+import model.Student;
+
+import tools.Acceptable;
+import tools.Inputter;
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -7,17 +13,15 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
-import model.Mountain;
-import model.Student;
-import tools.Acceptable;
-import tools.Inputter;
 
 public class Students extends ArrayList<Student> {
 
-    private static final String TABLE_HEADER = "----------------------------------------------------------------\n"
-            + "Student ID | Name           | Phone         | Peak Code | Fee\n"
-            + "----------------------------------------------------------------";
-    private static final String TABLE_FOOTER = "----------------------------------------------------------------";
+    private static final String TABLE_HEADER =
+            "----------------------------------------------------------------\n"
+                    + "Student ID | Name           | Phone         | Peak Code | Fee\n"
+                    + "----------------------------------------------------------------";
+    private static final String TABLE_FOOTER =
+            "----------------------------------------------------------------";
 
     private final String pathFile;
     private boolean saved;
@@ -68,14 +72,17 @@ public class Students extends ArrayList<Student> {
 
         String mountainCode;
         do {
-            mountainCode = inputter.inputAndLoop("Mountain peak code [MT01-MT13]: ", Acceptable.MOUNTAIN_CODE_VALID);
+            mountainCode =
+                    inputter.inputAndLoop(
+                            "Mountain peak code [MT01-MT13]: ", Acceptable.MOUNTAIN_CODE_VALID);
             if (!mountains.isValidMountainCode(mountainCode)) {
                 System.out.println("Invalid mountain code. Please choose from the list.");
             }
         } while (!mountains.isValidMountainCode(mountainCode));
 
         double fee = Student.calculateTuition(phone);
-        Student student = new Student(id.toUpperCase(), name, phone, email, mountainCode.toUpperCase(), fee);
+        Student student =
+                new Student(id.toUpperCase(), name, phone, email, mountainCode.toUpperCase(), fee);
         addStudent(student);
         System.out.println("Registration successful!");
     }
@@ -89,9 +96,13 @@ public class Students extends ArrayList<Student> {
         }
 
         String name = inputter.inputOptional("New name (blank to keep): ", Acceptable.NAME_VALID);
-        String phone = inputter.inputOptional("New phone (blank to keep): ", Acceptable.PHONE_VALID);
-        String email = inputter.inputOptional("New email (blank to keep): ", Acceptable.EMAIL_VALID);
-        String mountainCode = inputter.inputOptional("New mountain code (blank to keep): ", Acceptable.MOUNTAIN_CODE_VALID);
+        String phone =
+                inputter.inputOptional("New phone (blank to keep): ", Acceptable.PHONE_VALID);
+        String email =
+                inputter.inputOptional("New email (blank to keep): ", Acceptable.EMAIL_VALID);
+        String mountainCode =
+                inputter.inputOptional(
+                        "New mountain code (blank to keep): ", Acceptable.MOUNTAIN_CODE_VALID);
 
         if (!name.isEmpty()) {
             student.setName(name);
@@ -133,7 +144,8 @@ public class Students extends ArrayList<Student> {
         System.out.printf("Fee       : %,.0f%n", student.getTuitionFee());
         System.out.println("-----------------------------------------------------");
 
-        String confirm = inputter.inputYesNo("Are you sure you want to delete this registration? (Y/N): ");
+        String confirm =
+                inputter.inputYesNo("Are you sure you want to delete this registration? (Y/N): ");
         if (confirm.equals("Y")) {
             remove(student);
             saved = false;
@@ -186,8 +198,10 @@ public class Students extends ArrayList<Student> {
 
     public void showCampusList(List<Student> list, String campusCode) {
         String campusName = getCampusName(campusCode);
-        String title = String.format("Registered Students Under %s Campus (%s):",
-                campusName, campusCode.toUpperCase());
+        String title =
+                String.format(
+                        "Registered Students Under %s Campus (%s):",
+                        campusName, campusCode.toUpperCase());
         showAll(list, title, "No students have registered under this campus.");
     }
 
@@ -233,7 +247,8 @@ public class Students extends ArrayList<Student> {
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(pathFile))) {
             oos.writeObject(new ArrayList<>(this));
             saved = true;
-            System.out.println("Registration data has been successfully saved to `" + pathFile + "`.");
+            System.out.println(
+                    "Registration data has been successfully saved to `" + pathFile + "`.");
         } catch (Exception e) {
             System.out.println("Error saving registration data: " + e.getMessage());
         }

@@ -13,7 +13,8 @@ public final class Messages {
     public static final String ERR_EMPTY_NAME = "Doctor name cannot be empty!";
     public static final String ERR_EMPTY_SPECIALIZATION = "Specialization cannot be empty!";
     public static final String ERR_INVALID_CHOICE = "Invalid choice! Please try again.";
-    public static final String ERR_NO_DOCTORS_FOUND = "No doctors found matching the search criteria!";
+    public static final String ERR_NO_DOCTORS_FOUND =
+            "No doctors found matching the search criteria!";
 
     // Success messages
     public static final String MSG_DOCTOR_ADDED = "Doctor added successfully!";

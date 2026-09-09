@@ -2,6 +2,7 @@ package dispatcher;
 
 import business.Clubs;
 import business.Players;
+
 import tools.Inputter;
 
 public class Main {
@@ -22,7 +23,8 @@ public class Main {
 
     private void showMenu() {
         System.out.println();
-        System.out.println("========== EUROPEAN ELITE LEAGUE - CLUB & PLAYER MANAGEMENT ==========");
+        System.out.println(
+                "========== EUROPEAN ELITE LEAGUE - CLUB & PLAYER MANAGEMENT ==========");
         System.out.println("1.  List of all clubs");
         System.out.println("2.  Add a new club");
         System.out.println("3.  Search for a club by ID");
@@ -37,7 +39,8 @@ public class Main {
         System.out.println("12. Save data to files");
         System.out.println("13. Load data from files");
         System.out.println("14. Quit program");
-        System.out.println("======================================================================");
+        System.out.println(
+                "======================================================================");
     }
 
     private void loadData(boolean showMessage) {

@@ -1,9 +1,12 @@
 package view;
 
-import java.util.List;
 import model.Candidate;
+
 import service.CandidateService;
+
 import utils.Inputter;
+
+import java.util.List;
 
 /**
  * Console UI for candidate management.
@@ -21,7 +24,8 @@ public class CandidateView {
         System.out.println("3. Internship");
         System.out.println("4. Searching");
         System.out.println("5. Exit");
-        System.out.println("(Please choose 1 to Create Experience Candidate, 2 to Create Fresher Candidate,");
+        System.out.println(
+                "(Please choose 1 to Create Experience Candidate, 2 to Create Fresher Candidate,");
         System.out.println(" 3 to Internship Candidate, 4 to Searching and 5 to Exit program).");
     }
 
@@ -46,14 +50,16 @@ public class CandidateView {
             return;
         }
         System.out.println("\nList of candidate:");
-        printGroup("===========EXPERIENCE CANDIDATE============", service.getByType(TYPE_EXPERIENCE));
+        printGroup(
+                "===========EXPERIENCE CANDIDATE============", service.getByType(TYPE_EXPERIENCE));
         printGroup("==========FRESHER CANDIDATE==============", service.getByType(TYPE_FRESHER));
         printGroup("===========INTERN CANDIDATE==============", service.getByType(TYPE_INTERN));
     }
 
     public void displayCandidateListForSearch(CandidateService service) {
         System.out.println("\nList of candidate:");
-        printGroup("===========EXPERIENCE CANDIDATE============", service.getByType(TYPE_EXPERIENCE));
+        printGroup(
+                "===========EXPERIENCE CANDIDATE============", service.getByType(TYPE_EXPERIENCE));
         printGroup("==========FRESHER CANDIDATE==============", service.getByType(TYPE_FRESHER));
         printGroup("===========INTERN CANDIDATE==============", service.getByType(TYPE_INTERN));
     }

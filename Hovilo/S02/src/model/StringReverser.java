@@ -28,8 +28,10 @@ public class StringReverser {
             result.append(words[i]);
             int separatorIndex = words.length - 1 - i;
             if (i > 0) {
-                String separator = separatorIndex + 1 < separators.length
-                        ? separators[separatorIndex + 1] : " ";
+                String separator =
+                        separatorIndex + 1 < separators.length
+                                ? separators[separatorIndex + 1]
+                                : " ";
                 result.append(separator);
             }
         }

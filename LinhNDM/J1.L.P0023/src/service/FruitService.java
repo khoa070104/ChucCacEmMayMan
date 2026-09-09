@@ -1,14 +1,16 @@
 package service;
 
+import model.Fruit;
+import model.OrderItem;
+
+import repository.FruitRepository;
+import repository.OrderRepository;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import model.Fruit;
-import model.OrderItem;
-import repository.FruitRepository;
-import repository.OrderRepository;
 
 /**
  * Xử lý nghiệp vụ quản lý cửa hàng trái cây.
@@ -27,8 +29,7 @@ public class FruitService {
      * @param fruitRepository repository trái cây
      * @param orderRepository repository đơn hàng
      */
-    public FruitService(FruitRepository fruitRepository,
-            OrderRepository orderRepository) {
+    public FruitService(FruitRepository fruitRepository, OrderRepository orderRepository) {
         this.fruitRepository = fruitRepository;
         this.orderRepository = orderRepository;
     }
@@ -152,8 +153,8 @@ public class FruitService {
         ArrayList<OrderItem> orderItemList;
         orderItemList = new ArrayList<>();
         for (OrderItem item : cartList) {
-            orderItemList.add(new OrderItem(item.getProductName(),
-                    item.getQuantity(), item.getPrice()));
+            orderItemList.add(
+                    new OrderItem(item.getProductName(), item.getQuantity(), item.getPrice()));
         }
         orderRepository.saveOrder(customerName, orderItemList);
         clearCart();

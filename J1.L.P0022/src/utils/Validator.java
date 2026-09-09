@@ -10,8 +10,7 @@ public class Validator {
     private static final int MIN_BIRTH_YEAR = 1900;
     private static final String[] GRADUATION_RANKS = {"Excellence", "Good", "Fair", "Poor"};
 
-    private Validator() {
-    }
+    private Validator() {}
 
     public static boolean isValidBirthYear(String input) {
         if (input == null || !input.matches("\\d{4}")) {

@@ -2,10 +2,13 @@ package dispatcher;
 
 import business.Mountains;
 import business.Students;
-import java.util.List;
+
 import model.Student;
+
 import tools.Acceptable;
 import tools.Inputter;
+
+import java.util.List;
 
 public class Main {
 
@@ -54,28 +57,37 @@ public class Main {
                 case "3":
                     students.showAll();
                     break;
-                case "4": {
-                    String id = inputter.inputAndLoop("Enter Student ID: ", Acceptable.STUDENT_ID);
-                    students.delete(id, inputter, mountains);
-                    break;
-                }
-                case "5": {
-                    String name = inputter.getString("Enter name or partial name: ");
-                    List<Student> found = students.searchByName(name);
-                    if (found.isEmpty()) {
-                        System.out.println("No one matches the search criteria!");
-                    } else {
-                        students.showAll(found, "Matching Students:", "No one matches the search criteria!");
+                case "4":
+                    {
+                        String id =
+                                inputter.inputAndLoop("Enter Student ID: ", Acceptable.STUDENT_ID);
+                        students.delete(id, inputter, mountains);
+                        break;
                     }
-                    break;
-                }
-                case "6": {
-                    String campus = inputter.inputAndLoop("Enter campus code [HE-CE-DE-SE-QE]: ",
-                            Acceptable.CAMPUS_CODE_VALID);
-                    List<Student> filtered = students.filterByCampusCode(campus);
-                    students.showCampusList(filtered, campus);
-                    break;
-                }
+                case "5":
+                    {
+                        String name = inputter.getString("Enter name or partial name: ");
+                        List<Student> found = students.searchByName(name);
+                        if (found.isEmpty()) {
+                            System.out.println("No one matches the search criteria!");
+                        } else {
+                            students.showAll(
+                                    found,
+                                    "Matching Students:",
+                                    "No one matches the search criteria!");
+                        }
+                        break;
+                    }
+                case "6":
+                    {
+                        String campus =
+                                inputter.inputAndLoop(
+                                        "Enter campus code [HE-CE-DE-SE-QE]: ",
+                                        Acceptable.CAMPUS_CODE_VALID);
+                        List<Student> filtered = students.filterByCampusCode(campus);
+                        students.showCampusList(filtered, campus);
+                        break;
+                    }
                 case "7":
                     students.statisticalizeByMountainPeak();
                     break;
@@ -96,14 +108,15 @@ public class Main {
 
     private boolean handleExit() {
         if (!students.isSaved()) {
-            String confirm = inputter.inputYesNo(
-                    "Do you want to save the changes before exiting? (Y/N): ");
+            String confirm =
+                    inputter.inputYesNo("Do you want to save the changes before exiting? (Y/N): ");
             if (confirm.equals("Y")) {
                 students.saveToFile();
                 return true;
             }
-            String forceExit = inputter.inputYesNo(
-                    "You have unsaved changes. Are you sure you want to exit without saving? (Y/N): ");
+            String forceExit =
+                    inputter.inputYesNo(
+                            "You have unsaved changes. Are you sure you want to exit without saving? (Y/N): ");
             return forceExit.equals("Y");
         }
         System.out.println("Goodbye!");

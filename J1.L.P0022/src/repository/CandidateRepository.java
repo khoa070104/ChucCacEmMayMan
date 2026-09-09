@@ -1,10 +1,12 @@
 package repository;
 
+import model.Candidate;
+
+import utils.FileUtils;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import model.Candidate;
-import utils.FileUtils;
 
 /**
  * Data access layer – stores candidates in memory and file.

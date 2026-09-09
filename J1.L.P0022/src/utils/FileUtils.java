@@ -1,23 +1,23 @@
 package utils;
 
+import model.Candidate;
+import model.ExperienceCandidate;
+import model.FresherCandidate;
+import model.InternCandidate;
+
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
-import model.Candidate;
-import model.ExperienceCandidate;
-import model.FresherCandidate;
-import model.InternCandidate;
 
 /**
  * File read/write helpers for candidate persistence.
  */
 public class FileUtils {
 
-    private FileUtils() {
-    }
+    private FileUtils() {}
 
     public static void ensureParentDir(String filePath) throws IOException {
         File file = new File(filePath);
@@ -54,13 +54,17 @@ public class FileUtils {
             sb.append(e.getExpInYear()).append("|").append(e.getProSkill());
         } else if (c instanceof FresherCandidate) {
             FresherCandidate f = (FresherCandidate) c;
-            sb.append(f.getGraduationDate()).append("|")
-                    .append(f.getGraduationRank()).append("|")
+            sb.append(f.getGraduationDate())
+                    .append("|")
+                    .append(f.getGraduationRank())
+                    .append("|")
                     .append(f.getEducation());
         } else if (c instanceof InternCandidate) {
             InternCandidate i = (InternCandidate) c;
-            sb.append(i.getMajors()).append("|")
-                    .append(i.getSemester()).append("|")
+            sb.append(i.getMajors())
+                    .append("|")
+                    .append(i.getSemester())
+                    .append("|")
                     .append(i.getUniversityName());
         }
         return sb.toString();
@@ -82,20 +86,39 @@ public class FileUtils {
 
         switch (type) {
             case 0:
-                return new ExperienceCandidate(id, firstName, lastName, birthDate,
-                        address, phone, email, Integer.parseInt(p[8]), p[9]);
+                return new ExperienceCandidate(
+                        id,
+                        firstName,
+                        lastName,
+                        birthDate,
+                        address,
+                        phone,
+                        email,
+                        Integer.parseInt(p[8]),
+                        p[9]);
             case 1:
-                return new FresherCandidate(id, firstName, lastName, birthDate,
-                        address, phone, email, Integer.parseInt(p[8]), p[9], p[10]);
+                return new FresherCandidate(
+                        id,
+                        firstName,
+                        lastName,
+                        birthDate,
+                        address,
+                        phone,
+                        email,
+                        Integer.parseInt(p[8]),
+                        p[9],
+                        p[10]);
             case 2:
-                return new InternCandidate(id, firstName, lastName, birthDate,
-                        address, phone, email, p[8], p[9], p[10]);
+                return new InternCandidate(
+                        id, firstName, lastName, birthDate, address, phone, email, p[8], p[9],
+                        p[10]);
             default:
                 return null;
         }
     }
 
-    public static void loadCandidates(String filePath, java.util.List<Candidate> target) throws IOException {
+    public static void loadCandidates(String filePath, java.util.List<Candidate> target)
+            throws IOException {
         File file = new File(filePath);
         if (!file.exists()) {
             return;

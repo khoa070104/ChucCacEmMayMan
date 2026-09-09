@@ -1,9 +1,11 @@
 package view;
 
-import controller.UserManager;
-import controller.Inputter;
-import model.Account;
 import common.Messages;
+
+import controller.Inputter;
+import controller.UserManager;
+
+import model.Account;
 
 public class MainView {
     private UserManager userManager;
@@ -24,7 +26,7 @@ public class MainView {
         while (true) {
             displayMenu();
             int choice = getMenuChoice();
-            
+
             switch (choice) {
                 case 1:
                     createAccount();
@@ -59,12 +61,12 @@ public class MainView {
 
     private void createAccount() {
         System.out.println("\n--- Create New Account ---");
-        
+
         String username = Inputter.inputUsername();
         String password = Inputter.inputPassword();
-        
+
         Account newAccount = new Account(username, password);
-        
+
         try {
             userManager.addAccount(newAccount);
             System.out.println(Messages.MSG_ACCOUNT_CREATED);
@@ -75,12 +77,12 @@ public class MainView {
 
     private void loginSystem() {
         System.out.println("\n--- Login System ---");
-        
+
         String username = Inputter.inputUsername();
         String password = Inputter.inputPassword();
-        
+
         Account loginAccount = new Account(username, password);
-        
+
         try {
             Account foundAccount = userManager.find(loginAccount);
             if (foundAccount != null) {

@@ -19,8 +19,7 @@ public abstract class Candidate {
     /**
      * Khởi tạo ứng viên rỗng.
      */
-    public Candidate() {
-    }
+    public Candidate() {}
 
     /**
      * Khởi tạo ứng viên với đầy đủ thông tin chung.
@@ -34,8 +33,14 @@ public abstract class Candidate {
      * @param email email
      * @param candidateType loại ứng viên
      */
-    public Candidate(String candidateId, String firstName, String lastName,
-            int birthDate, String address, String phone, String email,
+    public Candidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
             int candidateType) {
         this.candidateId = candidateId;
         this.firstName = firstName;
@@ -131,7 +136,8 @@ public abstract class Candidate {
      * @return chuỗi hiển thị thông tin tìm kiếm
      */
     public String toSearchResult() {
-        return String.format("%s | %d | %s | %s | %s | %d",
+        return String.format(
+                "%s | %d | %s | %s | %s | %d",
                 getFullName(), birthDate, address, phone, email, candidateType);
     }
 

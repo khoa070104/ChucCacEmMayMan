@@ -1,16 +1,20 @@
 package controller;
 
 import common.Messages;
-import java.io.IOException;
-import java.util.ArrayList;
+
 import model.Candidate;
 import model.Candidates;
 import model.ExperienceCandidate;
 import model.FresherCandidate;
 import model.InternCandidate;
 import model.Validator;
+
 import repository.CandidateRepository;
+
 import view.CandidateView;
+
+import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * Điều phối luồng chương trình giữa View và Model.
@@ -65,8 +69,7 @@ public class CandidateController {
                         view.displayMessage(Messages.ERR_INVALID_INPUT);
                 }
             } catch (IOException exception) {
-                view.displayMessage(Messages.ERR_SAVE_CANDIDATE
-                        + exception.getMessage());
+                view.displayMessage(Messages.ERR_SAVE_CANDIDATE + exception.getMessage());
             }
         }
     }
@@ -102,8 +105,17 @@ public class CandidateController {
             email = view.inputEmail();
             expInYear = view.inputExpInYear();
             proSkill = view.inputProSkill();
-            candidate = new ExperienceCandidate(candidateId, firstName, lastName,
-                    birthDate, address, phone, email, expInYear, proSkill);
+            candidate =
+                    new ExperienceCandidate(
+                            candidateId,
+                            firstName,
+                            lastName,
+                            birthDate,
+                            address,
+                            phone,
+                            email,
+                            expInYear,
+                            proSkill);
             candidateList.addCandidate(candidate);
             repository.saveCandidate(candidate);
             view.displayMessage(Messages.MSG_CANDIDATE_CREATED);
@@ -144,9 +156,18 @@ public class CandidateController {
             graduationDate = Integer.parseInt(view.inputGraduationYear());
             graduationRank = view.inputGraduationRank();
             education = view.inputEducation();
-            candidate = new FresherCandidate(candidateId, firstName, lastName,
-                    birthDate, address, phone, email,
-                    graduationDate, graduationRank, education);
+            candidate =
+                    new FresherCandidate(
+                            candidateId,
+                            firstName,
+                            lastName,
+                            birthDate,
+                            address,
+                            phone,
+                            email,
+                            graduationDate,
+                            graduationRank,
+                            education);
             candidateList.addCandidate(candidate);
             repository.saveCandidate(candidate);
             view.displayMessage(Messages.MSG_CANDIDATE_CREATED);
@@ -187,9 +208,18 @@ public class CandidateController {
             majors = view.inputMajors();
             semester = view.inputSemester();
             universityName = view.inputUniversityName();
-            candidate = new InternCandidate(candidateId, firstName, lastName,
-                    birthDate, address, phone, email,
-                    majors, semester, universityName);
+            candidate =
+                    new InternCandidate(
+                            candidateId,
+                            firstName,
+                            lastName,
+                            birthDate,
+                            address,
+                            phone,
+                            email,
+                            majors,
+                            semester,
+                            universityName);
             candidateList.addCandidate(candidate);
             repository.saveCandidate(candidate);
             view.displayMessage(Messages.MSG_CANDIDATE_CREATED);

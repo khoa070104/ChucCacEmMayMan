@@ -1,15 +1,18 @@
 package service;
 
+import model.Fruit;
+import model.OrderItem;
+
+import repository.FruitRepository;
+import repository.OrderRepository;
+
+import utils.Inputter;
+
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import model.Fruit;
-import model.OrderItem;
-import repository.FruitRepository;
-import repository.OrderRepository;
-import utils.Inputter;
 
 /**
  * Business logic for fruit shop management.
@@ -83,8 +86,8 @@ public class FruitService {
     public void saveOrder(String customerName) {
         ArrayList<OrderItem> orderItems = new ArrayList<>();
         for (OrderItem item : cart) {
-            orderItems.add(new OrderItem(item.getProductName(),
-                    item.getQuantity(), item.getPrice()));
+            orderItems.add(
+                    new OrderItem(item.getProductName(), item.getQuantity(), item.getPrice()));
         }
         orderRepository.saveOrder(customerName, orderItems);
         clearCart();

@@ -11,11 +11,16 @@ public class Employee extends Entity {
     private double bonus;
     private String status;
 
-    public Employee() {
-    }
+    public Employee() {}
 
-    public Employee(String id, String name, String role, double baseSalary,
-            int workingDays, double bonus, String status) {
+    public Employee(
+            String id,
+            String name,
+            String role,
+            double baseSalary,
+            int workingDays,
+            double bonus,
+            String status) {
         super(id);
         this.name = name;
         this.role = role;
@@ -83,13 +88,15 @@ public class Employee extends Entity {
 
     @Override
     public String toFileLine() {
-        return String.format("%s, %s, %s, %.0f, %d, %.0f, %s",
+        return String.format(
+                "%s, %s, %s, %.0f, %d, %.0f, %s",
                 id, name, role, baseSalary, workingDays, bonus, status);
     }
 
     @Override
     public String toString() {
-        return String.format("%-6s| %-16s| %-10s| %8.0f| %5d| %7.0f| %-8s",
+        return String.format(
+                "%-6s| %-16s| %-10s| %8.0f| %5d| %7.0f| %-8s",
                 id, name, role, baseSalary, workingDays, bonus, status);
     }
 }

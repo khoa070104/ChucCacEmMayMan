@@ -1,13 +1,16 @@
 package view;
 
+import model.Fruit;
+import model.OrderItem;
+
+import service.FruitService;
+
+import utils.Inputter;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
 import java.util.List;
-import model.Fruit;
-import model.OrderItem;
-import service.FruitService;
-import utils.Inputter;
 
 /**
  * Console UI for fruit shop management.
@@ -20,7 +23,8 @@ public class FruitView {
         System.out.println("2. View orders");
         System.out.println("3. Shopping (for buyer)");
         System.out.println("4. Exit");
-        System.out.println("(Please choose 1 to create product, 2 to view order, 3 for shopping, 4 to Exit program).");
+        System.out.println(
+                "(Please choose 1 to create product, 2 to view order, 3 for shopping, 4 to Exit program).");
     }
 
     public int getMainMenuChoice() {
@@ -44,10 +48,12 @@ public class FruitView {
             return;
         }
         System.out.println("\nList of Fruit:");
-        System.out.printf("%-6s %-20s %-15s %-10s %-10s%n",
+        System.out.printf(
+                "%-6s %-20s %-15s %-10s %-10s%n",
                 "ID", "Fruit Name", "Origin", "Price", "Quantity");
         for (Fruit fruit : fruits) {
-            System.out.printf("%-6s %-20s %-15s %-10s %-10d%n",
+            System.out.printf(
+                    "%-6s %-20s %-15s %-10s %-10d%n",
                     fruit.getFruitId(),
                     fruit.getFruitName(),
                     fruit.getOrigin(),
@@ -58,18 +64,17 @@ public class FruitView {
 
     public void displayFruitListForShopping(List<Fruit> fruits) {
         System.out.println("\nList of Fruit:");
-        System.out.printf("| %-10s | %-18s | %-10s | %-10s |%n",
+        System.out.printf(
+                "| %-10s | %-18s | %-10s | %-10s |%n",
                 "++ Item ++", "++ Fruit Name ++", "++ Origin ++", "++ Price ++");
         for (int i = 0; i < fruits.size(); i++) {
             Fruit fruit = fruits.get(i);
             if (fruit.getQuantity() <= 0) {
                 continue;
             }
-            System.out.printf("| %-10d | %-18s | %-10s | %-10s |%n",
-                    i + 1,
-                    fruit.getFruitName(),
-                    fruit.getOrigin(),
-                    formatPrice(fruit.getPrice()));
+            System.out.printf(
+                    "| %-10d | %-18s | %-10s | %-10s |%n",
+                    i + 1, fruit.getFruitName(), fruit.getOrigin(), formatPrice(fruit.getPrice()));
         }
     }
 
@@ -93,10 +98,11 @@ public class FruitView {
     }
 
     public void displayOrderItems(List<OrderItem> items, double total) {
-        System.out.printf("%-20s | %-10s | %-10s | %-10s%n",
-                "Product", "Quantity", "Price", "Amount");
+        System.out.printf(
+                "%-20s | %-10s | %-10s | %-10s%n", "Product", "Quantity", "Price", "Amount");
         for (OrderItem item : items) {
-            System.out.printf("%-20s %-10d %-10s %-10s%n",
+            System.out.printf(
+                    "%-20s %-10d %-10s %-10s%n",
                     item.getProductName(),
                     item.getQuantity(),
                     formatPrice(item.getPrice()),
@@ -120,12 +126,13 @@ public class FruitView {
             double total = service.calculateTotal(items);
 
             System.out.println("\nCustomer: " + customer);
-            System.out.printf("%-20s | %-10s | %-10s | %-10s%n",
-                    "Product", "Quantity", "Price", "Amount");
+            System.out.printf(
+                    "%-20s | %-10s | %-10s | %-10s%n", "Product", "Quantity", "Price", "Amount");
 
             for (int i = 0; i < items.size(); i++) {
                 OrderItem item = items.get(i);
-                System.out.printf("%d. %-17s %-10d %-10s %-10s%n",
+                System.out.printf(
+                        "%d. %-17s %-10d %-10s %-10s%n",
                         i + 1,
                         item.getProductName(),
                         item.getQuantity(),

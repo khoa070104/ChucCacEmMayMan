@@ -2,10 +2,12 @@ package view;
 
 import controller.Inputter;
 import controller.MarkCalculation;
+
+import model.Student;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import model.Student;
 
 /** Displays the student management program. @author Ho Vi Lo @since 09/09/2026 */
 public class MainView {
@@ -34,7 +36,8 @@ public class MainView {
             System.out.println("Type: " + student.getType());
         }
         System.out.println("-------- Classification Info --------");
-        for (Map.Entry<String, Double> entry : calculation.getPercentTypeStudent(students).entrySet())
+        for (Map.Entry<String, Double> entry :
+                calculation.getPercentTypeStudent(students).entrySet())
             System.out.printf("%s: %.1f%%%n", entry.getKey(), entry.getValue());
     }
 }

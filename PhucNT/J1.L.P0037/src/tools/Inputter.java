@@ -80,7 +80,8 @@ public class Inputter {
         do {
             data = getString("Role [Developer/Tester/Manager/HR]: ");
             if (!Acceptable.isValidRole(data)) {
-                System.out.println("Invalid role. Please choose Developer, Tester, Manager, or HR.");
+                System.out.println(
+                        "Invalid role. Please choose Developer, Tester, Manager, or HR.");
             }
         } while (!Acceptable.isValidRole(data));
         return Acceptable.normalizeRole(data);
@@ -96,7 +97,8 @@ public class Inputter {
             if (Acceptable.isValid(data, pattern)) {
                 return data;
             }
-            System.out.println("Invalid data. Please re-enter or leave blank to keep current value.");
+            System.out.println(
+                    "Invalid data. Please re-enter or leave blank to keep current value.");
         }
     }
 
@@ -110,7 +112,8 @@ public class Inputter {
             if (Acceptable.isValidRole(data)) {
                 return Acceptable.normalizeRole(data);
             }
-            System.out.println("Invalid role. Please re-enter or leave blank to keep current value.");
+            System.out.println(
+                    "Invalid role. Please re-enter or leave blank to keep current value.");
         }
     }
 
@@ -152,7 +155,8 @@ public class Inputter {
             if (Acceptable.isValid(data, Acceptable.WORKING_DAYS_VALID)) {
                 return data;
             }
-            System.out.println("Working days must be from 0 to 26. Please re-enter or leave blank.");
+            System.out.println(
+                    "Working days must be from 0 to 26. Please re-enter or leave blank.");
         }
     }
 
@@ -166,7 +170,8 @@ public class Inputter {
             if (Acceptable.isValid(data, Acceptable.STATUS_VALID)) {
                 return Acceptable.normalizeStatus(data);
             }
-            System.out.println("Status must be active or inactive. Please re-enter or leave blank.");
+            System.out.println(
+                    "Status must be active or inactive. Please re-enter or leave blank.");
         }
     }
 

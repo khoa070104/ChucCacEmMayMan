@@ -1,6 +1,7 @@
 package view;
 
 import common.Messages;
+
 import java.util.Scanner;
 
 /**
@@ -12,8 +13,7 @@ public class Inputter {
 
     private static final Scanner SCANNER = new Scanner(System.in);
 
-    private Inputter() {
-    }
+    private Inputter() {}
 
     /**
      * Nhập chuỗi theo nhãn hiển thị.

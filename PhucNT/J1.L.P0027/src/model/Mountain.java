@@ -7,8 +7,7 @@ public class Mountain {
     private String province;
     private String description;
 
-    public Mountain() {
-    }
+    public Mountain() {}
 
     public Mountain(String mountainCode, String mountain, String province, String description) {
         this.mountainCode = mountainCode;

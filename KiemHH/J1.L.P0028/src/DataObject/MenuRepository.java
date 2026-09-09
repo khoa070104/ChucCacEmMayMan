@@ -1,12 +1,13 @@
 package DataObject;
 
+import Entity.FeastMenu;
+
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import Entity.FeastMenu;
 
 public class MenuRepository {
     private final File menuFile;
@@ -32,8 +33,12 @@ public class MenuRepository {
                 List<String> fields = parseCsvLine(line);
                 if (fields.size() < 4) continue;
                 String priceText = fields.get(2).replaceAll("[^0-9.]", "");
-                menus.add(new FeastMenu(fields.get(0).trim().toUpperCase(), fields.get(1).trim(),
-                        new BigDecimal(priceText), fields.get(3).trim()));
+                menus.add(
+                        new FeastMenu(
+                                fields.get(0).trim().toUpperCase(),
+                                fields.get(1).trim(),
+                                new BigDecimal(priceText),
+                                fields.get(3).trim()));
             }
         } finally {
             if (fileScanner != null) {

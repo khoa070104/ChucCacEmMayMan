@@ -7,8 +7,7 @@ package common;
  */
 public final class Constants {
 
-    private Constants() {
-    }
+    private Constants() {}
 
     public static final int MIN_STUDENTS = 10;
     public static final int MIN_MENU_CHOICE = 1;
@@ -18,8 +17,8 @@ public final class Constants {
     public static final String YES_NO_VALIDATE = "^(?i)[YN]$";
     public static final String UPDATE_DELETE_VALIDATE = "^(?i)[UD]$";
     public static final String REPORT_KEY_SEPARATOR = "|";
-    public static final String TABLE_SEPARATOR
-            = "----------------------------------------------------------";
+    public static final String TABLE_SEPARATOR =
+            "----------------------------------------------------------";
 
     public static final String LABEL_ENTER_ID = "Enter ID: ";
     public static final String LABEL_ENTER_NAME = "Enter name: ";

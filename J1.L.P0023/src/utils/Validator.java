@@ -5,8 +5,7 @@ package utils;
  */
 public class Validator {
 
-    private Validator() {
-    }
+    private Validator() {}
 
     public static boolean isYesNo(String input) {
         return input != null && input.trim().matches("[YyNn]");

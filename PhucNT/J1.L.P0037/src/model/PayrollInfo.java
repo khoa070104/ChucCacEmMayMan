@@ -20,7 +20,8 @@ public class PayrollInfo {
 
     @Override
     public String toString() {
-        return String.format("%-6s| %-16s| %-10s| %8.0f| %5d| %7.0f| %12,.0f",
+        return String.format(
+                "%-6s| %-16s| %-10s| %8.0f| %5d| %7.0f| %12,.0f",
                 employee.getId(),
                 employee.getName(),
                 employee.getRole(),

@@ -14,11 +14,17 @@ public abstract class Candidate {
     protected String email;
     protected int candidateType;
 
-    public Candidate() {
-    }
+    public Candidate() {}
 
-    public Candidate(String candidateId, String firstName, String lastName,
-            int birthDate, String address, String phone, String email, int candidateType) {
+    public Candidate(
+            String candidateId,
+            String firstName,
+            String lastName,
+            int birthDate,
+            String address,
+            String phone,
+            String email,
+            int candidateType) {
         this.candidateId = candidateId;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -98,7 +104,8 @@ public abstract class Candidate {
     }
 
     public String toSearchResult() {
-        return String.format("%s | %d | %s | %s | %s | %d",
+        return String.format(
+                "%s | %d | %s | %s | %s | %d",
                 getFullName(), birthDate, address, phone, email, candidateType);
     }
 

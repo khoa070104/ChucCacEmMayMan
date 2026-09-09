@@ -11,7 +11,9 @@ import java.util.List;
 public class FileManager {
     private final Path path;
 
-    public FileManager(String fileName) { path = Paths.get(fileName); }
+    public FileManager(String fileName) {
+        path = Paths.get(fileName);
+    }
 
     public List<String> readDataFromFile() throws IOException {
         if (!Files.exists(path)) return new ArrayList<String>();

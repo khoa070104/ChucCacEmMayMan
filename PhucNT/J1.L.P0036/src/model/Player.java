@@ -7,8 +7,7 @@ public class Player extends Entity {
     private String position;
     private int shirtNumber;
 
-    public Player() {
-    }
+    public Player() {}
 
     public Player(String id, String clubId, String name, String position, int shirtNumber) {
         super(id);
@@ -57,12 +56,13 @@ public class Player extends Entity {
 
     @Override
     public String toString() {
-        return String.format("%-8s| %-10s| %-22s| %-12s| %d",
-                id, clubId, name, position, shirtNumber);
+        return String.format(
+                "%-8s| %-10s| %-22s| %-12s| %d", id, clubId, name, position, shirtNumber);
     }
 
     public String toStringWithClubName(String clubName) {
-        return String.format("%-8s| %-10s| %-26s| %-22s| %-12s| %d",
+        return String.format(
+                "%-8s| %-10s| %-26s| %-22s| %-12s| %d",
                 id, clubId, clubName, name, position, shirtNumber);
     }
 }

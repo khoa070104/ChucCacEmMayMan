@@ -9,8 +9,17 @@ public abstract class Person {
         this.fullName = fullName;
     }
 
-    public String getId() { return id; }
-    public String getFullName() { return fullName; }
-    public void setFullName(String fullName) { this.fullName = fullName; }
+    public String getId() {
+        return id;
+    }
+
+    public String getFullName() {
+        return fullName;
+    }
+
+    public void setFullName(String fullName) {
+        this.fullName = fullName;
+    }
+
     public abstract String getDescription();
 }

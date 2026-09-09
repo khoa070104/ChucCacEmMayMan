@@ -52,7 +52,8 @@ public class Inputter {
             if (Acceptable.isValid(data, pattern)) {
                 return data;
             }
-            System.out.println("Invalid data. Please re-enter or leave blank to keep current value.");
+            System.out.println(
+                    "Invalid data. Please re-enter or leave blank to keep current value.");
         }
     }
 

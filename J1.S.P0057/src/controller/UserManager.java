@@ -1,11 +1,13 @@
 package controller;
 
+import common.Constants;
+import common.Messages;
+
+import model.Account;
+
 import java.io.*;
 import java.util.ArrayList;
 import java.util.List;
-import model.Account;
-import common.Constants;
-import common.Messages;
 
 public class UserManager {
     private List<Account> accounts;
@@ -39,13 +41,13 @@ public class UserManager {
         loadAccounts();
 
         for (Account account : accounts) {
-            if (account.getUsername().equals(acc.getUsername()) && 
-                account.getPassword().equals(acc.getPassword())) {
+            if (account.getUsername().equals(acc.getUsername())
+                    && account.getPassword().equals(acc.getPassword())) {
                 return account;
             }
         }
 
-        return null; 
+        return null;
     }
 
     private boolean isUsernameExists(String username) {
@@ -60,9 +62,9 @@ public class UserManager {
     private void loadAccounts() {
         accounts.clear();
         File file = new File(filename);
-        
+
         if (!file.exists()) {
-            return; 
+            return;
         }
 
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file))) {
@@ -80,7 +82,8 @@ public class UserManager {
     }
 
     private void saveAccounts() throws Exception {
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(filename, false))) {
+        try (ObjectOutputStream oos =
+                new ObjectOutputStream(new FileOutputStream(filename, false))) {
             for (Account account : accounts) {
                 oos.writeObject(account);
             }

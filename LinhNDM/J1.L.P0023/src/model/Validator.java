@@ -7,8 +7,7 @@ package model;
  */
 public final class Validator {
 
-    private Validator() {
-    }
+    private Validator() {}
 
     /**
      * Kiểm tra chuỗi nhập có phải Y hoặc N hay không.

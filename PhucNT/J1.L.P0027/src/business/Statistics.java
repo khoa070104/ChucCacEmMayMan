@@ -1,10 +1,11 @@
 package business;
 
+import model.StatisticalInfo;
+import model.Student;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import model.StatisticalInfo;
-import model.Student;
 
 public class Statistics extends HashMap<String, StatisticalInfo> {
 
@@ -40,7 +41,8 @@ public class Statistics extends HashMap<String, StatisticalInfo> {
         }
         System.out.println("Statistics of Registration by Mountain Peak:");
         System.out.println("-----------------------------------------------------------------");
-        System.out.printf("%-10s | %-22s | %s%n", "Peak Name", "Number of Participants", "Total Cost");
+        System.out.printf(
+                "%-10s | %-22s | %s%n", "Peak Name", "Number of Participants", "Total Cost");
         System.out.println("-----------------------------------------------------------------");
         for (StatisticalInfo info : values()) {
             System.out.println(info);

@@ -1,11 +1,13 @@
 package controller;
 
+import common.Constants;
+import common.Messages;
+
+import model.EastAsiaCountries;
+
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-import model.EastAsiaCountries;
-import common.Messages;
-import common.Constants;
 
 public class ManageEastAsiaCountries {
     private List<EastAsiaCountries> countries = new ArrayList<>();
@@ -26,13 +28,13 @@ public class ManageEastAsiaCountries {
     public EastAsiaCountries[] searchInformationByName(String name) {
         List<EastAsiaCountries> results = new ArrayList<>();
         String searchName = name.toLowerCase().trim();
-        
+
         for (EastAsiaCountries country : countries) {
             if (country.getCountryName().toLowerCase().contains(searchName)) {
                 results.add(country);
             }
         }
-        
+
         return results.toArray(new EastAsiaCountries[0]);
     }
 

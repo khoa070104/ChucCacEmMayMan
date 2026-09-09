@@ -22,8 +22,7 @@ public class Fruit {
      * @param quantity số lượng tồn kho
      * @param origin xuất xứ
      */
-    public Fruit(String fruitId, String fruitName, double price,
-            int quantity, String origin) {
+    public Fruit(String fruitId, String fruitName, double price, int quantity, String origin) {
         this.fruitId = fruitId;
         this.fruitName = fruitName;
         this.price = price;

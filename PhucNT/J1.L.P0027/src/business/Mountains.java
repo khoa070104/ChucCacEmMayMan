@@ -1,9 +1,10 @@
 package business;
 
+import model.Mountain;
+
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import model.Mountain;
 
 public class Mountains extends java.util.ArrayList<Mountain> {
 

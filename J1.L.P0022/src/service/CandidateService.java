@@ -1,13 +1,16 @@
 package service;
 
-import java.io.IOException;
-import java.util.List;
 import model.Candidate;
 import model.ExperienceCandidate;
 import model.FresherCandidate;
 import model.InternCandidate;
+
 import repository.CandidateRepository;
+
 import utils.Inputter;
+
+import java.io.IOException;
+import java.util.List;
 
 /**
  * Business logic for candidate management.
@@ -66,8 +69,8 @@ public class CandidateService {
         String email = Inputter.inputEmail();
         int expInYear = Inputter.inputExpInYear();
         String proSkill = Inputter.inputRequired("Enter Professional Skill: ");
-        return new ExperienceCandidate(id, firstName, lastName, birthDate,
-                address, phone, email, expInYear, proSkill);
+        return new ExperienceCandidate(
+                id, firstName, lastName, birthDate, address, phone, email, expInYear, proSkill);
     }
 
     private FresherCandidate inputFresherCandidate() {
@@ -82,8 +85,17 @@ public class CandidateService {
         int graduationDate = Integer.parseInt(Inputter.inputGraduationYear());
         String graduationRank = Inputter.inputGraduationRank();
         String education = Inputter.inputRequired("Enter Education (University): ");
-        return new FresherCandidate(id, firstName, lastName, birthDate,
-                address, phone, email, graduationDate, graduationRank, education);
+        return new FresherCandidate(
+                id,
+                firstName,
+                lastName,
+                birthDate,
+                address,
+                phone,
+                email,
+                graduationDate,
+                graduationRank,
+                education);
     }
 
     private InternCandidate inputInternCandidate() {
@@ -98,8 +110,17 @@ public class CandidateService {
         String majors = Inputter.inputRequired("Enter Majors: ");
         String semester = Inputter.inputRequired("Enter Semester: ");
         String university = Inputter.inputRequired("Enter University Name: ");
-        return new InternCandidate(id, firstName, lastName, birthDate,
-                address, phone, email, majors, semester, university);
+        return new InternCandidate(
+                id,
+                firstName,
+                lastName,
+                birthDate,
+                address,
+                phone,
+                email,
+                majors,
+                semester,
+                university);
     }
 
     public List<Candidate> search(String name, int type) {

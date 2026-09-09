@@ -15,8 +15,19 @@ public class FeastMenu {
         this.ingredients = ingredients;
     }
 
-    public String getCode() { return code; }
-    public String getName() { return name; }
-    public BigDecimal getPrice() { return price; }
-    public String getIngredients() { return ingredients; }
+    public String getCode() {
+        return code;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public String getIngredients() {
+        return ingredients;
+    }
 }

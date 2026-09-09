@@ -1,9 +1,10 @@
 package repository;
 
+import model.OrderItem;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import model.OrderItem;
 
 /**
  * Lớp truy cập dữ liệu đơn hàng trong bộ nhớ.
@@ -12,8 +13,7 @@ import model.OrderItem;
  */
 public class OrderRepository {
 
-    private final Hashtable<String, ArrayList<OrderItem>> orderMap
-            = new Hashtable<>();
+    private final Hashtable<String, ArrayList<OrderItem>> orderMap = new Hashtable<>();
 
     /**
      * Lưu đơn hàng của khách hàng.

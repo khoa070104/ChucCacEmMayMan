@@ -1,8 +1,9 @@
 package view;
 
-import controller.StudentController;
-import controller.Inputter;
 import common.Messages;
+
+import controller.Inputter;
+import controller.StudentController;
 
 public class MainView {
     private final StudentController studentController;
@@ -20,8 +21,9 @@ public class MainView {
         System.out.println("4. Report");
         System.out.println("5. Exit");
         System.out.println();
-        System.out.println("(Please choose 1 to Create, 2 to Find and Sort, 3 to Update/Delete, "
-                + "4 to Report and 5 to Exit program).");
+        System.out.println(
+                "(Please choose 1 to Create, 2 to Find and Sort, 3 to Update/Delete, "
+                        + "4 to Report and 5 to Exit program).");
     }
 
     public void run() {

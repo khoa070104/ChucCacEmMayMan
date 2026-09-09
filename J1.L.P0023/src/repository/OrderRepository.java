@@ -1,9 +1,10 @@
 package repository;
 
+import model.OrderItem;
+
 import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.Hashtable;
-import model.OrderItem;
 
 /**
  * Data access layer – stores customer orders in Hashtable.

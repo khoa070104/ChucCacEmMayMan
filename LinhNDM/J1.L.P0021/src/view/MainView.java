@@ -2,9 +2,11 @@ package view;
 
 import common.Constants;
 import common.Messages;
-import java.util.ArrayList;
+
 import model.ReportEntry;
 import model.Student;
+
+import java.util.ArrayList;
 
 /**
  * Hiển thị giao diện và thu thập dữ liệu nhập từ người dùng.
@@ -40,8 +42,7 @@ public class MainView {
             try {
                 inputValue = Inputter.inputRequired(Constants.LABEL_YOUR_CHOICE);
                 choice = Integer.parseInt(inputValue);
-                if (choice >= Constants.MIN_MENU_CHOICE
-                        && choice <= Constants.MAX_MENU_CHOICE) {
+                if (choice >= Constants.MIN_MENU_CHOICE && choice <= Constants.MAX_MENU_CHOICE) {
                     return choice;
                 }
                 System.out.println(Messages.ERR_MENU_RANGE);
@@ -95,8 +96,7 @@ public class MainView {
             choice = Inputter.inputRequired(Constants.LABEL_ENTER_COURSE);
             try {
                 index = Integer.parseInt(choice);
-                if (index >= Constants.MIN_COURSE_INDEX
-                        && index <= Constants.COURSES.length) {
+                if (index >= Constants.MIN_COURSE_INDEX && index <= Constants.COURSES.length) {
                     return Constants.COURSES[index - 1];
                 }
             } catch (NumberFormatException exception) {
@@ -112,8 +112,7 @@ public class MainView {
      * @return Y hoặc N
      */
     public String inputContinueChoice() {
-        return Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING,
-                Constants.YES_NO_VALIDATE);
+        return Inputter.inputRequired(Messages.MSG_CONTINUE_ADDING, Constants.YES_NO_VALIDATE);
     }
 
     /**
@@ -122,8 +121,7 @@ public class MainView {
      * @return U hoặc D
      */
     public String inputUpdateOrDeleteChoice() {
-        return Inputter.inputRequired(Messages.MSG_UPDATE_DELETE,
-                Constants.UPDATE_DELETE_VALIDATE);
+        return Inputter.inputRequired(Messages.MSG_UPDATE_DELETE, Constants.UPDATE_DELETE_VALIDATE);
     }
 
     /**
@@ -141,9 +139,12 @@ public class MainView {
      * @param student sinh viên cần hiển thị
      */
     public void displayFoundStudent(Student student) {
-        System.out.printf(Messages.MSG_FOUND_STUDENT + "%n",
-                student.getId(), student.getName(),
-                student.getSemester(), student.getCourse());
+        System.out.printf(
+                Messages.MSG_FOUND_STUDENT + "%n",
+                student.getId(),
+                student.getName(),
+                student.getSemester(),
+                student.getCourse());
     }
 
     /**
@@ -155,13 +156,16 @@ public class MainView {
         int index;
         Student student;
         System.out.println(Messages.MSG_SEARCH_RESULTS);
-        System.out.printf(Messages.MSG_SEARCH_TABLE_HEADER,
-                "Student name", "Semester", "Course Name");
+        System.out.printf(
+                Messages.MSG_SEARCH_TABLE_HEADER, "Student name", "Semester", "Course Name");
         System.out.println(Constants.TABLE_SEPARATOR);
         for (index = 0; index < studentList.size(); index++) {
             student = studentList.get(index);
-            System.out.printf(Messages.MSG_SEARCH_TABLE_ROW,
-                    student.getName(), student.getSemester(), student.getCourse());
+            System.out.printf(
+                    Messages.MSG_SEARCH_TABLE_ROW,
+                    student.getName(),
+                    student.getSemester(),
+                    student.getCourse());
         }
     }
 
@@ -176,8 +180,8 @@ public class MainView {
         System.out.println(Messages.MSG_REPORT_HEADER);
         for (index = 0; index < reportList.size(); index++) {
             entry = reportList.get(index);
-            System.out.printf(Messages.MSG_REPORT_ROW,
-                    entry.getName(), entry.getCourse(), entry.getCount());
+            System.out.printf(
+                    Messages.MSG_REPORT_ROW, entry.getName(), entry.getCourse(), entry.getCount());
         }
     }
 }
