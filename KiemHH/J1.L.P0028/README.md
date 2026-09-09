@@ -20,11 +20,9 @@ The application reads menu choices from `feastMenu.csv` and stores data in:
 
 Dates are entered in `dd/MM/yyyy` format. Errors are written to `application.log`.
 
-## Structure
+## Structure (following the provided Sample)
 
-- `model`: domain objects
-- `repository`: CSV and binary persistence
-- `service`: customer, menu, and order business rules
-- `controller`: application workflow
-- `view`: formatted console output
-- `util`: validation, input, and logging
+- `Entity`: domain objects
+- `DataObject`: persistence and business-data operations
+- `Utilities`: validation, input, and logging
+- `Program`: application workflow, console output, and entry point

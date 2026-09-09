@@ -19,6 +19,9 @@ flowchart LR
     MenuRepository --> CsvFile[(feastMenu.csv)]
 ```
 
+The classes are organized into the same four packages as the supplied Sample:
+`Entity`, `DataObject`, `Utilities`, and `Program`.
+
 ## Place-order sequence
 
 ```mermaid
