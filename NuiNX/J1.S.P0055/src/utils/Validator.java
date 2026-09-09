@@ -1,0 +1,119 @@
+package utils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Scanner;
+
+/**
+ *
+ * @author win
+ */
+public class Validator {
+
+    private static final Scanner SCANNER = new Scanner(System.in);
+
+    private Validator() {}
+
+    public static int getInt(
+            String messageInfo,
+            String messageErrorOutOfRange,
+            String messageErrorNumber,
+            int min,
+            int max) {
+        do {
+            try {
+                System.out.print(messageInfo);
+                int number = Integer.parseInt(SCANNER.nextLine());
+                if (number >= min && number <= max) {
+                    return number;
+                } else {
+                    System.out.println(messageErrorOutOfRange);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(messageErrorNumber);
+            }
+        } while (true);
+    }
+
+    public static double getDouble(
+            String messageInfo,
+            String messageErrorOutOfRange,
+            String messageErrorNumber,
+            double min,
+            double max) {
+        do {
+            try {
+                System.out.print(messageInfo);
+                double number = Double.parseDouble(SCANNER.nextLine());
+                if (number >= min && number <= max) {
+                    return number;
+                } else {
+                    System.out.println(messageErrorOutOfRange);
+                }
+            } catch (NumberFormatException e) {
+                System.out.println(messageErrorNumber);
+            }
+        } while (true);
+    }
+
+    public static String getString(String messageInfo, String messageError, final String REGEX) {
+        do {
+            System.out.print(messageInfo);
+            String str = SCANNER.nextLine();
+            if (str.matches(REGEX)) {
+                return str;
+            }
+            System.out.println(messageError);
+        } while (true);
+    }
+
+    public static Date getDate(
+            String messageInfo,
+            String messageErrorOutOfRange,
+            String messageErrorDate,
+            final String REGEX,
+            Date min,
+            Date max) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(REGEX);
+        dateFormat.setLenient(false);
+        do {
+            System.out.print(messageInfo);
+            try {
+                Date date = dateFormat.parse(SCANNER.nextLine());
+                if (date.compareTo(min) >= 0 && date.compareTo(max) <= 0) {
+                    return date;
+                }
+                System.out.println(messageErrorOutOfRange);
+            } catch (ParseException e) {
+                System.out.println(messageErrorDate);
+            }
+        } while (true);
+    }
+
+    // NEW 18H31 23/6
+    public static String getOptionalString(String messageInfo) {
+        System.out.print(messageInfo);
+        return SCANNER.nextLine().trim();
+    }
+
+    public static Integer getOptionalInt(
+            String messageInfo, String errorRange, String errorNumber, int min, int max) {
+        while (true) {
+            System.out.print(messageInfo);
+            String input = SCANNER.nextLine().trim();
+            if (input.isEmpty()) {
+                return null;
+            }
+            try {
+                int number = Integer.parseInt(input);
+                if (number >= min && number <= max) {
+                    return number;
+                }
+                System.out.println(errorRange);
+            } catch (NumberFormatException e) {
+                System.out.println(errorNumber);
+            }
+        }
+    }
+}
