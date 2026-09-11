@@ -1,0 +1,5 @@
+V001,Civic,White,850.00,Honda,Car,2023
+V002,Exciter,Blue,550.00,Yamaha,Motorbike,2022
+V003,Fortuner,Black,125.00,Toyota,SUV,2024
+V004,Vision,Red,380.00,Honda,Scooter,2023
+V005,Ranger,Gray,980.00,Ford,Pickup,2024
