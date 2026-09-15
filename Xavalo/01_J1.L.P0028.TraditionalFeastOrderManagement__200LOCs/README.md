@@ -18,7 +18,7 @@ The application reads menu choices from `feastMenu.csv` and stores data in:
 - `customers.dat`
 - `feast_order_service.dat`
 
-Dates are entered in `dd/MM/yyyy` format. Errors are written to `application.log`.
+Dates are entered in `dd/MM/yyyy` format. Errors are displayed directly in the console.
 
 ## Structure (following the provided Sample)
 

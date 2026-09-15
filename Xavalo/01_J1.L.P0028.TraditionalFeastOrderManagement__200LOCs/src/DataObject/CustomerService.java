@@ -2,8 +2,6 @@ package DataObject;
 
 import Entity.Customer;
 
-import Utilities.AppLogger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -20,9 +18,9 @@ public class CustomerService {
         try {
             return repository.load();
         } catch (IOException exception) {
-            AppLogger.log("Cannot load customer data", exception);
+            System.out.println("Cannot load customer data: " + exception.getMessage());
         } catch (ClassNotFoundException exception) {
-            AppLogger.log("Customer class cannot be found", exception);
+            System.out.println("Cannot read customer data: incompatible file format.");
         }
         return new ArrayList<Customer>();
     }

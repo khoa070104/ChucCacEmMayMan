@@ -8,7 +8,6 @@ import Entity.Customer;
 import Entity.FeastMenu;
 import Entity.FeastOrder;
 
-import Utilities.AppLogger;
 import Utilities.InputReader;
 import Utilities.Validator;
 
@@ -253,8 +252,7 @@ public class FeastController {
                     "Order data has been successfully saved to feast_order_service.dat.");
             return true;
         } catch (IOException exception) {
-            AppLogger.log("Cannot save application data", exception);
-            System.out.println("Unable to save data. See application.log for details.");
+            System.out.println("Unable to save data: " + exception.getMessage());
             return false;
         }
     }

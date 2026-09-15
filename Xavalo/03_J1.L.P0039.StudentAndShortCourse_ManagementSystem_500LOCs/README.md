@@ -11,3 +11,4 @@ java -cp out app.Main
 
 The program automatically loads `Students.txt` and `Courses.txt` from its working directory.
 Dates use `dd/MM/yyyy` as required by the supplied files.
+Text files are read with `Scanner` and written with `PrintWriter` for a straightforward LAB211 implementation.

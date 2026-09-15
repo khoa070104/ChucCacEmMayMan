@@ -2,8 +2,6 @@ package DataObject;
 
 import Entity.FeastMenu;
 
-import Utilities.AppLogger;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,10 +14,10 @@ public class MenuService {
         try {
             loadedMenus = new MenuRepository(fileName).load();
         } catch (IOException exception) {
-            AppLogger.log("Cannot load feast menu data", exception);
+            System.out.println("Cannot read data from feastMenu.csv. Please check it.");
             loadedMenus = new ArrayList<FeastMenu>();
         } catch (RuntimeException exception) {
-            AppLogger.log("Cannot load feast menu data", exception);
+            System.out.println("Invalid data in feastMenu.csv. Please check it.");
             loadedMenus = new ArrayList<FeastMenu>();
         }
         menus = loadedMenus;

@@ -2,8 +2,6 @@ package DataObject;
 
 import Entity.FeastOrder;
 
-import Utilities.AppLogger;
-
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.time.LocalDate;
@@ -22,9 +20,9 @@ public class OrderService {
         try {
             return repository.load();
         } catch (IOException exception) {
-            AppLogger.log("Cannot load order data", exception);
+            System.out.println("Cannot load order data: " + exception.getMessage());
         } catch (ClassNotFoundException exception) {
-            AppLogger.log("Order class cannot be found", exception);
+            System.out.println("Cannot read order data: incompatible file format.");
         }
         return new ArrayList<FeastOrder>();
     }
