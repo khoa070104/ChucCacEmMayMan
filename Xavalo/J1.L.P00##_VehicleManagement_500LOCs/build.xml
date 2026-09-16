@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project name="VehicleManagement" default="run" basedir=".">
+    <property name="src.dir" value="src"/>
+    <property name="build.dir" value="build/classes"/>
+    <target name="clean"><delete dir="build"/></target>
+    <target name="compile">
+        <mkdir dir="${build.dir}"/>
+        <javac srcdir="${src.dir}" destdir="${build.dir}" encoding="UTF-8" includeantruntime="false"/>
+    </target>
+    <target name="run" depends="compile">
+        <java classname="main.Main" classpath="${build.dir}" fork="true"/>
+    </target>
+</project>
