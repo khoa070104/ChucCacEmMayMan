@@ -1,5 +1,6 @@
 package J1.S.P0009.view;
 
+import J1.S.P0009.constants.Message;
 import J1.S.P0009.dto.FibonacciResponseDTO;
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class FibonacciView {
 
     // Hien thi danh sach Fibonacci
     public void display() {
-        System.out.println("The 45 sequence of Fibonacci:");
+        System.out.println(Message.TITLE);
 
         // Duyet qua danh sach
         for (int i = 0; i < fibonacciList.size(); i++) {
