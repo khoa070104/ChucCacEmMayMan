@@ -76,6 +76,12 @@ public class StudentController {
 
     //Neu so sinh vien nhap vao < 10
     public boolean isDatabaseLessThanTen() {
-        return studentService.getTotalStudents() < 2;
+        return studentService.getTotalStudents() < 10;
+    }
+
+    public void ensureStudentExists(String id) throws Exception {
+        if (!studentService.studentExists(id)) {
+            throw new Exception(Message.STUDENT_NOT_EXIST);
+        }
     }
 }

@@ -5,7 +5,6 @@ import dto.StudentRequestDTO;
 import java.util.ArrayList;
 import java.util.List;
 import model.Student;
-import model.StudentCourse;
 
 public class StudentRepository {
 
@@ -19,14 +18,9 @@ public class StudentRepository {
 
     // ================= ADD =================
     // ham nay chi lam nhiem vu them sinh vien, KHONG check trung
-   // Trách nhiệm 1: CHỈ thêm sinh viên mới vào danh sách
+    // Trach nhiem 1: CHI them sinh vien moi vao danh sach
     public boolean addStudent(Student student) {
         return studentList.add(student);
-    }
-
-    // 1 việc duy nhất: Nhét môn học vào đúng cái hồ sơ được giao
-    public void addCourseToStudent(Student student, StudentCourse course) {
-        student.addCourse(course);
     }
 
     // ================= UPDATE =================
@@ -41,14 +35,25 @@ public class StudentRepository {
             throw new Exception(Message.STUDENT_NOT_EXIST);
         }
 
-        // goi ham check trung de dam bao du lieu hop le
-        checkDuplicate(student, dto);
+        // Khong cho update thanh mot ban ghi da ton tai.
+        checkDuplicateForUpdate(student, dto);
+        boolean sameName = student.getName().equalsIgnoreCase(dto.getName());
+        boolean sameSemester = student.getSemester().equalsIgnoreCase(dto.getSemester());
+        boolean sameCourse = student.getCourse() == dto.getCourse();
+        if (sameName && sameSemester && sameCourse) {
+            throw new Exception(Message.NOTHING_CHANGE);
+        }
 
-        // cap nhat ten sinh vien
-        student.updateInfo(dto.getName());
+        // Cac ban ghi cung ID phai luon co cung ten sinh vien.
+        for (Student current : studentList) {
+            if (current.getId().equalsIgnoreCase(id)) {
+                current.updateInfo(
+                        dto.getName(), current.getSemester(), current.getCourse());
+            }
+        }
 
-        // them course moi (khong xoa course cu)
-        student.addCourse(new StudentCourse(dto.getSemester(), dto.getCourse()));
+        // Update thay the semester/course cua ban ghi tim thay, khong them ban ghi moi.
+        student.updateInfo(dto.getName(), dto.getSemester(), dto.getCourse());
 
         return true;
     }
@@ -62,15 +67,27 @@ public class StudentRepository {
             throw new Exception(Message.DUPLICATE_ID);
         }
 
-        // kiem tra trung semester + course
-        // 1 semester co the hoc nhieu mon, nhung khong duoc hoc 1 mon 2 lan
-        for (StudentCourse sc : student.getCourses()) {
-            if ((sc.getSemester().equalsIgnoreCase(dto.getSemester()))
-                    && (sc.getCourse() == dto.getCourse())) {
+        if (isDuplicateRecord(null, dto)) {
+            throw new Exception(Message.DUPLICATE_COURSE);
+        }
+    }
 
-                throw new Exception(Message.DUPLICATE_COURSE);
+    private void checkDuplicateForUpdate(Student target, StudentRequestDTO dto) throws Exception {
+        if (isDuplicateRecord(target, dto)) {
+            throw new Exception(Message.DUPLICATE_COURSE);
+        }
+    }
+
+    private boolean isDuplicateRecord(Student ignoredStudent, StudentRequestDTO dto) {
+        for (Student current : studentList) {
+            if (current != ignoredStudent
+                    && current.getId().equalsIgnoreCase(dto.getId())
+                    && current.getSemester().equalsIgnoreCase(dto.getSemester())
+                    && current.getCourse() == dto.getCourse()) {
+                return true;
             }
         }
+        return false;
     }
 
     // ================= DELETE =================
@@ -91,8 +108,12 @@ public class StudentRepository {
     // ================= FIND =================
     // tim sinh vien theo id
     public Student findById(String id) {
+        if (id == null) {
+            return null;
+        }
+        String normalizedId = id.trim();
         for (Student s : studentList) {
-            if (s.getId().equalsIgnoreCase(id)) {
+            if (s.getId().equalsIgnoreCase(normalizedId)) {
                 return s;
             }
         }

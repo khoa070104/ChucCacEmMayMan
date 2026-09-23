@@ -9,6 +9,9 @@ public class ReportResponseDTO {
     // Ten mon hoc
     private String course;
 
+    // Hoc ky, chi dung cho ket qua tim kiem
+    private String semester;
+
     // So lan hoc mon do
     private int total;
 
@@ -19,9 +22,35 @@ public class ReportResponseDTO {
         this.total = total;
     }
 
+    // Constructor dung cho chuc nang find and sort
+    public ReportResponseDTO(String studentName, String semester, String course) {
+        this.studentName = studentName;
+        this.semester = semester;
+        this.course = course;
+    }
+
+    public String getStudentName() {
+        return studentName;
+    }
+
+    public String getCourse() {
+        return course;
+    }
+
+    public String getSemester() {
+        return semester;
+    }
+
+    public int getTotal() {
+        return total;
+    }
+
     // Ghi de toString de hien thi dung format
     @Override
     public String toString() {
+        if (semester != null) {
+            return studentName + " | " + semester + " | " + course;
+        }
         return studentName + " | " + course + " | " + total;
     }
 }

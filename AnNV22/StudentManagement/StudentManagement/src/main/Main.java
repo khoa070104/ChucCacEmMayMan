@@ -87,6 +87,7 @@ public class Main {
                     case 3:
                         System.out.print(Message.INPUT_ID);
                         String id = Validation.getString(sc.nextLine());
+                        controller.ensureStudentExists(id);
                         System.out.print(Message.UPDATE_OR_DELETE);
                         String action = Validation.validateUpdateDelete(sc.nextLine());
                         // Neu chon update
@@ -100,13 +101,12 @@ public class Main {
                             CourseType course;
                             while (true) {
                                 System.out.print(Message.INPUT_COURSE);
-                                course = Validation.validateCourse(sc.nextLine());
-
-                                if (course != null) {
+                                try {
+                                    course = Validation.validateCourse(sc.nextLine());
                                     break;
+                                } catch (Exception e) {
+                                    System.out.println(e.getMessage());
                                 }
-
-                                System.out.println(Message.INVALID_COURSE);
                             }
                             dto.setCourse(course);
                             controller.updateStudent(id, dto);

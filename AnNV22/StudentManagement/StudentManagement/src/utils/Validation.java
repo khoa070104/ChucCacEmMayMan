@@ -27,7 +27,7 @@ public final class Validation {
     public static int getChoice(String input, int min, int max) throws Exception {
         try {
             // Chuyen chuoi thanh so
-            int choice = Integer.parseInt(input);
+            int choice = Integer.parseInt(input == null ? "" : input.trim());
             // Kiem tra nam ngoai khoang cho phep
             if (choice < min || choice > max) {
                 throw new Exception(Message.INVALID_RANGE);
@@ -42,16 +42,17 @@ public final class Validation {
     // ================= VALIDATE COURSE =================
     // Chi chap nhan 3 khoa hoc JAVA, .NET, C++
     public static CourseType validateCourse(String input) throws Exception {
+        String value = getString(input);
         // Kiem tra JAVA
-        if (input.equalsIgnoreCase("JAVA")) {
+        if (value.equalsIgnoreCase("JAVA")) {
             return CourseType.JAVA;
         }
         // Kiem tra .NET
-        if (input.equalsIgnoreCase(".NET")) {
+        if (value.equalsIgnoreCase(".NET")) {
             return CourseType.DOT_NET;
         }
         // Kiem tra C++
-        if (input.equalsIgnoreCase("C++")) {
+        if (value.equalsIgnoreCase("C++") || value.equalsIgnoreCase("C/C++")) {
             return CourseType.CPP;
         }
         // Neu khong trung voi gia tri nao thi bao loi
@@ -61,10 +62,11 @@ public final class Validation {
     // ================= VALIDATE Y / N =================
     // Dung trong chuc nang continue create
     public static String validateYesNo(String input) throws Exception {
-        if (input.equalsIgnoreCase("Y")
-                || input.equalsIgnoreCase("N")) {
+        String value = getString(input);
+        if (value.equalsIgnoreCase("Y")
+                || value.equalsIgnoreCase("N")) {
             // Tra ve chu in hoa de de xu ly
-            return input.toUpperCase();
+            return value.toUpperCase();
         }
         throw new Exception(Message.INVALID_YN);
     }
@@ -72,8 +74,9 @@ public final class Validation {
     // ================= VALIDATE U / D =================
     // Dung trong chuc nang update hoac delete
     public static String validateUpdateDelete(String input) throws Exception {
-        if (input.equalsIgnoreCase("U") || input.equalsIgnoreCase("D")) {
-            return input.toUpperCase();
+        String value = getString(input);
+        if (value.equalsIgnoreCase("U") || value.equalsIgnoreCase("D")) {
+            return value.toUpperCase();
         }
         throw new Exception(Message.INVALID_UD);
     }

@@ -1,9 +1,8 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
+import constants.CourseType;
 
-// Lop Student co quan he 1 - N voi StudentCourse
+// Moi doi tuong Student la mot ban ghi day du theo dung yeu cau cua de bai
 public class Student {
 
     // Ma sinh vien
@@ -12,11 +11,14 @@ public class Student {
     // Ten sinh vien
     private String name;
 
-    // Danh sach cac cap semester + course
-    private List<StudentCourse> courses;
+    // Hoc ky
+    private String semester;
+
+    // Mon hoc
+    private CourseType course;
 
     // Constructor khoi tao sinh vien
-    public Student(String id, String name) {
+    public Student(String id, String name, String semester, CourseType course) {
 
         // Gan id
         this.id = id;
@@ -24,8 +26,8 @@ public class Student {
         // Gan ten
         this.name = name;
 
-        // Khoi tao danh sach rong
-        this.courses = new ArrayList<>();
+        this.semester = semester;
+        this.course = course;
     }
 
     // Getter lay id
@@ -38,17 +40,18 @@ public class Student {
         return name;
     }
    
-    // Getter lay danh sach course
-    public List<StudentCourse> getCourses() {
-        return courses;
+    public String getSemester() {
+        return semester;
     }
 
-    // Them mot cap semester + course vao sinh vien
-    public void addCourse(StudentCourse sc) {
-        courses.add(sc);
+    public CourseType getCourse() {
+        return course;
     }
-    //Cap nhat ten
-    public void updateInfo(String newName) {
+
+    // Cap nhat thong tin cua ban ghi hien tai
+    public void updateInfo(String newName, String newSemester, CourseType newCourse) {
         this.name = newName;
+        this.semester = newSemester;
+        this.course = newCourse;
     }
 }

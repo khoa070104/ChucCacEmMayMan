@@ -21,7 +21,7 @@ public final class Message {
     public static final String INPUT_ID = "Enter Student ID: ";
     public static final String INPUT_NAME = "Enter Student Name: ";
     public static final String INPUT_SEMESTER = "Enter Semester: ";
-    public static final String INPUT_COURSE = "Enter Course (JAVA/.NET/C++): ";
+    public static final String INPUT_COURSE = "Enter Course (JAVA/.NET/C/C++): ";
     public static final String INVALID_YN = "Please input Y or N";
     public static final String INVALID_UD = "Please input U or D";
     // Thong bao loi
@@ -33,6 +33,7 @@ public final class Message {
     public static final String STUDENT_NOT_EXIST = "Student does not exist";
     public static final String DUPLICATE_COURSE = "Student already registered this course in this semester!";
     public static final String DUPLICATE_ID = "Student ID already exists with different name!";
+    public static final String NOTHING_CHANGE = "Nothing change";
     // Thong bao xac nhan
     public static final String CONTINUE_CREATE = "Do you want to continue (Y/N)? ";
     public static final String UPDATE_OR_DELETE = "Do you want to update (U) or delete (D): ";

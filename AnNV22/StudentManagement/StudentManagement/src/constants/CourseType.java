@@ -4,9 +4,19 @@ package constants;
 public enum CourseType {
 
     // Mon Java
-    JAVA,
+    JAVA("Java"),
     // Mon .NET
-    DOT_NET,
+    DOT_NET(".Net"),
     // Mon C++
-    CPP
+    CPP("C/C++");
+
+    private final String displayName;
+
+    CourseType(String displayName) {
+        this.displayName = displayName;
+    }
+
+    public String getDisplayName() {
+        return displayName;
+    }
 }
